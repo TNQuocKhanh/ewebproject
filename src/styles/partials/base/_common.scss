@@ -1,5 +1,5 @@
 .container {
-    max-width: 1440px;
+    max-width: 1240px;
     @include mx-auto;
     @include padding-x(0.75rem, 0.75rem);
 
@@ -148,7 +148,7 @@
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--bg-color-3);
-    color: #eee;
+    color: #2c2c2c;
     border-radius: 3px;
     user-select: none;
     font-size: 0.8rem;

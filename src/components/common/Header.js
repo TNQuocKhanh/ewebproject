@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AiOutlineSearch, AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai';
+import { AiOutlineSearch, AiOutlineShoppingCart, AiOutlineUser, AiOutlineLogout } from 'react-icons/ai';
 import { dropdownMenu } from '../../data/headerData';
 import commonContext from '../../contexts/common/commonContext';
 import cartContext from '../../contexts/cart/cartContext';
@@ -13,6 +13,10 @@ const Header = () => {
     const { formUserInfo, toggleForm, toggleSearch } = useContext(commonContext);
     const { cartItems } = useContext(cartContext);
     const [isSticky, setIsSticky] = useState(false);
+
+    // Get value of search
+    const [valueSearch, setValueSearch] = useState('')
+    console.log(valueSearch)
 
 
     // handle the sticky-header
@@ -38,13 +42,19 @@ const Header = () => {
                         <h2 className="nav_logo">
                             <Link to="/">X-Beat</Link>
                         </h2>
+                        <div className='nav-search'>
+                            <input onChange={e => setValueSearch(e.target.value)} placeholder='Search...' type='text'></input>
+                            <button>
+                                <AiOutlineSearch />
+                            </button>
+                        </div>
                         <nav className="nav_actions">
-                            <div className="search_action">
+                            {/* <div className="search_action">
                                 <span onClick={() => toggleSearch(true)}>
                                     <AiOutlineSearch />
                                 </span>
                                 <div className="tooltip">Search</div>
-                            </div>
+                            </div> */}
 
                             <div className="cart_action">
                                 <Link to="/cart">
@@ -79,10 +89,10 @@ const Header = () => {
                                     <ul>
                                         {
                                             dropdownMenu.map(item => {
-                                                const { id, link, path } = item;
+                                                const { id, link, path, icon } = item;
                                                 return (
                                                     <li key={id}>
-                                                        <Link to={path}>{link}</Link>
+                                                        <Link to={path}><icon/>{link}</Link>
                                                     </li>
                                                 );
                                             })

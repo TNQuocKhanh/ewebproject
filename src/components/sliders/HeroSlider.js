@@ -17,6 +17,7 @@ const HeroSlider = () => {
 
     return (
         <Swiper
+            className='container'
             modules={[Pagination, A11y, Autoplay]}
             loop={true}
             speed={400}
@@ -46,7 +47,7 @@ const HeroSlider = () => {
                                     {newPrice} &nbsp;
                                     <small><del>{oldPrice}</del></small>
                                 </h2>
-                                <Link to={`${path}${id}`} className="btn">Shop Now</Link>
+                                <Link to={`${path}${id}`} className="btn" style={{background: 'var(--main-color)'}}>Shop Now</Link>
                             </div>
                             <figure className="hero_item_img">
                                 <img src={heroImage} alt="product-img" />

@@ -50,8 +50,8 @@ const ProductCard = (props) => {
                     <h5 className="products_info">{info}</h5>
                     <div className="separator"></div>
                     <h2 className="products_price">
-                        {newPrice} &nbsp;
-                        <small><del>{oldPrice}</del></small>
+                        <h4 style={{marginBottom: '5px'}}>{newPrice}</h4>
+                        <small><del>{oldPrice}</del> <small> -20.5%</small></small>
                     </h2>
                     <button
                         type="button"

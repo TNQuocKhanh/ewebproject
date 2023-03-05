@@ -3,7 +3,7 @@
 }
 
 .prod_details_wrapper {
-    grid-template-columns: 1fr 0.7fr;
+    grid-template-columns: 0.5fr 0.7fr;
     gap: 4rem;
 
     @include devices(lg) {
@@ -13,22 +13,19 @@
 }
 
 .prod_details_left_col {
-    display: grid;
-    grid-template-columns: 0.2fr 1fr;
-    gap: 1rem;
-
-    @include devices(sm) {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
+    display: flex;
+    flex-direction: column;
 }
 
 .prod_details_tabs {
-    display: grid;
-    gap: 1rem;
+    // display: grid;
+    // gap: 1rem;
+
+    display: flex;
+    justify-content: space-between;
 
     .tabs_item {
-        @include dimension(6rem, 6rem);
+        @include dimension(5rem, 5rem);
         @include bordered(2px, rgba($color: #ffffff, $alpha: 0.2));
         border-radius: 3px;
         padding: 0.5rem;
@@ -57,12 +54,15 @@
 
 .prod_details_img {
 
-    img {
-        @include img-fit;
+    margin: 0 auto 5% auto;
+    width: 70%;
+
+    @include devices(lg) {
+        width: 90%;
     }
 
-    @include devices(sm) {
-        grid-row: 1;
+    @include devices(xl) {
+        width: 50%;
     }
 }
 

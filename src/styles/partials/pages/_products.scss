@@ -1,5 +1,5 @@
 .products_wrapper {
-    @include grid-cols(4, 1fr, 0.7rem);
+    @include grid-cols(5, 1fr, 0.7rem);
 
     @include devices(lg) {
         @include grid-cols(3, 1fr, 0.7rem);
@@ -61,11 +61,17 @@
 
 .products_title {
     @include margin-y(0.8rem, 0.4rem);
+    min-height: 50px;
 }
 
 .products_info {
     opacity: 0.8;
-    font-weight: 500;
+    font-weight: 300;
+    min-height: 30px;
+}
+
+.products_price {
+    font-size: 1.2rem;
 }
 
 .products_btn {

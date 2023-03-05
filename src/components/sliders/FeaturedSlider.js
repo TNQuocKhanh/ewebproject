@@ -56,7 +56,7 @@ const FeaturedSlider = () => {
                     const oldPrice = displayMoney(originalPrice);
 
                     return (
-                        <SwiperSlide key={id} className="featured_slides">
+                        <SwiperSlide key={id} className="featured_slides" style={{border: '1px solid var(--border-form)', padding: '1.5%', borderRadius: '10px', boxShadow: '0px 5px 15px #00000019'}}>
                             <div className="featured_title">{title}</div>
                             <figure className="featured_img">
                                 <Link to={`${path}${id}`}>

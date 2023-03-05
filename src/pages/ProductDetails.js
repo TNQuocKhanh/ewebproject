@@ -70,6 +70,9 @@ const ProductDetails = () => {
 
                         {/*=== Product Details Left-content ===*/}
                         <div className="prod_details_left_col">
+                            <figure className="prod_details_img">
+                                <img src={previewImg} alt="product-img" />
+                            </figure>
                             <div className="prod_details_tabs">
                                 {
                                     images.map((img, i) => (
@@ -83,9 +86,6 @@ const ProductDetails = () => {
                                     ))
                                 }
                             </div>
-                            <figure className="prod_details_img">
-                                <img src={previewImg} alt="product-img" />
-                            </figure>
                         </div>
 
                         {/*=== Product Details Right-content ===*/}

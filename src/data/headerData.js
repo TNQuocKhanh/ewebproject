@@ -3,6 +3,7 @@ export const dropdownMenu = [
         id: 1,
         link: "Orders",
         path: "*",
+        icon: "AiOutlineLogout"
     },
     {
         id: 2,

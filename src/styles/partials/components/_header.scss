@@ -4,16 +4,73 @@
     left: 0;
     z-index: 99;
     width: 100%;
-    @include padding-y(0.8rem, 0.8rem);
+    box-shadow: 0px 5px 15px #00000019;
+    @include padding-y(1.5rem, 1.5rem);
     @include transition(background-color, 0.2s, linear);
 
-    //&.sticky {
-        background-color: var(--black-color);
-    //}
+    &.sticky {
+        background-color: var(--white-color);
+    }
 }
 
 .navbar {
     @include flexbox(space-between, center);
+}
+
+.nav-search {
+    width: 650px;
+    display: flex;
+
+    @include devices(lg) {
+        width: 450px;
+    }
+
+    @include devices(md) {
+        width: 200px;
+    }
+
+    @include devices(xs) {
+        width: 120px;
+    }
+
+    input {
+        border: solid 2px var(--border-form);
+        width: 90%;
+        height: 40px;
+        border-bottom-left-radius: 7px;
+        border-top-left-radius: 7px;
+        text-indent: 10px;
+
+        @include devices(lg) {
+            width: 90%;
+        }
+    
+        @include devices(md) {
+            width: 90%;
+        }
+    
+        @include devices(xs) {
+            width: 80%;
+        }
+    }
+
+    button {
+        width: 10%;
+        height: 40px;
+        background: var(--main-color);
+        font-size: 1.4rem;
+        color: #eee;
+        border-bottom-right-radius: 7px;
+        border-top-right-radius: 7px;
+    
+        @include devices(md) {
+            width: 30%;
+        }
+    
+        @include devices(xs) {
+            width: 20%;
+        }
+    }
 }
 
 .nav_logo {
