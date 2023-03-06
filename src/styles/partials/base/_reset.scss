@@ -14,11 +14,6 @@
     background-color: var(--thumb-hover-color);
 }
 
-::selection {
-    background-color: var(--main-color-2);
-    color: #fff;
-}
-
 ::-moz-selection {
     background-color: var(--main-color-2);
     color: #fff;

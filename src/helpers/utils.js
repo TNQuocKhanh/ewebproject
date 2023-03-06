@@ -3,7 +3,7 @@
 export const displayMoney = (n) => {
     const numFormat = new Intl.NumberFormat('en-IN', {
         style: 'currency',
-        currency: 'INR',
+        currency: 'VND',
     });
 
     return numFormat.format(n).split('.', 1);

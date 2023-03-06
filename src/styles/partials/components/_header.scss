@@ -44,11 +44,11 @@
         @include devices(lg) {
             width: 90%;
         }
-    
+
         @include devices(md) {
             width: 90%;
         }
-    
+
         @include devices(xs) {
             width: 80%;
         }
@@ -62,11 +62,11 @@
         color: #eee;
         border-bottom-right-radius: 7px;
         border-top-right-radius: 7px;
-    
+
         @include devices(md) {
             width: 30%;
         }
-    
+
         @include devices(xs) {
             width: 20%;
         }
@@ -164,8 +164,8 @@
             @include transition(all, 0.3s, ease);
 
             &:hover {
-                color: #eee;
-                border-color: #eee;
+                color: #000;
+                border-color: #000;
             }
         }
 
@@ -175,7 +175,7 @@
             }
 
             a:hover {
-                color: #eee;
+                color: #000;
             }
         }
     }
@@ -183,4 +183,8 @@
     &:hover .dropdown_menu {
         @include toggleVisibility(visible, 1);
     }
+}
+
+.navigation {
+    @include flexbox(space-around, center);
 }

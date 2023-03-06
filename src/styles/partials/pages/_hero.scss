@@ -34,18 +34,6 @@
         }
     }
 
-    // &.hero_slide-0::before {
-    //     content: "Over Ear";
-    // }
-
-    // &.hero_slide-1::before {
-    //     content: "In Ear";
-    // }
-
-    // &.hero_slide-2::before {
-    //     content: "Over Ear";
-    // }
-
     @include devices(lg) {
         grid-template-columns: 0.7fr;
         gap: 4rem;

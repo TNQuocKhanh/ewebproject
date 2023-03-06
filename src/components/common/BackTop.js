@@ -30,7 +30,7 @@ const BackTop = () => {
         <>
             <div
                 className={`back_top ${isVisible ? 'popped' : ''}`}
-                title="Back to top"
+                title="Lên đầu trang"
                 onClick={handleBackTop}>
                 <FaChevronUp />
             </div>

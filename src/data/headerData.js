@@ -1,28 +1,17 @@
 export const dropdownMenu = [
     {
         id: 1,
-        link: "Orders",
-        path: "*",
-        icon: "AiOutlineLogout"
+        link: "Thông tin",
+        path: "profile",
     },
     {
         id: 2,
-        link: "Wishlist",
-        path: "*",
+        link: "Đổi mật khẩu",
+        path: "change-password",
     },
     {
         id: 3,
-        link: "Gift Cards",
-        path: "*",
-    },
-    {
-        id: 4,
-        link: "Saved Cards",
-        path: "*",
-    },
-    {
-        id: 5,
-        link: "Saved Addresses",
-        path: "*",
+        link: "Đăng xuất",
+        path: "logout",
     },
 ];

@@ -16,13 +16,15 @@ const Footer = () => {
     const currYear = new Date().getFullYear();
 
 
-    return (
+  return (
+
         <footer id="footer">
+            <div className="separator"></div>
             <div className="container">
                 <div className="wrapper footer_wrapper">
                     <div className="foot_about">
                         <h2>
-                            <Link to="/">X-Beat</Link>
+                            <Link to="/">Logo</Link>
                         </h2>
                         <div className="foot_subs">
                             <p>Subscribe to our Email alerts to receive early discount offers, and new products info.</p>
@@ -65,7 +67,6 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="separator"></div>
 
             <div className="sub_footer">
                 <div className="container">

@@ -25,7 +25,7 @@ const HeroSlider = () => {
             slidesPerView={1}
             pagination={{ clickable: true }}
             autoplay={{
-                delay: 4000,
+                delay: 40000,
                 disableOnInteraction: false,
             }}
         >
@@ -47,7 +47,7 @@ const HeroSlider = () => {
                                     {newPrice} &nbsp;
                                     <small><del>{oldPrice}</del></small>
                                 </h2>
-                                <Link to={`${path}${id}`} className="btn" style={{background: 'var(--main-color)'}}>Shop Now</Link>
+                                <Link to={`${path}${id}`} className="btn" style={{background: 'var(--main-color)'}}>Mua ngay</Link>
                             </div>
                             <figure className="hero_item_img">
                                 <img src={heroImage} alt="product-img" />
