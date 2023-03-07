@@ -98,7 +98,7 @@ const Header = () => {
           </div>
         </div>
         <div style={{marginTop:'15px'}} className="navigation" >
-          <div>Danh muc</div>
+          <div>Danh mục</div>
         <div >
           <NavLink style={{marginLeft: '10px'}} to="/">Trang chủ</NavLink>
           <NavLink style={{marginLeft: '10px'}} to="/cart">Giỏ hàng</NavLink>
