@@ -4,10 +4,14 @@ import commonContext from "../../contexts/common/commonContext";
 import useForm from "../../hooks/useForm";
 import useOutsideClose from "../../hooks/useOutsideClose";
 import useScrollDisable from "../../hooks/useScrollDisable";
+import {login} from '../../apis'
+import {storage} from '../../utils'
 
 const AccountForm = () => {
   const { isFormOpen, toggleForm } = useContext(commonContext);
   const { inputValues, handleInputValues, handleFormSubmit } = useForm();
+
+  const [message, setMessage] =useState('')
 
   const formRef = useRef();
 
@@ -24,13 +28,28 @@ const AccountForm = () => {
     setIsSignupVisible((prevState) => !prevState);
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    const res =await login(inputValues.email, inputValues.password)
+
+    if(res.status ===200){
+      const data = await res.json()
+
+      storage.save('user', data)
+      console.log('===res', res.json())
+      setMessage('')
+      toggleForm(false)
+    }else{
+      setMessage('Thong tin dang nhap ko hop le')
+    }
+  }
+
   return (
     <>
       {isFormOpen && (
         <div className="backdrop">
           <div className="modal_centered">
-            <form id="account_form" ref={formRef} onSubmit={handleFormSubmit}>
-              {/*===== Form-Header =====*/}
+            <form id="account_form" ref={formRef} onSubmit={handleLogin}>
               <div className="form_head">
                 <h2>{isSignupVisible ? "Đăng ký" : "Đăng nhập"}</h2>
                 <p>
@@ -41,10 +60,10 @@ const AccountForm = () => {
                   <button type="button" onClick={handleIsSignupVisible}>
                     {isSignupVisible ? "Đăng nhập" : "Đăng ký ngay"}
                   </button>
+                  <p>{message}</p>
                 </p>
               </div>
 
-              {/*===== Form-Body =====*/}
               <div className="form_body">
                 {isSignupVisible && (
                   <div className="input_box">
@@ -63,9 +82,9 @@ const AccountForm = () => {
                 <div className="input_box">
                   <input
                     type="email"
-                    name="mail"
+                    name="email"
                     className="input_field"
-                    value={inputValues.mail || ""}
+                    value={inputValues.email || ""}
                     onChange={handleInputValues}
                     required
                   />
@@ -103,7 +122,6 @@ const AccountForm = () => {
                 </button>
               </div>
 
-              {/*===== Form-Footer =====*/}
               <div className="form_foot">
                 <p>hoặc đăng nhập với</p>
                 <div className="login_options">
@@ -113,7 +131,6 @@ const AccountForm = () => {
                 </div>
               </div>
 
-              {/*===== Form-Close-Btn =====*/}
               <div
                 className="close_btn"
                 title="Đóng"

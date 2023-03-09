@@ -11,6 +11,8 @@ import commonContext from "../../contexts/common/commonContext";
 import cartContext from "../../contexts/cart/cartContext";
 import AccountForm from "../form/AccountForm";
 import SearchBar from "./SearchBar";
+import { logout } from "../../apis";
+import { storage } from "../../utils";
 
 const Header = () => {
   const { formUserInfo, toggleForm, toggleSearch } = useContext(commonContext);
@@ -34,6 +36,14 @@ const Header = () => {
   }, [isSticky]);
 
   const cartQuantity = cartItems.length;
+
+  const handleLogout = async () => {
+    const res = await logout();
+    console.log("===res", res);
+    if (res.status === 200) {
+      storage.remove("user");
+    }
+  };
 
   return (
     <>
@@ -83,7 +93,7 @@ const Header = () => {
                     {dropdownMenu.map((item) => {
                       const { id, link, path, icon } = item;
                       return (
-                        <li key={id}>
+                        <li key={id} onClick={handleLogout}>
                           <Link to={path}>
                             <icon />
                             {link}
@@ -97,14 +107,22 @@ const Header = () => {
             </nav>
           </div>
         </div>
-        <div style={{marginTop:'15px'}} className="navigation" >
+        <div style={{ marginTop: "15px" }} className="navigation">
           <div>Danh mục</div>
-        <div >
-          <NavLink style={{marginLeft: '10px'}} to="/">Trang chủ</NavLink>
-          <NavLink style={{marginLeft: '10px'}} to="/cart">Giỏ hàng</NavLink>
-          <NavLink style={{marginLeft: '10px'}} to="/all-products">Sản phẩm</NavLink>
-          <NavLink style={{marginLeft: '10px'}} to="/orders">Đơn hàng</NavLink>
-        </div>
+          <div>
+            <NavLink style={{ marginLeft: "10px" }} to="/">
+              Trang chủ
+            </NavLink>
+            <NavLink style={{ marginLeft: "10px" }} to="/cart">
+              Giỏ hàng
+            </NavLink>
+            <NavLink style={{ marginLeft: "10px" }} to="/all-products">
+              Sản phẩm
+            </NavLink>
+            <NavLink style={{ marginLeft: "10px" }} to="/orders">
+              Đơn hàng
+            </NavLink>
+          </div>
         </div>
       </header>
 
