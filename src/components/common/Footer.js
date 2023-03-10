@@ -20,7 +20,7 @@ const Footer = () => {
         <div className="wrapper footer_wrapper">
           <div className="foot_about">
             <h2>
-              <Link to="/">Logo</Link>
+              <Link to="/">HDKShop</Link>
             </h2>
             <div className="foot_subs">
               <p>
@@ -68,7 +68,7 @@ const Footer = () => {
         <div className="container">
           <div className="sub_footer_wrapper">
             <div className="foot_copyright">
-              <p>{currYear} | Logo. All Rights Reserved.</p>
+              <p>{currYear} | HDKShop. All Rights Reserved.</p>
             </div>
             <div className="foot_social">
               {footSocial.map((item) => {

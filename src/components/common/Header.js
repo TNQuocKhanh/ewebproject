@@ -51,7 +51,7 @@ const Header = () => {
         <div className="container">
           <div className="navbar">
             <h2 className="nav_logo">
-              <Link to="/">Logo</Link>
+              <Link to="/">HDKShop</Link>
             </h2>
             <div className="nav-search">
               <input
