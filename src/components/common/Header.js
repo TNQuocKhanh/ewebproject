@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
@@ -11,13 +11,15 @@ import commonContext from "../../contexts/common/commonContext";
 import cartContext from "../../contexts/cart/cartContext";
 import AccountForm from "../form/AccountForm";
 import SearchBar from "./SearchBar";
-import { logout } from "../../apis";
+import { getProfile, logout } from "../../apis";
 import { storage } from "../../utils";
 
 const Header = () => {
   const { formUserInfo, toggleForm, toggleSearch } = useContext(commonContext);
   const { cartItems } = useContext(cartContext);
   const [isSticky, setIsSticky] = useState(false);
+
+  const navigate = useNavigate()
 
   // Get value of search
   const [valueSearch, setValueSearch] = useState("");
@@ -43,7 +45,21 @@ const Header = () => {
     if (res.status === 200) {
       storage.remove("user");
     }
+    navigate('/login')
   };
+
+  const [userProfile, setUserProfile] = useState()
+  
+  const getUserProfile = async () => {
+    const res = await getProfile()
+    setUserProfile(res)
+  }
+
+  useEffect(() => {
+    getUserProfile()
+  }, [])
+
+  console.log('===user', userProfile)
 
   return (
     <>
@@ -78,6 +94,7 @@ const Header = () => {
                 <span>
                   <AiOutlineUser />
                 </span>
+                <div>{userProfile?.fullName}</div>
                 <div className="dropdown_menu">
                   <h4>
                     Xin chào !{" "}
@@ -90,17 +107,9 @@ const Header = () => {
                   )}
                   <div className="separator"></div>
                   <ul>
-                    {dropdownMenu.map((item) => {
-                      const { id, link, path, icon } = item;
-                      return (
-                        <li key={id} onClick={handleLogout}>
-                          <Link to={path}>
-                            <icon />
-                            {link}
-                          </Link>
-                        </li>
-                      );
-                    })}
+                    <li><Link to='/profile'>Thong tin</Link></li>
+                    <li><Link to='/change-password'>Doi mat khau</Link></li>
+                    <li><Link to='/logout' onClick={handleLogout}>Dang xuat</Link></li>
                   </ul>
                 </div>
               </div>
