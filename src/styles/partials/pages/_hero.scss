@@ -20,7 +20,7 @@
     place-items: center;
 
     &::before {
-        @include pseudo($top: 10%);
+        // @include pseudo($top: 10%);
         font-size: 15rem;
         font-weight: 700;
         opacity: 0.05;
