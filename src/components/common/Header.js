@@ -107,7 +107,7 @@ const Header = () => {
                   )}
                   <div className="separator"></div>
                   <ul>
-                    <li><Link to='/profile'>Thong tin</Link></li>
+                    <li><Link to='/profile'>Thông tin</Link></li>
                     <li><Link to='/change-password'>Doi mat khau</Link></li>
                     <li><Link to='/logout' onClick={handleLogout}>Dang xuat</Link></li>
                   </ul>
