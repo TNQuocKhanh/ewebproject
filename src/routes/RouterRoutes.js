@@ -7,6 +7,8 @@ import Home from "../pages/Home";
 import ProductDetails from "../pages/ProductDetails";
 import ErrorPage from "../pages/ErrorPage";
 import CheckOutPage from "../pages/CheckOutPage";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 const RouterRoutes = () => {
   useScrollRestore();
@@ -14,6 +16,8 @@ const RouterRoutes = () => {
   return (
     <>
       <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/all-products" element={<AllProducts />} />

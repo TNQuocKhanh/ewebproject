@@ -6,6 +6,8 @@ import ProductCard from "../components/product/ProductCard";
 import Services from "../components/common/Services";
 import filtersContext from "../contexts/filters/filtersContext";
 import EmptyView from "../components/common/EmptyView";
+import Header from "../components/common/Header";
+import Footer from "../components/common/Footer";
 
 const AllProducts = () => {
   useDocTitle("All Products");
@@ -14,6 +16,7 @@ const AllProducts = () => {
 
   return (
     <>
+      <Header />
       <section id="all_products" className="section">
         <FilterBar />
 
@@ -32,8 +35,8 @@ const AllProducts = () => {
           )}
         </div>
       </section>
-
       <Services />
+      <Footer />
     </>
   );
 };
