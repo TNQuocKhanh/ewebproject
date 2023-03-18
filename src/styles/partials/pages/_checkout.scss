@@ -1,3 +1,130 @@
 #checkout {
-    @include padding-y(8rem, 8rem);
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 150px 0;
+    padding: 2%;
+
+   
+
+    .box-form-checkout {
+        width: 40%;
+        padding: 10px;
+
+        h4 {
+            margin: 0 0 15px 0;
+        }
+
+        .payment-method {
+            width: 100%;
+            height: 100px;
+            border: 2px solid rgba(171, 171, 171, 0.249);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            button {
+                width: 49%;
+                height: 90%;
+                color: rgb(52, 52, 52);
+                background-color: rgba(255, 186, 36, 0.951);
+                border-radius: 10px;
+                box-shadow: 1px 2px 10px rgba(168, 168, 168, 0.333);
+
+                img {
+                    height: 60%;
+                }
+            }
+
+        }
+
+        .payment-infor {
+            width: 100%;
+
+            .row-form-payment {
+                display: flex;
+                flex-direction: column;
+                margin: 20px 0;
+
+                label {
+                    margin-bottom: 10px;
+                }
+
+                input {
+                    border-radius: 10px;
+                    padding: 15px;
+                    border: 1px solid rgb(196, 196, 196);
+                }
+            }
+        }
+
+    }
+
+    .box-item-checkout {
+        width: 40%;
+        padding: 10px;
+
+        h4 {
+            margin: 0 0 15px 0;
+        }
+
+        .check-item {
+            border-radius: 10px;
+            border: 2px solid rgba(171, 171, 171, 0.249);
+            max-height: 250px;
+            overflow-y: scroll;
+
+            .row-item-cart {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+
+                img {
+                    width: 80px;
+                    border-radius: 10px;
+                    box-shadow: 1px 2px 10px rgb(215, 215, 215);
+                }
+            }
+        }
+
+        .total-price {
+            width: 100%;
+
+            .row-total-price {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px 0;
+            }
+        }
+
+        .btn-checkout{
+            background-color: rgb(16, 170, 16);
+            width: 100%;
+            padding: 20px;
+            color: aliceblue;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .btn-checkout:hover{
+            background-color: rgb(22, 195, 22);
+        }
+    }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }

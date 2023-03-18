@@ -4,10 +4,13 @@ import FeaturedSlider from "../components/sliders/FeaturedSlider";
 import SectionsHead from "../components/common/SectionsHead";
 import TopProducts from "../components/product/TopProducts";
 import Services from "../components/common/Services";
+import Header from "../components/common/Header";
+import Footer from "../components/common/Footer";
 
 const Home = () => {
   return (
     <main>
+      <Header />
       <section id="hero">
         <HeroSlider />
       </section>
@@ -25,8 +28,8 @@ const Home = () => {
           <TopProducts />
         </div>
       </section>
-
       <Services />
+      <Footer />
     </main>
   );
 };
