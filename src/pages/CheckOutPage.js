@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import '../styles/partials/pages/_checkout.scss'
+import { FaCheckCircle } from "react-icons/fa";
 
 const CheckOutPage = () => {
   return (
@@ -12,10 +13,16 @@ const CheckOutPage = () => {
           <h4>Phương thức thanh toán</h4>
           <div className="payment-method">
             <button>
-              Thanh toán bằng tiền mặt
+              Tiền mặt
+              <div className="check-payment-method">
+                <FaCheckCircle />
+              </div>
             </button>
             <button>
               <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-1.png"></img>
+              <div className="check-payment-method">
+                <FaCheckCircle />
+              </div>
             </button>
           </div>
           <h4>Thông tin thanh toán</h4>
@@ -40,42 +47,26 @@ const CheckOutPage = () => {
             <div className="row-item-cart">
               <img src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg"></img>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <p style={{ paddingBottom: '10px' }}>Tên: DELL 120xr Gaming</p>
-                <p>SL: 1</p>
+                <p style={{ paddingBottom: '10px', fontSize: '13px' }}>Tên: DELL 120xr Gaming</p>
+                <p style={{ fontSize: '13px' }}>SL: 1</p>
               </div>
-              <strong>12.000.000 VNĐ</strong>
+              <strong style={{ fontSize: '13px' }}>12.000.000 VNĐ</strong>
             </div>
             <div className="row-item-cart">
               <img src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg"></img>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <p style={{ paddingBottom: '10px' }}>Tên: DELL 120xr Gaming</p>
-                <p>SL: 1</p>
+                <p style={{ paddingBottom: '10px', fontSize: '13px' }}>Tên: DELL 120xr Gaming</p>
+                <p style={{ fontSize: '13px' }}>SL: 1</p>
               </div>
-              <strong>12.000.000 VNĐ</strong>
+              <strong style={{ fontSize: '13px' }}>12.000.000 VNĐ</strong>
             </div>
             <div className="row-item-cart">
               <img src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg"></img>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <p style={{ paddingBottom: '10px' }}>Tên: DELL 120xr Gaming</p>
-                <p>SL: 1</p>
+                <p style={{ paddingBottom: '10px', fontSize: '13px' }}>Tên: DELL 120xr Gaming</p>
+                <p style={{ fontSize: '13px' }}>SL: 1</p>
               </div>
-              <strong>12.000.000 VNĐ</strong>
-            </div>
-            <div className="row-item-cart">
-              <img src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg"></img>
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <p style={{ paddingBottom: '10px' }}>Tên: DELL 120xr Gaming</p>
-                <p>SL: 1</p>
-              </div>
-              <strong>12.000.000 VNĐ</strong>
-            </div>
-            <div className="row-item-cart">
-              <img src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg"></img>
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <p style={{ paddingBottom: '10px' }}>Tên: DELL 120xr Gaming</p>
-                <p>SL: 1</p>
-              </div>
-              <strong>12.000.000 VNĐ</strong>
+              <strong style={{ fontSize: '13px' }}>12.000.000 VNĐ</strong>
             </div>
           </div>
           <div className="total-price">
@@ -99,7 +90,7 @@ const CheckOutPage = () => {
               <strong>
                 Thành tiền:
               </strong>
-              <p style={{ fontSize: '25px' , color: 'red'}}>
+              <p style={{ fontSize: '25px', color: 'red' }}>
                 19.000.000 VNĐ
               </p>
             </div>

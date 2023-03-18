@@ -6,6 +6,8 @@ import cartContext from "../contexts/cart/cartContext";
 import CartItem from "../components/cart/CartItem";
 import EmptyView from "../components/common/EmptyView";
 import { Link } from "react-router-dom";
+import Header from "../components/common/Header";
+import Footer from "../components/common/Footer";
 
 const Cart = () => {
   useDocTitle("Cart");
@@ -36,6 +38,7 @@ const Cart = () => {
 
   return (
     <>
+      <Header />
       <section id="cart" className="section">
         <div className="container">
           {cartQuantity === 0 ? (
@@ -88,6 +91,7 @@ const Cart = () => {
           )}
         </div>
       </section>
+      <Footer />
     </>
   );
 };

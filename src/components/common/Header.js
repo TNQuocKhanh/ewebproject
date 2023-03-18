@@ -116,7 +116,7 @@ const Header = () => {
             </nav>
           </div>
         </div>
-        <div style={{ marginTop: "15px" }} className="navigation">
+        <div style={{ marginTop: "15px" }} className="navigation container">
           <div>Danh mục</div>
           <div>
             <NavLink style={{ marginLeft: "10px" }} to="/">

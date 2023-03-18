@@ -4,11 +4,9 @@
     justify-content: space-around;
     margin: 150px 0;
     padding: 2%;
-
-   
+    flex-wrap: wrap;
 
     .box-form-checkout {
-        width: 40%;
         padding: 10px;
 
         h4 {
@@ -17,9 +15,9 @@
 
         .payment-method {
             width: 100%;
-            height: 100px;
+            height: auto;
             border: 2px solid rgba(171, 171, 171, 0.249);
-            padding: 10px;
+            padding:5px;
             border-radius: 10px;
             margin-bottom: 70px;
             display: flex;
@@ -27,12 +25,23 @@
             align-items: center;
 
             button {
-                width: 49%;
-                height: 90%;
+                width: 100%;
+                height: 60px;
+                margin: 5px;
                 color: rgb(52, 52, 52);
-                background-color: rgba(255, 186, 36, 0.951);
+                background-color: rgb(249, 249, 249);
                 border-radius: 10px;
+                border: 2px solid rgba(171, 171, 171, 0.249);
                 box-shadow: 1px 2px 10px rgba(168, 168, 168, 0.333);
+                position: relative;
+
+                .check-payment-method{
+                    position: absolute;
+                    top: -5px;
+                    right: -5px;
+                    font-size: 25px;
+                    color: rgb(4, 164, 4);
+                }
 
                 img {
                     height: 60%;
@@ -64,7 +73,6 @@
     }
 
     .box-item-checkout {
-        width: 40%;
         padding: 10px;
 
         h4 {
@@ -73,9 +81,10 @@
 
         .check-item {
             border-radius: 10px;
-            border: 2px solid rgba(171, 171, 171, 0.249);
+            box-shadow: 1px 2px 10px rgb(215, 215, 215);
             max-height: 250px;
             overflow-y: scroll;
+            background-color: rgb(251, 251, 251);
 
             .row-item-cart {
                 display: flex;
@@ -84,7 +93,7 @@
                 padding: 20px;
 
                 img {
-                    width: 80px;
+                    width: 70px;
                     border-radius: 10px;
                     box-shadow: 1px 2px 10px rgb(215, 215, 215);
                 }
@@ -93,6 +102,7 @@
 
         .total-price {
             width: 100%;
+            padding: 10px;
 
             .row-total-price {
                 display: flex;
@@ -102,7 +112,7 @@
             }
         }
 
-        .btn-checkout{
+        .btn-checkout {
             background-color: rgb(16, 170, 16);
             width: 100%;
             padding: 20px;
@@ -111,8 +121,38 @@
             font-weight: 600;
         }
 
-        .btn-checkout:hover{
+        .btn-checkout:hover {
             background-color: rgb(22, 195, 22);
+        }
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+
+    .box-form-checkout {
+        width: 40%;
+
+        .payment-method {
+            button {
+                width: 49%;
+            }
+        }
+    }
+
+    .box-item-checkout {
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 890px) {
+
+    .box-form-checkout {
+        width: 100%;
+        .payment-method {
+            flex-wrap: wrap;
+            button {
+                width: 49%;
+            }
         }
     }
 }
