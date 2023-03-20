@@ -3,12 +3,11 @@
     width: 100vw;
     height: 100vh;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     background-color: rgba(245, 249, 255, 0.086);
     font-size: 13px;
 
-    .back-to-home{
+    .back-to-home {
         font-size: 25px;
         position: absolute;
         top: 20px;
@@ -16,7 +15,7 @@
     }
 
     .box-img-login-page {
-        width: 50%;
+        // width: 50%;
         height: 100vh;
         display: flex;
         flex-direction: column;
@@ -31,7 +30,7 @@
     }
 
     .box-form-login-page {
-        width: 50%;
+        // width: 50%;
         height: 100vh;
         display: flex;
         justify-content: center;
@@ -45,9 +44,7 @@
         }
 
         .form-login {
-            width: 50%;
             height: 80%;
-            // background-color: aquamarine;
 
             .row-form-field {
                 display: flex;
@@ -124,6 +121,34 @@
             }
         }
     }
+}
 
+@media only screen and (min-width: 1024px) {
 
+    .box-img-login-page {
+        width: 50%;
+    }
+
+    .box-form-login-page {
+        width: 50%;
+
+        .form-login {
+            width: 50%;
+        }
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+
+    .box-img-login-page {
+        width: 0%;
+    }
+
+    .box-form-login-page {
+        width: 100%;
+
+        .form-login {
+            width: 90%;
+        }
+    }
 }

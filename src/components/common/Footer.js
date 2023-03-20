@@ -30,7 +30,7 @@ const Footer = () => {
               <form onSubmit={handleSubmit}>
                 <input
                   type="email"
-                  className="input_field"
+                  className="input-footer"
                   placeholder="Email Address*"
                   required
                   value={subValue}

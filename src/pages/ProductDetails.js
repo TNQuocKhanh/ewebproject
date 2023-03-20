@@ -10,6 +10,8 @@ import SectionsHead from "../components/common/SectionsHead";
 import RelatedSlider from "../components/sliders/RelatedSlider";
 import ProductSummary from "../components/product/ProductSummary";
 import Services from "../components/common/Services";
+import Header from "../components/common/Header";
+import Footer from "../components/common/Footer";
 
 const ProductDetails = () => {
   useDocTitle("Product Details");
@@ -66,6 +68,7 @@ const ProductDetails = () => {
 
   return (
     <>
+      <Header />
       <section id="product_details" className="section">
         <div className="container">
           <div className="wrapper prod_details_wrapper">
@@ -147,6 +150,7 @@ const ProductDetails = () => {
       </section>
 
       <Services />
+      <Footer />
     </>
   );
 };

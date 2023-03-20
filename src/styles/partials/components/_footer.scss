@@ -32,7 +32,16 @@
     opacity: 0.9;
   }
 
+  .input-footer {
+    width: 100%;
+    margin: 15px 0;
+    border: 2px solid rgba(174, 174, 174, 0.668);
+    padding: 10px;
+    border-radius: 5px;
+  }
+
   .btn {
+    background-color: var(--main-color);
     margin-top: 1rem;
   }
 }
