@@ -4,28 +4,21 @@ import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
   AiOutlineUser,
-  AiOutlineLogout,
 } from "react-icons/ai";
-import { dropdownMenu } from "../../data/headerData";
-import commonContext from "../../contexts/common/commonContext";
 import cartContext from "../../contexts/cart/cartContext";
-import AccountForm from "../form/AccountForm";
 import SearchBar from "./SearchBar";
 import { getProfile, logout } from "../../apis";
 import { storage } from "../../utils";
 
 const Header = () => {
-  const { formUserInfo, toggleForm, toggleSearch } = useContext(commonContext);
   const { cartItems } = useContext(cartContext);
   const [isSticky, setIsSticky] = useState(false);
 
   const navigate = useNavigate()
 
-  // Get value of search
   const [valueSearch, setValueSearch] = useState("");
   console.log(valueSearch);
 
-  // handle the sticky-header
   useEffect(() => {
     const handleIsSticky = () =>
       window.scrollY >= 50 ? setIsSticky(true) : setIsSticky(false);
@@ -96,16 +89,6 @@ const Header = () => {
                 </span>
                 <div>{userProfile?.fullName}</div>
                 <div className="dropdown_menu">
-                  <h4>
-                    Xin chào !{" "}
-                    {formUserInfo && <Link to="*">&nbsp;{formUserInfo}</Link>}
-                  </h4>
-                  {!formUserInfo && (
-                    <button type="button" onClick={() => toggleForm(true)}>
-                      Đăng nhập / Đăng ký
-                    </button>
-                  )}
-                  <div className="separator"></div>
                   <ul>
                     <li><Link to='/profile'>Thông tin</Link></li>
                     <li><Link to='/change-password'>Đổi mật khẩu</Link></li>
@@ -136,7 +119,6 @@ const Header = () => {
       </header>
 
       <SearchBar />
-      <AccountForm />
     </>
   );
 };
