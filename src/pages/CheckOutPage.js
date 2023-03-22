@@ -19,7 +19,7 @@ const CheckOutPage = () => {
               </div>
             </button>
             <button>
-              <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-1.png"></img>
+              <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-1.png" alt=""></img>
               <div className="check-payment-method">
                 <FaCheckCircle />
               </div>
@@ -45,7 +45,7 @@ const CheckOutPage = () => {
           <h4>Thông tin đơn hàng</h4>
           <div className="check-item">
             <div className="row-item-cart">
-              <img src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg"></img>
+              <img src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg" alt=""></img>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <p style={{ paddingBottom: '10px', fontSize: '13px' }}>Tên: DELL 120xr Gaming</p>
                 <p style={{ fontSize: '13px' }}>SL: 1</p>
@@ -53,7 +53,7 @@ const CheckOutPage = () => {
               <strong style={{ fontSize: '13px' }}>12.000.000 VNĐ</strong>
             </div>
             <div className="row-item-cart">
-              <img src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg"></img>
+              <img src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg" alt=""></img>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <p style={{ paddingBottom: '10px', fontSize: '13px' }}>Tên: DELL 120xr Gaming</p>
                 <p style={{ fontSize: '13px' }}>SL: 1</p>
@@ -61,7 +61,7 @@ const CheckOutPage = () => {
               <strong style={{ fontSize: '13px' }}>12.000.000 VNĐ</strong>
             </div>
             <div className="row-item-cart">
-              <img src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg"></img>
+              <img src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg" alt=""></img>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <p style={{ paddingBottom: '10px', fontSize: '13px' }}>Tên: DELL 120xr Gaming</p>
                 <p style={{ fontSize: '13px' }}>SL: 1</p>

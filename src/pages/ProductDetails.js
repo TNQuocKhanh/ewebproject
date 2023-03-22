@@ -12,6 +12,9 @@ import ProductSummary from "../components/product/ProductSummary";
 import Services from "../components/common/Services";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
+import { getProductById } from "../apis";
+
+import imgAsset from "../assets/product-default.png";
 
 const ProductDetails = () => {
   useDocTitle("Product Details");
@@ -22,49 +25,56 @@ const ProductDetails = () => {
 
   const { productId } = useParams();
 
-  // here the 'id' received has 'string-type', so converting it to a 'Number'
   const prodId = parseInt(productId);
 
-  // showing the Product based on the received 'id'
   const product = productsData.find((item) => item.id === prodId);
 
+  const [data, setData] = useState({});
+
+  const getProductDetail = async () => {
+    const res = await getProductById(productId);
+    setData(res);
+  };
+
+  useEffect(() => {
+    getProductDetail();
+  }, []);
+
+  const { images, category } = product;
+
   const {
-    images,
-    title,
-    info,
-    category,
-    finalPrice,
-    originalPrice,
-    ratings,
-    rateCount,
-  } = product;
+    name,
+    category: cate,
+    discountPercent,
+    discountPrice,
+    price,
+    inStock,
+    reviewCount,
+  } = data;
 
   const [previewImg, setPreviewImg] = useState(images[0]);
 
-  // handling Add-to-cart
   const handleAddItem = () => {
     addItem(product);
   };
 
-  // setting the very-first image on re-render
   useEffect(() => {
     setPreviewImg(images[0]);
     handleActive(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images]);
 
-  // handling Preview image
   const handlePreviewImg = (i) => {
     setPreviewImg(images[i]);
     handleActive(i);
   };
 
   // calculating Prices
-  const discountedPrice = originalPrice - finalPrice;
-  const newPrice = displayMoney(finalPrice);
-  const oldPrice = displayMoney(originalPrice);
+  const discountedPrice = price - discountPrice;
+  const newPrice = displayMoney(discountPrice);
+  const oldPrice = displayMoney(price);
   const savedPrice = displayMoney(discountedPrice);
-  const savedDiscount = calculateDiscount(discountedPrice, originalPrice);
+  const savedDiscount = calculateDiscount(discountedPrice, price);
 
   return (
     <>
@@ -72,7 +82,6 @@ const ProductDetails = () => {
       <section id="product_details" className="section">
         <div className="container">
           <div className="wrapper prod_details_wrapper">
-            {/*=== Product Details Left-content ===*/}
             <div className="prod_details_left_col">
               <figure className="prod_details_img">
                 <img src={previewImg} alt="product-img" />
@@ -90,19 +99,17 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/*=== Product Details Right-content ===*/}
             <div className="prod_details_right_col">
-              <h1 className="prod_details_title">{title}</h1>
-              <h4 className="prod_details_info">{info}</h4>
+              <h1 className="prod_details_title">{name}</h1>
+              <h4 className="prod_details_info">{cate?.name}</h4>
 
               <div className="prod_details_ratings">
                 <span className="rating_star">
-                  {[...Array(rateCount)].map((_, i) => (
-                    <IoMdStar key={i} />
-                  ))}
+                  <IoMdStar />
+                  <IoMdStar />
                 </span>
                 <span>|</span>
-                <Link to="*">{ratings} Đánh giá</Link>
+                <Link to="*">{reviewCount} Đánh giá</Link>
               </div>
 
               <div className="separator"></div>
@@ -122,9 +129,13 @@ const ProductDetails = () => {
                 </div>
 
                 <div className="badge">
-                  <span>
-                    <IoMdCheckmark /> Còn hàng
-                  </span>
+                  {inStock ? (
+                    <span>
+                      <IoMdCheckmark /> Còn hàng
+                    </span>
+                  ) : (
+                    <span>Hết hàng</span>
+                  )}
                 </div>
               </div>
 

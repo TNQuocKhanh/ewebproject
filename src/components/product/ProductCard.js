@@ -5,22 +5,20 @@ import { displayMoney } from "../../helpers/utils";
 import cartContext from "../../contexts/cart/cartContext";
 import useActive from "../../hooks/useActive";
 
+import imgAsset from '../../assets/product-default.png'
+
 const ProductCard = (props) => {
   const {
     id,
-    images,
-    title,
-    info,
-    finalPrice,
-    originalPrice,
-    rateCount,
-    path,
+    name,
+    discountPrice,
+    price,
+    discountPercent
   } = props;
 
   const { addItem } = useContext(cartContext);
   const { active, handleActive, activeClass } = useActive(false);
 
-  // handling Add-to-cart
   const handleAddItem = () => {
     const item = { ...props };
     addItem(item);
@@ -32,31 +30,30 @@ const ProductCard = (props) => {
     }, 3000);
   };
 
-  const newPrice = displayMoney(finalPrice);
-  const oldPrice = displayMoney(originalPrice);
+  const newPrice = displayMoney(discountPrice);
+  const oldPrice = displayMoney(price);
 
   return (
     <>
       <div className="card products_card">
         <figure className="products_img">
-          <Link to={`${path}${id}`}>
-            <img src={images[0]} alt="product-img" />
+          <Link to={`/product-details/${id}`}>
+            <img src={imgAsset} alt="product-img" />
           </Link>
         </figure>
         <div className="products_details">
           <span className="rating_star">
-            {[...Array(rateCount)].map((_, i) => (
-              <IoMdStar key={i} />
-            ))}
+              <IoMdStar />
+              <IoMdStar />
           </span>
           <h3 className="products_title">
-            <Link to={`${path}${id}`}>{title}</Link>
+            <Link to={`/product-detail/${id}`}>{name}</Link>
           </h3>
           <div className="separator"></div>
           <h2 className="products_price">
             <h4 style={{ marginBottom: "5px" }}>{newPrice}</h4>
             <small>
-              <del>{oldPrice}</del> <small> -20.5%</small>
+              <del>{oldPrice}</del> <small> -{discountPercent}%</small>
             </small>
           </h2>
           <button

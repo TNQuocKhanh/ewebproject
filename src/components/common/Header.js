@@ -4,6 +4,7 @@ import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
   AiOutlineUser,
+  AiOutlineLogin,
 } from "react-icons/ai";
 import cartContext from "../../contexts/cart/cartContext";
 import SearchBar from "./SearchBar";
@@ -14,10 +15,10 @@ const Header = () => {
   const { cartItems } = useContext(cartContext);
   const [isSticky, setIsSticky] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [valueSearch, setValueSearch] = useState("");
-  console.log(valueSearch);
+  //console.log(valueSearch);
 
   useEffect(() => {
     const handleIsSticky = () =>
@@ -38,21 +39,21 @@ const Header = () => {
     if (res.status === 200) {
       storage.remove("user");
     }
-    navigate('/login')
+    navigate("/login");
   };
 
-  const [userProfile, setUserProfile] = useState()
-  
+  const [userProfile, setUserProfile] = useState();
+
   const getUserProfile = async () => {
-    const res = await getProfile()
-    setUserProfile(res)
-  }
+    const res = await getProfile();
+    setUserProfile(res);
+  };
 
   useEffect(() => {
-    getUserProfile()
-  }, [])
-
-  console.log('===user', userProfile)
+    if (storage.load("user")) {
+      getUserProfile();
+    }
+  }, []);
 
   return (
     <>
@@ -87,15 +88,28 @@ const Header = () => {
                 <span>
                   <AiOutlineUser />
                 </span>
-                <div>{userProfile?.fullName}</div>
                 <div className="dropdown_menu">
                   <ul>
-                    <li><Link to='/profile'>Thông tin</Link></li>
-                    <li><Link to='/change-password'>Đổi mật khẩu</Link></li>
-                    <li><Link to='/logout' onClick={handleLogout}>Dang xuat</Link></li>
+                    <li>
+                      <Link to="/profile">Thông tin</Link>
+                    </li>
+                    <li>
+                      <Link to="/change-password">Đổi mật khẩu</Link>
+                    </li>
+                    <li>
+                      <Link to="/logout" onClick={handleLogout}>
+                        Đăng xuất
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
+              <div>{userProfile?.fullName}</div>
+              {!storage.load('user') && <div>
+                <Link to="/login">
+                  <AiOutlineLogin />
+                </Link>
+              </div>}
             </nav>
           </div>
         </div>

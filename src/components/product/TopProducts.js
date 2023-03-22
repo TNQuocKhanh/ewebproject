@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 import useActive from "../../hooks/useActive";
 import productsData from "../../data/productsData";
 import ProductCard from "./ProductCard";
+import { getListProducts } from "../../apis";
 
 const TopProducts = () => {
   const [products, setProducts] = useState(productsData);
@@ -30,6 +31,20 @@ const TopProducts = () => {
     handleActive(i);
   };
 
+  const [data, setData] = useState([]);
+
+  const getAllProducts = async () => {
+    const res = await getListProducts();
+    if (res) {
+      console.log("===", res);
+      setData(res);
+    }
+  };
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
   return (
     <>
       <div className="products_filter_tabs">
@@ -46,7 +61,7 @@ const TopProducts = () => {
         </ul>
       </div>
       <div className="wrapper products_wrapper">
-        {products.slice(0, 10).map((item) => (
+        {data.map((item) => (
           <ProductCard key={item.id} {...item} />
         ))}
       </div>
@@ -55,8 +70,8 @@ const TopProducts = () => {
 };
 
 export default TopProducts;
-//<div className="card products_card browse_card">
-//<Link to="/all-products">
-//Tất cả sản phẩm <BsArrowRight />
-//</Link>
+//<div className="wrapper products_wrapper">
+//{products.slice(0, 10).map((item) => (
+//<ProductCard key={item.id} {...item} />
+//))}
 //</div>
