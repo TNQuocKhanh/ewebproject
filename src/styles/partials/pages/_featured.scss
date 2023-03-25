@@ -1,5 +1,6 @@
 #featured {
-    margin-top: 5rem;
+    // margin-top: 5rem;
+    padding: 50px;
 }
 
 .featured_slides {
@@ -12,7 +13,7 @@
 }
 
 .featured_swiper {
-    @include padding-y(3rem !important, 5rem !important);
+    @include padding-y(1rem !important, 2rem !important);
 }
 
 .featured_img {

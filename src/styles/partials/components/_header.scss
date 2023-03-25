@@ -5,41 +5,40 @@
     z-index: 9999;
     width: 100%;
     box-shadow: 0px 5px 15px #00000019;
-    @include padding-y(1.5rem, 1.5rem);
-    //@include transition(background-color, 0.2s, linear);
+    background-color: var(--main-color);
 
     &.sticky {
-        background-color: var(--white-color);
+        background-color: var(--main-color);
     }
 }
 
 .navbar {
+    padding: 12px 0;
+    display: flex;
+    flex-wrap: wrap;
     @include flexbox(space-between, center);
 }
 
 .nav-search {
-    width: 650px;
+    width: 50%;
     display: flex;
 
     @include devices(lg) {
-        width: 450px;
-    }
-
-    @include devices(md) {
-        width: 200px;
+        width: 300px;
     }
 
     @include devices(xs) {
-        width: 120px;
+        width: 200px;
     }
 
     input {
-        border: solid 2px var(--border-form);
+        // border: solid 2px var(--border-form);
+        background-color: white;
         width: 90%;
         height: 40px;
-        border-bottom-left-radius: 7px;
-        border-top-left-radius: 7px;
-        text-indent: 10px;
+        border-bottom-left-radius: 20px;
+        border-top-left-radius: 20px;
+        text-indent: 20px;
 
         @include devices(lg) {
             width: 90%;
@@ -57,11 +56,11 @@
     button {
         width: 10%;
         height: 40px;
-        background: var(--main-color);
+        background: var(--main-color-2);
         font-size: 1.4rem;
-        color: #eee;
-        border-bottom-right-radius: 7px;
-        border-top-right-radius: 7px;
+        color: var(--main-color);
+        border-bottom-right-radius: 20px;
+        border-top-right-radius: 20px;
 
         @include devices(md) {
             width: 30%;
@@ -80,13 +79,22 @@
 }
 
 .nav_actions {
-    @include flexbox($alignItems: center);
-    gap: 3rem;
-    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    font-size: 1.2rem;
+
+    @include devices(md) {
+        width: 100%;
+        padding: 20px 0 0 0;
+    }
 
     @include devices(xs) {
+        width: 100%;
         gap: 2.5rem;
         font-size: 1.2rem;
+        padding: 20px 0 0 0;
     }
 }
 
@@ -111,27 +119,28 @@
 }
 
 .cart_action {
-
     .badge {
         @include centered;
         @include dimension(20px, 20px);
         position: absolute;
         top: 0;
-        right: -20px;
-        background-color: var(--main-color-2);
+        font-size: 0.7rem;
+        right: -9px;
+        color: var(--main-color-2);
+        border: 1px solid var(--main-color-2);
+        background-color: var(--main-color);
         border-radius: 50%;
     }
 }
 
 .user_action {
-
     .dropdown_menu {
         position: absolute;
         top: 50px;
         right: 0;
         width: 17.5rem;
         background-color: var(--bg-color-2);
-        padding: 1.4rem;
+        padding: 1.2rem;
         font-size: 0.9rem;
         border-radius: 3px;
         @include bordered(1px, var(--text-muted));
@@ -192,5 +201,10 @@
         width: auto;
         background-color: red;
         padding: 2%;
+    }
+
+    .category-item:hover {
+        cursor: pointer;
+        background-color: rgba(255, 238, 215, 0.348);
     }
 }
