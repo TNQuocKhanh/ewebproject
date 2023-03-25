@@ -16,7 +16,24 @@ const Cart = () => {
 
   const { cartItems } = useContext(cartContext);
 
+  console.log('===', cartItems)
+
   const cartQuantity = cartItems.length;
+
+  const ids = cartItems.map(it => it.id)
+
+  const arrId = [ ...new Set(ids)]
+console.log('===', arrId)
+
+  let  newArr = []
+  arrId.map(it => {
+    const found = cartItems.find(v => v.id !== it)
+    if(newArr.filter(v => v.id ===found.id)){
+      newArr.push(found)
+    }else{
+      newArr.push({...found, quantity: found.quantity++})
+    }
+  })
 
   const cartTotal = cartItems.map((item) => {
     return item.price * 1;

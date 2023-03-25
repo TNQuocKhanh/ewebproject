@@ -58,13 +58,13 @@ export const signup = async (email, password, fullName) => {
     body: data,
   });
   return res;
-}
+};
 
 export const verifyAccount = async (code) => {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
 
-  const data = JSON.stringify({code });
+  const data = JSON.stringify({ code });
 
   const res = await fetch(`${API_URL}/customer/verify`, {
     method: "POST",
@@ -72,4 +72,82 @@ export const verifyAccount = async (code) => {
     body: data,
   });
   return res;
+};
+
+export const forgotPassword = async (email) => {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+
+  const data = JSON.stringify({ email });
+
+  const res = await fetch(`${API_URL}/customer/forgot-password`, {
+    method: "POST",
+    headers,
+    body: data,
+  });
+  return res;
+};
+
+export const createNewPassword = async (email, password) => {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+
+  const data = JSON.stringify({ email, password });
+
+  const res = await fetch(`${API_URL}/customer/update-password`, {
+    method: "POST",
+    headers,
+    body: data,
+  });
+  return res;
+};
+
+export const signinLogin = async () => {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+
+  const res = await fetch(
+    `http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000`,
+    {
+      method: "GET",
+      headers,
+    }
+  );
+  return res;
+};
+
+export const changePassword = async (oldPassword, changePassword) => {
+  const user = storage.load("user");
+  const token = user?.accessToken;
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+  const data = JSON.stringify({ oldPassword, changePassword });
+
+  const res = await fetch(`${API_URL}/customer/change-password`, {
+    method: "PUT",
+    headers,
+    body: data,
+  });
+  return res;
+};
+
+export const updatePhoto = async (data) => {
+  const auth = storage.load('auth')
+  const token = auth.accessToken
+
+  const headers = new Headers();
+  const formdata = new FormData()
+  formdata.append("image", data)
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const res = await fetch(`${API_URL}/customer/update-photo`, {
+    method: "PUT",
+    headers,
+    body: formdata 
+  });
+
+  return res.json();
 }
+

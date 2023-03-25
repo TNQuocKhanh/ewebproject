@@ -53,7 +53,13 @@ const ProductDetails = () => {
   const [previewImg, setPreviewImg] = useState(_.get(productImages, '0')?.extraImage || '');
 
   const handleAddItem = () => {
-    addItem(data);
+    const _data = {
+      id: data.id,
+      name: data.name,
+      price: data.discountPrice,
+      quantity: 1
+    }
+    addItem(_data);
   };
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import cartContext from "../../contexts/cart/cartContext";
 import QuantityBox from "../common/QuantityBox";
 
 const CartItem = (props) => {
-  const { id, name,  quantity=1, mainImage, price, discountPrice } =
+  const { id, name,  quantity, mainImage, price, discountPrice } =
     props;
 
   const { removeItem } = useContext(cartContext);

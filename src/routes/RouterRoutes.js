@@ -10,6 +10,9 @@ import CheckOutPage from "../pages/CheckOutPage";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Verify from "../pages/Verify";
+import ForgotPassword from "../pages/ForgotPassword";
+import ChangePassword from "../pages/ChangePassword"
+import Profile from "../pages/Profile";
 
 const RouterRoutes = () => {
   useScrollRestore();
@@ -19,6 +22,9 @@ const RouterRoutes = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />

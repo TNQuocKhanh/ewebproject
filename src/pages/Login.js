@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/partials/pages/_login.scss";
 import { FaArrowLeft } from "react-icons/fa";
-import { login } from "../apis";
+import { login, signinLogin } from "../apis";
 import { storage } from "../utils";
 import {useNavigate} from "react-router-dom";
 
@@ -23,6 +23,12 @@ const Login = () => {
     } else {
     console.log('===Login error')
     }
+  }
+
+  const handleSigninGoogle = async () => {
+    const res =await signinLogin()
+
+    console.log('====res', res)
   }
 
   return (
@@ -71,7 +77,7 @@ const Login = () => {
             </button>
           </div>
           <div className="row-form">
-            <a className="form-link" href="#">
+            <a className="form-link" href="/forgot-password">
               Quên mật khẩu?
             </a>
           </div>
@@ -84,6 +90,9 @@ const Login = () => {
             </span>
           </div>
         </form>
+        <div className="row-form">
+        <button onClick={handleSigninGoogle}>Dang nhap voi Google</button>
+        </div>
       </div>
     </div>
   );
