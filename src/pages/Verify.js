@@ -28,12 +28,12 @@ const Verify = () => {
         </a>
       </div>
       <div className="box-img-login-page">
-        <img src="https://global-uploads.webflow.com/5fd1e27d738df312147555e1/5ffcc4982f5eb04582ea5200_Mask%20Group.svg"></img>
+        <img src="https://cdn.dribbble.com/users/1040516/screenshots/14598364/media/b664b20ff7f8b82c667c450517fc629c.png?compress=1&resize=1000x750&vertical=top"></img>
       </div>
-      <div className="box-form-login-page">
+      <div className="box-form-login-page" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
         <form className="form-login" onSubmit={handleSubmit}>
-          <p style={{ textAlign: "center" }}>
-            Vui lòng kiểm tra email để hoàn tất xác thực
+          <p style={{ textAlign: "center", padding: '50px 0 30px 0' }}>
+            *Vui lòng kiểm tra email để hoàn tất xác thực
           </p>
           <p className="form-title">Xác thực tài khoản</p>
           <div className="row-form-field">

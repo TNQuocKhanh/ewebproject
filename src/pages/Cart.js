@@ -22,16 +22,16 @@ const Cart = () => {
 
   const ids = cartItems.map(it => it.id)
 
-  const arrId = [ ...new Set(ids)]
-console.log('===', arrId)
+  const arrId = [...new Set(ids)]
+  console.log('===', arrId)
 
-  let  newArr = []
+  let newArr = []
   arrId.map(it => {
     const found = cartItems.find(v => v.id !== it)
-    if(newArr.filter(v => v.id ===found.id)){
+    if (newArr.filter(v => v.id === found.id)) {
       newArr.push(found)
-    }else{
-      newArr.push({...found, quantity: found.quantity++})
+    } else {
+      newArr.push({ ...found, quantity: found.quantity++ })
     }
   })
 
