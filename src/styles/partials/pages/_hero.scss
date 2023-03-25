@@ -1,19 +1,38 @@
 #hero {
-    min-height: 100vh;
+    // width: 100wh;
+    margin-top: 10%;
     @include centered;
 
+    @include devices(xl) {
+        margin-top: 20%;
+    }
+
+    @include devices(sm) {
+        margin-top: 40%;
+    }
+
+    @include devices(xs) {
+        margin-top: 50%;
+    }
+
     .swiper {
-        @include dimension(100%, 100%);
+        // @include dimension(100%, 100%);
         @include padding-x(0.75rem, 0.75rem);
-        @include padding-y(5rem, 5rem);
+        width: 70%;
+        // @include padding-y(5rem, 5rem);
     }
 
     .swiper-pagination {
-        bottom: 30px;
+        bottom: 50px;
     }
 }
 
 .hero_wrapper {
+    margin: 10px 0;
+    background-color: rgb(237, 247, 255);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 1px 2px 10px rgb(199, 199, 199);
     position: relative;
     @include grid-cols(2, 0.4fr, 2rem);
     place-content: center;
@@ -34,20 +53,21 @@
         }
     }
 
-    @include devices(lg) {
-        grid-template-columns: 0.7fr;
-        gap: 4rem;
-    }
+    // @include devices(lg) {
+    //     grid-template-columns: 0.7fr;
+    //     gap: 2rem;
+    // }
 
-    @include devices(sm) {
-        grid-template-columns: 0.9fr;
-        gap: 2rem;
-    }
+    // @include devices(sm) {
+    //     grid-template-columns: 0.1fr;
+    //     gap: 2rem;
+    // }
 }
 
 .hero_item_txt,
 .hero_item_img {
     position: relative;
+    width: 90%;
 }
 
 .hero_item_txt {
