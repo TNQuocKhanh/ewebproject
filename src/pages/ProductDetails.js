@@ -13,8 +13,7 @@ import Services from "../components/common/Services";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { getProductById } from "../apis";
-
-import imgAsset from "../assets/product-default.png";
+import _ from 'lodash'
 
 const ProductDetails = () => {
   useDocTitle("Product Details");
@@ -45,27 +44,26 @@ const ProductDetails = () => {
   const {
     name,
     category: cate,
-    discountPercent,
     discountPrice,
     price,
     inStock,
     reviewCount,
+    mainImage, productImages=[]
   } = data;
-
-  const [previewImg, setPreviewImg] = useState(images[0]);
+  const [previewImg, setPreviewImg] = useState(_.get(productImages, '0')?.extraImage || '');
 
   const handleAddItem = () => {
-    addItem(product);
+    addItem(data);
   };
 
   useEffect(() => {
-    setPreviewImg(images[0]);
+    setPreviewImg(productImages[0]?.extraImage);
     handleActive(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [images]);
+  }, [productImages]);
 
-  const handlePreviewImg = (i) => {
-    setPreviewImg(images[i]);
+  const handlePreviewImg = (img, i) => {
+    setPreviewImg(img.extraImage);
     handleActive(i);
   };
 
@@ -84,16 +82,16 @@ const ProductDetails = () => {
           <div className="wrapper prod_details_wrapper">
             <div className="prod_details_left_col">
               <figure className="prod_details_img">
-                <img src={previewImg} alt="product-img" />
+                <img src={mainImage} alt="product-img" />
               </figure>
               <div className="prod_details_tabs">
-                {images.map((img, i) => (
+                {productImages.map((img, i) => (
                   <div
                     key={i}
                     className={`tabs_item ${activeClass(i)}`}
-                    onClick={() => handlePreviewImg(i)}
+                    onClick={() => handlePreviewImg(img, i)}
                   >
-                    <img src={img} alt="product-img" />
+                    <img src={img.extraImage} alt="product-img" />
                   </div>
                 ))}
               </div>

@@ -5,16 +5,8 @@ import { displayMoney } from "../../helpers/utils";
 import cartContext from "../../contexts/cart/cartContext";
 import useActive from "../../hooks/useActive";
 
-import imgAsset from '../../assets/product-default.png'
-
 const ProductCard = (props) => {
-  const {
-    id,
-    name,
-    discountPrice,
-    price,
-    discountPercent
-  } = props;
+  const { id, name, discountPrice, price, discountPercent, mainImage } = props;
 
   const { addItem } = useContext(cartContext);
   const { active, handleActive, activeClass } = useActive(false);
@@ -38,13 +30,13 @@ const ProductCard = (props) => {
       <div className="card products_card">
         <figure className="products_img">
           <Link to={`/product-details/${id}`}>
-            <img src={imgAsset} alt="product-img" />
+            <img src={mainImage} alt="product-img" />
           </Link>
         </figure>
         <div className="products_details">
           <span className="rating_star">
-              <IoMdStar />
-              <IoMdStar />
+            <IoMdStar />
+            <IoMdStar />
           </span>
           <h3 className="products_title">
             <Link to={`/product-detail/${id}`}>{name}</Link>

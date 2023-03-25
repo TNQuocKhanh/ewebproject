@@ -46,13 +46,27 @@ export const getProfile = async () => {
   return res.json();
 };
 
-export const signup = async ({email, password, fullName}) => {
+export const signup = async (email, password, fullName) => {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
 
   const data = JSON.stringify({ email, password, fullName });
 
   const res = await fetch(`${API_URL}/signup`, {
+    method: "POST",
+    headers,
+    body: data,
+  });
+  return res;
+}
+
+export const verifyAccount = async (code) => {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+
+  const data = JSON.stringify({code });
+
+  const res = await fetch(`${API_URL}/customer/verify`, {
     method: "POST",
     headers,
     body: data,

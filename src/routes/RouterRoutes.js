@@ -9,6 +9,7 @@ import ErrorPage from "../pages/ErrorPage";
 import CheckOutPage from "../pages/CheckOutPage";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Verify from "../pages/Verify";
 
 const RouterRoutes = () => {
   useScrollRestore();
@@ -18,6 +19,7 @@ const RouterRoutes = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/verify" element={<Verify />} />
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/all-products" element={<AllProducts />} />

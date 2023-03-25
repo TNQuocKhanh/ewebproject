@@ -8,6 +8,8 @@ import EmptyView from "../components/common/EmptyView";
 import { Link } from "react-router-dom";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
+import { storage } from "../utils";
+import _ from 'lodash'
 
 const Cart = () => {
   useDocTitle("Cart");
@@ -16,23 +18,20 @@ const Cart = () => {
 
   const cartQuantity = cartItems.length;
 
-  // total original price
   const cartTotal = cartItems.map((item) => {
-    return item.originalPrice * item.quantity;
+    return item.price * 1;
   });
 
   const calculateCartTotal = calculateTotal(cartTotal);
   const displayCartTotal = displayMoney(calculateCartTotal);
 
-  // total discount
   const cartDiscount = cartItems.map((item) => {
-    return (item.originalPrice - item.finalPrice) * item.quantity;
+    return (item.price - item.discountPrice) * 1;
   });
 
   const calculateCartDiscount = calculateTotal(cartDiscount);
   const displayCartDiscount = displayMoney(calculateCartDiscount);
 
-  // final total amount
   const totalAmount = calculateCartTotal - calculateCartDiscount;
   const displayTotalAmount = displayMoney(totalAmount);
 
@@ -52,7 +51,7 @@ const Cart = () => {
             <div className="wrapper cart_wrapper">
               <div className="cart_left_col">
                 {cartItems.map((item) => (
-                  <CartItem key={item.id} {...item} />
+                  <CartItem key={item.id} {...item} quantity={1} />
                 ))}
               </div>
 

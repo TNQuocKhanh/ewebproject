@@ -6,18 +6,19 @@ const cartReducer = (state, action) => {
 
       let updatedCartItems = null;
 
+      //updatedCartItems = [...state.cartItems, action.payload.item];
       if (itemExist) {
-        updatedCartItems = state.cartItems.map((item) => {
-          if (item.id === newItemId) {
-            return {
-              ...item,
-              quantity: item.quantity + 1,
-            };
-          }
-          return item;
-        });
+      updatedCartItems = state.cartItems.map((item) => {
+      if (item.id === newItemId) {
+      return {
+      ...item,
+      quantity: item.quantity + 1,
+      };
+      }
+      return item;
+      });
       } else {
-        updatedCartItems = [...state.cartItems, action.payload.item];
+      updatedCartItems = [...state.cartItems, action.payload.item];
       }
 
       return {
