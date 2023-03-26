@@ -17,7 +17,7 @@ import { storage } from "../../utils";
 const Header = () => {
   const { cartItems } = useContext(cartContext);
   const [isSticky, setIsSticky] = useState(false);
-  const [openCategory, setOpenCategory] = useState(false)
+  const [openCategory, setOpenCategory] = useState(false);
 
   const navigate = useNavigate();
 
@@ -55,8 +55,8 @@ const Header = () => {
 
   // Open category
   const toggleCategory = () => {
-    openCategory === false ? setOpenCategory(true) : setOpenCategory(false)
-  }
+    openCategory === false ? setOpenCategory(true) : setOpenCategory(false);
+  };
 
   useEffect(() => {
     if (storage.load("user")) {
@@ -83,38 +83,63 @@ const Header = () => {
               </button>
             </div>
             <nav className="nav_actions">
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div className="user_action" style={{ border: '1px solid black', borderRadius: '50%', color: 'var(--main-color-2)', background: 'var(--main-color)' }}>
-                  <span>
-                    <AiOutlineUser style={{ margin: '10px' }} />
-                  </span>
-                  <div className="dropdown_menu">
-                    <ul>
-                      <li>
-                        <Link to="/profile">Thông tin</Link>
-                      </li>
-                      <li>
-                        <Link to="/change-password">Đổi mật khẩu</Link>
-                      </li>
-                      <li>
-                        <Link to="/login" onClick={handleLogout}>
-                          Đăng xuất
-                        </Link>
-                      </li>
-                    </ul>
+              {userProfile?.fullName && (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <div
+                    className="user_action"
+                    style={{
+                      border: "1px solid black",
+                      borderRadius: "50%",
+                      color: "var(--main-color-2)",
+                      background: "var(--main-color)",
+                    }}
+                  >
+                    <span>
+                      <AiOutlineUser style={{ margin: "10px" }} />
+                    </span>
+                    <div className="dropdown_menu">
+                      <ul>
+                        <li>
+                          <Link to="/profile">Thông tin</Link>
+                        </li>
+                        <li>
+                          <Link to="/change-password">Đổi mật khẩu</Link>
+                        </li>
+                        <li>
+                          <Link to="/login" onClick={handleLogout}>
+                            Đăng xuất
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      padding: "0 8px",
+                    }}
+                  >
+                    <small style={{ fontSize: "0.7rem", paddingBottom: "2px" }}>
+                      Xin chào,
+                    </small>
+                    <strong style={{ fontSize: "0.8rem", paddingTop: "2 px" }}>
+                      {userProfile?.fullName}
+                    </strong>
                   </div>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', padding: '0 8px' }}>
-                  <small style={{ fontSize: '0.7rem', paddingBottom: '2px' }}>Xin chào,</small>
-                  <strong style={{ fontSize: '0.8rem', paddingTop: '2 px' }}>
-                    {userProfile?.fullName} Khanh Sky
-                  </strong>
-                </div>
-              </div>
+              )}
               <div className="cart_action">
                 <Link to="/cart">
-                  <div style={{ border: '1px solid black', borderRadius: '50%', color: 'var(--main-color)', background: 'black' }}>
-                    <AiOutlineShoppingCart style={{ margin: '10px' }} />
+                  <div
+                    style={{
+                      border: "1px solid black",
+                      borderRadius: "50%",
+                      color: "var(--main-color)",
+                      background: "black",
+                    }}
+                  >
+                    <AiOutlineShoppingCart style={{ margin: "10px" }} />
                     {cartQuantity > 0 && (
                       <span className="badge">{cartQuantity}</span>
                     )}
@@ -122,57 +147,109 @@ const Header = () => {
                 </Link>
                 <div className="tooltip">Giỏ hàng</div>
               </div>
-              {
-                // !storage.load('user') &&
-                // <div style={{ display: 'flex', alignItems: 'center' }}>
-                //   <Link to="/login">
-                //     <strong style={{ fontSize: '0.9rem' }}>Đăng nhập</strong>
-                //   </Link>
-                //   <small style={{ margin: '0 5px' }}>|</small>
-                //   <Link to="/register">
-                //     <small style={{ fontSize: '0.9rem' }}>Đăng ký </small>
-                //   </Link>
-                // </div>
-              }
+              {!userProfile?.fullName && (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <Link to="/login">
+                    <strong style={{ fontSize: "0.9rem" }}>Đăng nhập</strong>
+                  </Link>
+                  <small style={{ margin: "0 5px" }}>|</small>
+                  <Link to="/register">
+                    <small style={{ fontSize: "0.9rem" }}>Đăng ký </small>
+                  </Link>
+                </div>
+              )}
             </nav>
           </div>
         </div>
-        <div style={{ opacity: 0.2, background: 'gray', height: '1px' }}></div>
-        <div style={{ marginTop: "5px", marginBottom: '5px' }} className="navigation container">
-          <div style={{ position: 'relative' }}>
-            <div onClick={toggleCategory} style={{ display: 'flex', alignItems: 'center', background: '#ffdc8be0', padding: '8px 15px', borderRadius: '5px', cursor: 'pointer' }}>
-              <AiOutlineBars style={{ fontSize: '1.4rem', marginRight: '10px' }} />
-              <strong style={{ fontSize: '0.9rem' }}>Danh mục sản phẩm</strong>
-              <AiOutlineCaretDown style={{ fontSize: '1rem', marginLeft: '20px' }} />
+        <div style={{ opacity: 0.2, background: "gray", height: "1px" }}></div>
+        <div
+          style={{ marginTop: "5px", marginBottom: "5px" }}
+          className="navigation container"
+        >
+          <div style={{ position: "relative" }}>
+            <div
+              onClick={toggleCategory}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                background: "#ffdc8be0",
+                padding: "8px 15px",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              <AiOutlineBars
+                style={{ fontSize: "1.4rem", marginRight: "10px" }}
+              />
+              <strong style={{ fontSize: "0.9rem" }}>Danh mục sản phẩm</strong>
+              <AiOutlineCaretDown
+                style={{ fontSize: "1rem", marginLeft: "20px" }}
+              />
             </div>
-            <div hidden={openCategory ? false : true} style={{ position: 'absolute', width: '100%', borderRadius: '5px', background: 'white' }}>
-              <ul style={{ borderRadius: '10px' }}>
-                <li className="category-item" style={{ padding: '15px', display: 'flex', alignItems: 'center' }}>
-                  <AiOutlineLaptop style={{fontSize: '20px', marginRight: '10px'}} /> Laptop
+            <div
+              hidden={openCategory ? false : true}
+              style={{
+                position: "absolute",
+                width: "100%",
+                borderRadius: "5px",
+                background: "white",
+              }}
+            >
+              <ul style={{ borderRadius: "10px" }}>
+                <li
+                  className="category-item"
+                  style={{
+                    padding: "15px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <AiOutlineLaptop
+                    style={{ fontSize: "20px", marginRight: "10px" }}
+                  />{" "}
+                  Laptop
                 </li>
-                <li className="category-item" style={{ padding: '15px' }}>
-                  <AiOutlineLaptop style={{fontSize: '20px', marginRight: '10px'}} /> Phone
+                <li className="category-item" style={{ padding: "15px" }}>
+                  <AiOutlineLaptop
+                    style={{ fontSize: "20px", marginRight: "10px" }}
+                  />{" "}
+                  Phone
                 </li>
-                <li className="category-item" style={{ padding: '15px' }}>
-                  <AiOutlineLaptop style={{fontSize: '20px', marginRight: '10px'}} /> Tablet
+                <li className="category-item" style={{ padding: "15px" }}>
+                  <AiOutlineLaptop
+                    style={{ fontSize: "20px", marginRight: "10px" }}
+                  />{" "}
+                  Tablet
                 </li>
-                <li className="category-item" style={{ padding: '15px' }}>
-                  <AiOutlineLaptop style={{fontSize: '20px', marginRight: '10px'}} /> Gaming
+                <li className="category-item" style={{ padding: "15px" }}>
+                  <AiOutlineLaptop
+                    style={{ fontSize: "20px", marginRight: "10px" }}
+                  />{" "}
+                  Gaming
                 </li>
               </ul>
             </div>
           </div>
           <div>
-            <NavLink style={{ marginLeft: "15px", fontSize: '0.8rem' }} to="/">
+            <NavLink style={{ marginLeft: "15px", fontSize: "0.8rem" }} to="/">
               <strong>Trang chủ</strong>
             </NavLink>
-            <NavLink style={{ marginLeft: "15px", fontSize: '0.8rem' }} to="/cart">
+            <NavLink
+              style={{ marginLeft: "15px", fontSize: "0.8rem" }}
+              to="/cart"
+            >
               <strong>Giỏ hàng</strong>
             </NavLink>
-            <NavLink style={{ marginLeft: "15px", fontSize: '0.8rem' }} to="/all-products">
+            <NavLink
+              style={{ marginLeft: "15px", fontSize: "0.8rem" }}
+              to="/all-products"
+            >
               <strong>Sản phẩm</strong>
             </NavLink>
-            <NavLink style={{ marginLeft: "15px", fontSize: '0.8rem' }} to="/orders">
+            <NavLink
+              style={{ marginLeft: "15px", fontSize: "0.8rem" }}
+              to="/orders"
+            >
               <strong>Đơn hàng</strong>
             </NavLink>
           </div>
