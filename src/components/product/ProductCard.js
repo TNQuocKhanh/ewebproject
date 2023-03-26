@@ -34,17 +34,17 @@ const ProductCard = (props) => {
           </Link>
         </figure>
         <div className="products_details">
-          <span className="rating_star">
+          {/* <span className="rating_star">
             <IoMdStar />
             <IoMdStar />
-          </span>
+          </span> */}
           <h3 className="products_title">
             <Link to={`/product-detail/${id}`}>{name}</Link>
           </h3>
-          <div className="separator"></div>
+          {/* <div className="separator"></div> */}
           <h2 className="products_price">
             <h4 style={{ marginBottom: "5px" }}>{newPrice}</h4>
-            <small>
+            <small style={{fontWeight: '500'}}>
               <del>{oldPrice}</del> <small> -{discountPercent}%</small>
             </small>
           </h2>
