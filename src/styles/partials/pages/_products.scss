@@ -21,8 +21,11 @@
 .products_card {
     @include bordered(1px, rgba($color: #ffffff, $alpha: 0.4));
     border-radius: 3px;
-    box-shadow: 0px 5px 10px rgba($color: #000000, $alpha: 0.5);
+    box-shadow: 1px 2px 10px rgba($color: #8f8f8f, $alpha: 0.5);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     &.browse_card {
         @include centered;
@@ -42,11 +45,12 @@
 .products_img {
     background: var(--bg-color-2);
     text-align: center;
-    padding: 1rem;
+    padding: 0.5rem 0 0 0;
     overflow: hidden;
 
     img {
-        width: 70%;
+        width: 90%;
+        height: 100%;
         @include transition(transform, 0.25s, ease);
 
         &:hover {
@@ -56,11 +60,13 @@
 }
 
 .products_details {
-    padding: 1rem;
+    padding: 0.7rem;
 }
 
 .products_title {
-    @include margin-y(0.8rem, 0.4rem);
+    font-size: 0.9rem;
+    font-weight: 600;
+    @include margin-y(0.3rem, 0.8rem);
     //min-height: 50px;
 }
 
@@ -71,7 +77,7 @@
 }
 
 .products_price {
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .products_btn {

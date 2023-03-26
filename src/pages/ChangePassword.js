@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import "../styles/partials/pages/_login.scss";
+import "../styles/partials/pages/_profile.scss";
+import Header from "../components/common/Header";
+import Footer from "../components/common/Footer";
 import { FaArrowLeft } from "react-icons/fa";
 import { changePassword } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
@@ -21,37 +23,38 @@ const ChangePassword = () => {
   };
 
   return (
-    <div id="page-register">
-      <div className="back-to-home">
-        <a href="/">
-          <FaArrowLeft />
-        </a>
+    <>
+      <Header />
+      <div id="page-profile" className="container">
+        <div className="box-form-profile">
+          <form className="form-profile" onSubmit={handleSubmit}>
+            <p className="form-title">Thay đổi mật khẩu</p>
+            <div className="row-form-field">
+              <label>Mật khẩu cũ</label>
+              <input
+                placeholder="Nhập mật khẩu cũ"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div className="row-form-field">
+              <label>Mật khẩu mới</label>
+              <input
+                placeholder="Nhập mật khẩu mới"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                type="text"
+              ></input>
+            </div>
+            <div className="row-form">
+              <button>Xác thực</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div className="box-form-login-page">
-        <form className="form-login" onSubmit={handleSubmit}>
-          <p className="form-title">Thay doi mat khau</p>
-          <div className="row-form-field">
-            <label>Mat khau cu</label>
-            <input
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
-              type="text"
-            ></input>
-          </div>
-          <div className="row-form-field">
-            <label>Mat khau moi</label>
-            <input
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              type="text"
-            ></input>
-          </div>
-          <div className="row-form">
-            <button>Xác thực</button>
-          </div>
-        </form>
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
