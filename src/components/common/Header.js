@@ -97,7 +97,7 @@ const Header = () => {
                         <Link to="/change-password">Đổi mật khẩu</Link>
                       </li>
                       <li>
-                        <Link to="/logout" onClick={handleLogout}>
+                        <Link to="/login" onClick={handleLogout}>
                           Đăng xuất
                         </Link>
                       </li>

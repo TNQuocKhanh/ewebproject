@@ -3,7 +3,7 @@ import "../styles/partials/pages/_login.scss";
 import { FaArrowLeft } from "react-icons/fa";
 import { login, signinLogin } from "../apis";
 import { storage } from "../utils";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Login = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -91,7 +91,9 @@ const Login = () => {
           </div>
         </form>
         <div className="row-form">
-        <button onClick={handleSigninGoogle}>Dang nhap voi Google</button>
+          <Link to={'http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000'}>
+Dang nhap voi Google
+          </Link>
         </div>
       </div>
     </div>
