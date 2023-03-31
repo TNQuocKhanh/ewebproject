@@ -1,4 +1,3 @@
-import { storage } from "../utils";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const getListProducts = async () => {
@@ -22,3 +21,14 @@ export const getProductById = async (id) => {
   });
   return res.json();
 };
+
+export const getListCategories = async () => {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+
+  const res = await fetch(`${API_URL}/categories`, {
+    method: "GET",
+    headers,
+  });
+  return res.json();
+}

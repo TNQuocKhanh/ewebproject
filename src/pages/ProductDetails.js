@@ -13,7 +13,7 @@ import Services from "../components/common/Services";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { getProductById } from "../apis";
-import _ from 'lodash'
+import _ from "lodash";
 
 const ProductDetails = () => {
   useDocTitle("Product Details");
@@ -48,17 +48,20 @@ const ProductDetails = () => {
     price,
     inStock,
     reviewCount,
-    mainImage, productImages=[]
+    mainImage,
+    productImages = [],
   } = data;
-  const [previewImg, setPreviewImg] = useState(_.get(productImages, '0')?.extraImage || '');
+  const [previewImg, setPreviewImg] = useState(
+    _.get(productImages, "0")?.extraImage || ""
+  );
 
   const handleAddItem = () => {
     const _data = {
       id: data.id,
       name: data.name,
       price: data.discountPrice,
-      quantity: 1
-    }
+      quantity: 1,
+    };
     addItem(_data);
   };
 
@@ -72,7 +75,6 @@ const ProductDetails = () => {
     setPreviewImg(img.extraImage);
     handleActive(i);
   };
-
   // calculating Prices
   const discountedPrice = price - discountPrice;
   const newPrice = displayMoney(discountPrice);
@@ -88,7 +90,7 @@ const ProductDetails = () => {
           <div className="wrapper prod_details_wrapper">
             <div className="prod_details_left_col">
               <figure className="prod_details_img">
-                <img src={mainImage} alt="product-img" />
+                <img src={previewImg} alt="product-img" />
               </figure>
               <div className="prod_details_tabs">
                 {productImages.map((img, i) => (
@@ -157,13 +159,6 @@ const ProductDetails = () => {
 
       <ProductSummary {...product} />
 
-      <section id="related_products" className="section">
-        <div className="container">
-          <SectionsHead heading="Sản phẩm liên quan" />
-          <RelatedSlider category={category} />
-        </div>
-      </section>
-
       <Services />
       <Footer />
     </>
@@ -171,3 +166,9 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+//<section id="related_products" className="section">
+//<div className="container">
+//<SectionsHead heading="Sản phẩm liên quan" />
+//<RelatedSlider category={category} />
+//</div>
+//</section>

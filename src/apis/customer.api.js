@@ -33,8 +33,8 @@ export const logout = async () => {
 
 export const getProfile = async () => {
   const user = storage.load("user");
-  const token = user?.accessToken;
-
+  const token = user.accessToken
+  
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Authorization", `Bearer ${token}`);
@@ -134,7 +134,7 @@ export const changePassword = async (oldPassword, changePassword) => {
 };
 
 export const updatePhoto = async (data) => {
-  const auth = storage.load('auth')
+  const auth = storage.load('user')
   const token = auth.accessToken
 
   const headers = new Headers();
@@ -151,3 +151,19 @@ export const updatePhoto = async (data) => {
   return res.json();
 }
 
+export const updateProfile  =async (data) => {
+  const auth = storage.load('user')
+  const token = auth.accessToken
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const res = await fetch(`${API_URL}/customer/profile`, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(data) 
+  });
+
+  return res.json();
+}

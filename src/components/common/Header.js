@@ -11,13 +11,24 @@ import {
 } from "react-icons/ai";
 import cartContext from "../../contexts/cart/cartContext";
 import SearchBar from "./SearchBar";
-import { getProfile, logout } from "../../apis";
+import { getListCategories, getProfile, logout } from "../../apis";
 import { storage } from "../../utils";
 
 const Header = () => {
   const { cartItems } = useContext(cartContext);
   const [isSticky, setIsSticky] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);
+
+  const [categoryList, setCategoryList] = useState([]);
+
+  const getAllCategory = async () => {
+    try {
+      const res = await getListCategories();
+      setCategoryList(res);
+    } catch (e) {
+      console.log("===Error");
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -39,7 +50,6 @@ const Header = () => {
 
   const handleLogout = async () => {
     const res = await logout();
-    console.log("===res", res);
     if (res.status === 200) {
       storage.remove("user");
     }
@@ -62,6 +72,7 @@ const Header = () => {
     if (storage.load("user")) {
       getUserProfile();
     }
+    getAllCategory();
   }, []);
 
   return (
@@ -196,37 +207,14 @@ const Header = () => {
               }}
             >
               <ul style={{ borderRadius: "10px" }}>
-                <li
-                  className="category-item"
-                  style={{
-                    padding: "15px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <AiOutlineLaptop
-                    style={{ fontSize: "20px", marginRight: "10px" }}
-                  />{" "}
-                  Laptop
-                </li>
-                <li className="category-item" style={{ padding: "15px" }}>
-                  <AiOutlineLaptop
-                    style={{ fontSize: "20px", marginRight: "10px" }}
-                  />{" "}
-                  Phone
-                </li>
-                <li className="category-item" style={{ padding: "15px" }}>
-                  <AiOutlineLaptop
-                    style={{ fontSize: "20px", marginRight: "10px" }}
-                  />{" "}
-                  Tablet
-                </li>
-                <li className="category-item" style={{ padding: "15px" }}>
-                  <AiOutlineLaptop
-                    style={{ fontSize: "20px", marginRight: "10px" }}
-                  />{" "}
-                  Gaming
-                </li>
+                {categoryList.map((it) => (
+                  <li className="category-item" style={{ padding: "15px" }}>
+                    <AiOutlineLaptop
+                      style={{ fontSize: "20px", marginRight: "10px" }}
+                    />
+                    {it.name}{" "}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

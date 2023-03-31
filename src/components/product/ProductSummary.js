@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import reviewsData from "../../data/reviewsData";
 import useActive from "../../hooks/useActive";
 import ProductReviews from "./ProductReviews";
+import { FormControl, InputLabel, Input, Rating } from "@mui/material";
 
 const ProductSummary = (props) => {
   const { brand, title, info, category, type, connectivity } = props;
 
   const { active, handleActive, activeClass } = useActive("specs");
 
+  const [value, setValue] = useState(1);
+
+  console.log('===value', value)
+
   return (
     <>
       <section id="product_summary" className="section">
         <div className="container">
-          {/*===== Product-Summary-Tabs =====*/}
           <div className="prod_summary_tabs">
             <ul className="tabs">
               <li
@@ -36,7 +40,6 @@ const ProductSummary = (props) => {
             </ul>
           </div>
 
-          {/*===== Product-Summary-Details =====*/}
           <div className="prod_summary_details">
             {active === "specs" ? (
               <div className="prod_specs">
@@ -94,6 +97,19 @@ const ProductSummary = (props) => {
               </div>
             ) : (
               <div className="prod_reviews">
+                <div>
+                  <FormControl>
+                    <InputLabel htmlFor="my-input">Noi dung</InputLabel>
+                    <Input id="my-input" aria-describedby="my-helper-text" />
+                    <Rating
+                      name="simple-controlled"
+                      value={value}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                    />
+                  </FormControl>
+                </div>
                 <ul>
                   {reviewsData.map((item) => (
                     <ProductReviews key={item.id} {...item} />

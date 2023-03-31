@@ -23,7 +23,6 @@ const CartItem = (props) => {
           <div className="cart_item_head">
             <h4 className="cart_item_title">
               {name}
-              Máy tính xách tay
             </h4>
             <QuantityBox itemId={id} itemQuantity={quantity} />
             <div className="cart_item_del">

@@ -1,11 +1,12 @@
 // Display Money in Indian Format
 export const displayMoney = (n) => {
-  const numFormat = new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "VND",
-  });
+  return n
+  //const numFormat = new Intl.NumberFormat("en-IN", {
+    //style: "currency",
+    //currency: "VND",
+  //});
 
-  return numFormat.format(n).split(".", 1);
+  //return numFormat.format(n).split(".", 1);
 };
 
 // Calculate Discount Percentage

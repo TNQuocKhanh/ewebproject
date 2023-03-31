@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import HeroSlider from "../components/sliders/HeroSlider";
 import FeaturedSlider from "../components/sliders/FeaturedSlider";
 import SectionsHead from "../components/common/SectionsHead";
@@ -6,8 +6,27 @@ import TopProducts from "../components/product/TopProducts";
 import Services from "../components/common/Services";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
+import { storage } from "../utils";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const [isHasToken, setIsHasToken] = useState(false);
+  const navigate = useNavigate();
+
+  const url = window.location.search;
+  const urlParams = new URLSearchParams(url);
+
+  if (urlParams.has("token")) {
+    const token = urlParams.get("token");
+
+    storage.save("user", { accessToken: token });
+    setIsHasToken(true);
+  }
+
+  if (isHasToken) {
+    navigate("/");
+  }
+
   return (
     <main>
       <Header />
