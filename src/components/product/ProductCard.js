@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { IoMdStar } from "react-icons/io";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { displayMoney } from "../../helpers/utils";
 import cartContext from "../../contexts/cart/cartContext";
+import ToastAddProduct from "./ToastAddProduct"
 import useActive from "../../hooks/useActive";
 
 const ProductCard = (props) => {
@@ -10,6 +10,9 @@ const ProductCard = (props) => {
 
   const { addItem } = useContext(cartContext);
   const { active, handleActive, activeClass } = useActive(false);
+  const [openToast, setOpenToast] = useState(false)
+
+  console.log(openToast)
 
   const handleAddItem = () => {
     const item = { ...props };
@@ -17,16 +20,24 @@ const ProductCard = (props) => {
 
     handleActive(id);
 
+    toastAdd()
+
     setTimeout(() => {
       handleActive(false);
+      setOpenToast(false)
     }, 3000);
   };
+
+  const toastAdd = () => {
+    setOpenToast(true)
+  }
 
   const newPrice = displayMoney(discountPrice);
   const oldPrice = displayMoney(price);
 
   return (
     <>
+      {openToast === true && <ToastAddProduct />}
       <div className="card products_card">
         <figure className="products_img">
           <Link to={`/product-details/${id}`}>
@@ -44,7 +55,7 @@ const ProductCard = (props) => {
           {/* <div className="separator"></div> */}
           <h2 className="products_price">
             <h4 style={{ marginBottom: "5px" }}>{newPrice}</h4>
-            <small style={{fontWeight: '500'}}>
+            <small style={{ fontWeight: '500' }}>
               <del>{oldPrice}</del> <small> -{discountPercent}%</small>
             </small>
           </h2>

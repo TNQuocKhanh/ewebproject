@@ -28,7 +28,7 @@ const Verify = () => {
         </a>
       </div>
       <div className="box-img-login-page">
-        <img src="https://cdn.dribbble.com/users/1040516/screenshots/14598364/media/b664b20ff7f8b82c667c450517fc629c.png?compress=1&resize=1000x750&vertical=top"></img>
+        <img src="https://img.freepik.com/free-vector/enter-otp-concept-illustration_114360-7887.jpg?w=740&t=st=1680333161~exp=1680333761~hmac=65f91748b038e0de266961794a312f6e8868d5c1ef433f466118f4a19529f2e1"></img>
       </div>
       <div className="box-form-login-page" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
         <form className="form-login" onSubmit={handleSubmit}>

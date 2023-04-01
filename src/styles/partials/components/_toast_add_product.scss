@@ -1,0 +1,10 @@
+.toast-add-product {
+    animation-name: example;
+    animation-duration: 0.2s;
+}
+
+@keyframes example {
+    0% {
+        right: -100px;
+    }
+}

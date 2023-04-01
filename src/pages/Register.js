@@ -34,7 +34,7 @@ const Register = () => {
         <div>
           <h2>Chào mừng bạn đến với HDK Shop</h2>
         </div>
-        <img src="https://global-uploads.webflow.com/5fd1e27d738df312147555e1/5ffcc4982f5eb04582ea5200_Mask%20Group.svg"></img>
+        <img src="https://img.freepik.com/free-vector/sign-up-concept-illustration_114360-7885.jpg?w=740&t=st=1680333360~exp=1680333960~hmac=720947a276467d95c3783f1a254f7a5bee7169d4be939398ea56fad53c3d9ca4"></img>
       </div>
       <div className="box-form-login-page">
         <form className="form-login" onSubmit={handleSubmit}>

@@ -13,6 +13,7 @@ import Verify from "../pages/Verify";
 import ForgotPassword from "../pages/ForgotPassword";
 import ChangePassword from "../pages/ChangePassword"
 import Profile from "../pages/Profile";
+import NewPassword from "../pages/NewPassword";
 import {Order} from "../pages/Order";
 
 const RouterRoutes = () => {
@@ -24,6 +25,7 @@ const RouterRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/new-password" element={<NewPassword />} />
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/verify" element={<Verify />} />
