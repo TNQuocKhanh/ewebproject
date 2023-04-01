@@ -12,7 +12,11 @@ import ProductSummary from "../components/product/ProductSummary";
 import Services from "../components/common/Services";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
-import { getProductById } from "../apis";
+import {
+  getProductById,
+  getReviewByCustomer,
+  getReviewByProductId,
+} from "../apis";
 import _ from "lodash";
 
 const ProductDetails = () => {
@@ -35,8 +39,20 @@ const ProductDetails = () => {
     setData(res);
   };
 
+  const getListReview = async () => {
+    const res = await getReviewByProductId(productId);
+    console.log("===data", res);
+  };
+
+  const getReviewByUser = async () => {
+    const res = await getReviewByCustomer(productId);
+    console.log("===res", res);
+  };
+
   useEffect(() => {
     getProductDetail();
+    getListReview();
+    getReviewByUser()
   }, []);
 
   const { images, category } = product;

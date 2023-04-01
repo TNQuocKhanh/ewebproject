@@ -28,3 +28,34 @@ export const createReview = async (productId, data) => {
   });
   return res.json();
 }
+
+export const updateReview = async(productId, reviewId, data) => {
+  const user = storage.load('user')
+  const token = user.accessToken
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const res = await fetch(`${API_URL}/${productId}/review/${reviewId}`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data)
+  });
+  return res.json();
+}
+
+export const getReviewByCustomer = async (productId) => {
+  const user = storage.load('user')
+  const token = user.accessToken
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const res = await fetch(`${API_URL}/reviewByCustomer/${productId}`, {
+    method: "GET",
+    headers,
+  });
+  return res.json();
+}

@@ -10,7 +10,6 @@ import { storage } from "../utils";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [isHasToken, setIsHasToken] = useState(false);
   const navigate = useNavigate();
 
   const url = window.location.search;
@@ -20,11 +19,7 @@ const Home = () => {
     const token = urlParams.get("token");
 
     storage.save("user", { accessToken: token });
-    setIsHasToken(true);
-  }
-
-  if (isHasToken) {
-    navigate("/");
+    //navigate('/')
   }
 
   return (

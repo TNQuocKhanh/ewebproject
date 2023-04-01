@@ -126,14 +126,6 @@ const Profile = () => {
               ></input>
             </div>
             <div className="row-form-field">
-              <label>Số điện thoại</label>
-              <input
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                type="text"
-              ></input>
-            </div>
-            <div className="row-form-field">
               <label>Địa chỉ giao hàng</label>
               <select>
                 <option>Số 1, Võ Văn Ngân</option>
