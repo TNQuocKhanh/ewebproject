@@ -33,6 +33,7 @@ const ProductDetails = () => {
   const product = productsData.find((item) => item.id === prodId);
 
   const [data, setData] = useState({});
+const [listReview, setListReview] = useState([])
 
   const getProductDetail = async () => {
     const res = await getProductById(productId);
@@ -41,7 +42,7 @@ const ProductDetails = () => {
 
   const getListReview = async () => {
     const res = await getReviewByProductId(productId);
-    console.log("===data", res);
+  setListReview(res)
   };
 
   const getReviewByUser = async () => {
@@ -55,8 +56,6 @@ const ProductDetails = () => {
     getReviewByUser()
   }, []);
 
-  const { images, category } = product;
-
   const {
     name,
     category: cate,
@@ -66,6 +65,7 @@ const ProductDetails = () => {
     reviewCount,
     mainImage,
     productImages = [],
+    customerCanReview,
   } = data;
   const [previewImg, setPreviewImg] = useState(
     _.get(productImages, "0")?.extraImage || ""
@@ -173,9 +173,8 @@ const ProductDetails = () => {
         </div>
       </section>
 
-      <ProductSummary {...product} />
+      <ProductSummary customerCanReview={customerCanReview} listReview={listReview} {...product} />
 
-      <Services />
       <Footer />
     </>
   );

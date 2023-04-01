@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import reviewsData from "../../data/reviewsData";
+import React, { useEffect, useState } from "react";
 import useActive from "../../hooks/useActive";
 import ProductReviews from "./ProductReviews";
 import { Rating } from "@mui/material";
@@ -7,7 +6,16 @@ import { useParams } from "react-router-dom";
 import { createReview } from "../../apis/product-review.api";
 
 const ProductSummary = (props) => {
-  const { brand, title, info, category, type, connectivity } = props;
+  const {
+    brand,
+    title,
+    info,
+    category,
+    type,
+    connectivity,
+    listReview,
+    customerCanReview,
+  } = props;
   const { active, handleActive, activeClass } = useActive("specs");
 
   const params = useParams();
@@ -24,7 +32,7 @@ const ProductSummary = (props) => {
       console.log("===Err", e);
     }
   };
-
+  console.log("====loist", listReview);
   return (
     <>
       <section id="product_summary" className="section">
@@ -100,59 +108,91 @@ const ProductSummary = (props) => {
                   </b>{" "}
                   which offers you with fabulous music experience by providing
                   you with awesome sound quality that you can never move on
-                  from. Enjoy perfect flexibility and mobility with amazing
-                  musical quality with these {category} giving you a truly
-                  awesome audio experience. It blends with exceptional sound
-                  quality and a range of smart features for an unrivalled
-                  listening experience.
                 </p>
               </div>
             ) : (
               <div className="prod_reviews">
-                <div>
-                  <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleSubmit}>
-                    <h3 style={{ marginBottom: '30px' }}>Đánh giá sản phẩm</h3>
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <img style={{ borderRadius: '50%', width: '50px' }} alt="#" src='https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png' />
-                        <div style={{ marginLeft: '10px' }}>
-                          <h5 style={{ marginBottom: '5px' }}>Hải đại ca</h5>
-                          <small>01-04-2023 9:50AM</small>
+                {customerCanReview && (
+                  <div>
+                    <form
+                      style={{ display: "flex", flexDirection: "column" }}
+                      onSubmit={handleSubmit}
+                    >
+                      <h3 style={{ marginBottom: "30px" }}>
+                        Đánh giá sản phẩm
+                      </h3>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "20px",
+                        }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <img
+                            style={{ borderRadius: "50%", width: "50px" }}
+                            alt="#"
+                            src="https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png"
+                          />
+                          <div style={{ marginLeft: "10px" }}>
+                            <h5 style={{ marginBottom: "5px" }}>Hải đại ca</h5>
+                            <small>01-04-2023 9:50AM</small>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', fontSize: '20px' }}>
-                      <h5 style={{ marginRight: '10px' }}>Chọn đánh giá:</h5>
-                      <Rating
-                        name="simple-controlled"
-                        value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "20px",
+                          fontSize: "20px",
+                        }}
+                      >
+                        <h5 style={{ marginRight: "10px" }}>Chọn đánh giá:</h5>
+                        <Rating
+                          name="simple-controlled"
+                          value={value}
+                          onChange={(event, newValue) => {
+                            setValue(newValue);
+                          }}
+                        />
+                      </div>
+                      <textarea
+                        placeholder="Viết đánh giá"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        style={{
+                          minHeight: "100px",
+                          border: "1px solid #cccccc",
+                          borderRadius: "5px",
+                          fontSize: "16px",
+                          padding: "15px",
                         }}
                       />
-                    </div>
-                    <textarea
-                      placeholder="Viết đánh giá"
-                      value={comment}
-                      onChange={(e) => setComment(e.target.value)}
-                      style={{
-                        minHeight: '100px',
-                        border: "1px solid #cccccc",
-                        borderRadius: '5px',
-                        fontSize: '16px',
-                        padding: '15px'
-                      }}
-                    />
-                    <button style={{ background: 'var(--main-color)', width: '150px', padding: '15px 10px', margin: '20px 0', borderRadius: '10px' }} type="submit">
-                      <strong style={{ fontSize: '14px', color: 'white' }}>Gửi đánh giá</strong>
-                    </button>
-                  </form>
-                </div>
+                      <button
+                        style={{
+                          background: "var(--main-color)",
+                          width: "150px",
+                          padding: "15px 10px",
+                          margin: "20px 0",
+                          borderRadius: "10px",
+                        }}
+                        type="submit"
+                      >
+                        <strong style={{ fontSize: "14px", color: "white" }}>
+                          Gửi đánh giá
+                        </strong>
+                      </button>
+                    </form>
+                  </div>
+                )}
 
                 <div>
-                <h3 style={{ margin: '30px 0' }}>Đánh giá trước đó (10)</h3>
+                  <h3
+                    style={{ margin: "30px 0" }}
+                  >{`Đánh giá trước đó (${listReview.length})`}</h3>
                   <ul>
-                    {reviewsData.map((item) => (
+                    {listReview.map((item) => (
                       <ProductReviews key={item.id} {...item} />
                     ))}
                   </ul>

@@ -12,8 +12,6 @@ const ProductCard = (props) => {
   const { active, handleActive, activeClass } = useActive(false);
   const [openToast, setOpenToast] = useState(false)
 
-  console.log(openToast)
-
   const handleAddItem = () => {
     const item = { ...props };
     addItem(item);

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Card } from "@mui/material";
 import { getListOrders } from "../apis";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
@@ -8,7 +9,7 @@ export const Order = () => {
 
   const getAllOrders = async () => {
     const res = await getListOrders();
-    console.log("====", res);
+    setOrders(res)
   };
 
   useEffect(() => {
@@ -18,7 +19,28 @@ export const Order = () => {
   return (
     <>
       <Header />
-      <div>Orders</div>
+      <div
+        className="container"
+        style={{
+          margin: "13rem auto 0 auto",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        {orders.map((it, idx) => {
+          return (
+            <Card key={idx} variant="outlined">
+            <div>{it.orderTime}</div>
+            <div>{it.paymentMethod}</div>
+            <div>{it.total}</div>
+            </Card>
+          )
+        })
+        }
+          </div>
+    <Footer />
     </>
   );
 };

@@ -15,6 +15,7 @@ import ChangePassword from "../pages/ChangePassword"
 import Profile from "../pages/Profile";
 import NewPassword from "../pages/NewPassword";
 import {Order} from "../pages/Order";
+import { PaymentInfo } from "../pages/PaymentInfo";
 
 const RouterRoutes = () => {
   useScrollRestore();
@@ -38,6 +39,7 @@ const RouterRoutes = () => {
         />
         <Route path="/checkout" element={<CheckOutPage />} />
         <Route path="/orders" element={<Order />} />
+        <Route path="/payment-information" element={<PaymentInfo />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>

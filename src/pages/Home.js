@@ -7,11 +7,8 @@ import Services from "../components/common/Services";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { storage } from "../utils";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const navigate = useNavigate();
-
   const url = window.location.search;
   const urlParams = new URLSearchParams(url);
 
@@ -19,7 +16,7 @@ const Home = () => {
     const token = urlParams.get("token");
 
     storage.save("user", { accessToken: token });
-    //navigate('/')
+    window.location.replace("/");
   }
 
   return (

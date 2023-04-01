@@ -207,8 +207,8 @@ const Header = () => {
               }}
             >
               <ul style={{ borderRadius: "10px" }}>
-                {categoryList.map((it) => (
-                  <li className="category-item" style={{ padding: "15px" }}>
+                {categoryList.map((it, idx) => (
+                  <li key={idx} className="category-item" style={{ padding: "15px" }}>
                     <AiOutlineLaptop
                       style={{ fontSize: "20px", marginRight: "10px" }}
                     />

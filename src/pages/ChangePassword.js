@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../styles/partials/pages/_profile.scss";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
-import { FaArrowLeft } from "react-icons/fa";
 import { changePassword } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
 

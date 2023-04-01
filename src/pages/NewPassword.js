@@ -1,27 +1,27 @@
 import React, { useState } from "react";
 import "../styles/partials/pages/_login.scss";
 import { FaArrowLeft } from "react-icons/fa";
-import { login } from "../apis";
-import { storage } from "../utils";
+import { createNewPassword, login } from "../apis";
 import { Link, useNavigate } from "react-router-dom";
 
 const NewPassword = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
+  const email = localStorage.getItem('email')
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await login(email, password);
+    const res = await createNewPassword(email, password);
 
     if (res.status === 200) {
       const data = await res.json();
-      storage.save("user", data);
-      navigate("/");
+      localStorage.removeItem('email')
+      navigate('/login')
     } else {
-      console.log("===Login error");
+      console.log("===Chaneg new password error");
     }
   };
 

@@ -52,3 +52,21 @@ export const createPayment = async (value) => {
   });
   return res;
 };
+
+export const createPaymentInfo = async (value) => {
+  const user = storage.load("user");
+  const token = user.accessToken;
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const data = JSON.stringify(value);
+
+  const res = await fetch(`${API_URL}/payment-information`, {
+    method: "POST",
+    headers,
+    body: data,
+  });
+  return res;
+};
