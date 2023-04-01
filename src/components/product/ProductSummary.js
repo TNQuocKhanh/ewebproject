@@ -110,30 +110,53 @@ const ProductSummary = (props) => {
             ) : (
               <div className="prod_reviews">
                 <div>
-                  <form onSubmit={handleSubmit}>
-                    <label>Noi dung</label>
-                    <input
+                  <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleSubmit}>
+                    <h3 style={{ marginBottom: '30px' }}>Đánh giá sản phẩm</h3>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <img style={{ borderRadius: '50%', width: '50px' }} alt="#" src='https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png' />
+                        <div style={{ marginLeft: '10px' }}>
+                          <h5 style={{ marginBottom: '5px' }}>Hải đại ca</h5>
+                          <small>01-04-2023 9:50AM</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', fontSize: '20px' }}>
+                      <h5 style={{ marginRight: '10px' }}>Chọn đánh giá:</h5>
+                      <Rating
+                        name="simple-controlled"
+                        value={value}
+                        onChange={(event, newValue) => {
+                          setValue(newValue);
+                        }}
+                      />
+                    </div>
+                    <textarea
+                      placeholder="Viết đánh giá"
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
                       style={{
-                        border: "1px solid #000",
+                        minHeight: '100px',
+                        border: "1px solid #cccccc",
+                        borderRadius: '5px',
+                        fontSize: '16px',
+                        padding: '15px'
                       }}
                     />
-                    <Rating
-                      name="simple-controlled"
-                      value={value}
-                      onChange={(event, newValue) => {
-                        setValue(newValue);
-                      }}
-                    />
-                    <button type="submit">OK</button>
+                    <button style={{ background: 'var(--main-color)', width: '150px', padding: '15px 10px', margin: '20px 0', borderRadius: '10px' }} type="submit">
+                      <strong style={{ fontSize: '14px', color: 'white' }}>Gửi đánh giá</strong>
+                    </button>
                   </form>
                 </div>
-                <ul>
-                  {reviewsData.map((item) => (
-                    <ProductReviews key={item.id} {...item} />
-                  ))}
-                </ul>
+
+                <div>
+                <h3 style={{ margin: '30px 0' }}>Đánh giá trước đó (10)</h3>
+                  <ul>
+                    {reviewsData.map((item) => (
+                      <ProductReviews key={item.id} {...item} />
+                    ))}
+                  </ul>
+                </div>
               </div>
             )}
           </div>

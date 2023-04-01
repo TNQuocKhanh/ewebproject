@@ -5,7 +5,7 @@ import { login } from "../apis";
 import { storage } from "../utils";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const NewPassword = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,25 +33,22 @@ const Login = () => {
         </a>
       </div>
       <div className="box-img-login-page">
-        <div>
-          <h2>Chào mừng bạn đến với HDK Shop</h2>
-        </div>
-        <img src="https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7883.jpg?w=2000" alt="logo"></img>
+        <img src="https://img.freepik.com/free-vector/reset-password-concept-illustration_114360-7886.jpg?w=740&t=st=1680333764~exp=1680334364~hmac=0efde700efa8748b58c32ce13fcacde3bccdabbc0bb657a7acbc208800ec4c2a" alt="logo"></img>
       </div>
       <div className="box-form-login-page">
         <form className="form-login" onSubmit={handleSubmit}>
-          <p className="form-title">Đăng nhập</p>
+          <p className="form-title">Tạo mới mật khẩu</p>
           <div className="row-form-field">
-            <label>Email</label>
+            <label>Mật khẩu mới</label>
             <input
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              placeholder="Nhập email"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              type={isShowPassword ? "text" : "password"}
+              placeholder="Nhập mật khẩu"
             ></input>
           </div>
           <div className="row-form-field">
-            <label>Mật khẩu</label>
+            <label>Nhập lại mật khẩu mới</label>
             <input
               onChange={(e) => setPassword(e.target.value)}
               value={password}
@@ -67,37 +64,7 @@ const Login = () => {
             <label>Hiển thị mật khẩu</label>
           </div>
           <div className="row-form">
-            <button type="submit">Đăng nhập</button>
-          </div>
-          <div className="row-form">
-            <p>Hoặc</p>
-          </div>
-          <div className="row-form-google">
-            <Link
-              to={
-                "http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000"
-              }
-            >
-              <img
-                src="https://i.pinimg.com/originals/74/65/f3/7465f30319191e2729668875e7a557f2.png"
-                alt="GG-icon"
-                width={30}
-              />
-              <span>Đăng nhập với Google</span>
-            </Link>
-          </div>
-          <div className="row-form">
-            <a className="form-link" href="/forgot-password">
-              Quên mật khẩu?
-            </a>
-          </div>
-          <div className="row-form">
-            <span>
-              Chưa có tài khoản?
-              <a className="form-link" href="/register">
-                Đăng ký
-              </a>
-            </span>
+            <button type="submit">Lưu mật khẩu</button>
           </div>
         </form>
       </div>
@@ -105,4 +72,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default NewPassword;

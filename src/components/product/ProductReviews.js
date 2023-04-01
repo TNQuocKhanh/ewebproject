@@ -9,21 +9,24 @@ const ProductReviews = (props) => {
       <li>
         <div className="user_info">
           <img
-            src="https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png"
+            style={{ width: '50px', height: '50px' }}
+            src="https://galaxylands.com.vn/wp-content/uploads/2022/10/tieu-su-ca-si-mono-17.jpg"
             alt="user-img"
           />
           <div>
-            <h4>{name}</h4>
-            <div className="user_ratings">
-              <span className="rating_star">
-                {[...Array(rateCount)].map((_, i) => (
-                  <IoMdStar key={i} />
-                ))}
-              </span>
-              <span>|</span>
-              <span className="date">{date}</span>
+            <div style={{ marginLeft: '5px' }}>
+              <h5 style={{ marginBottom: '5px' }}>{name}</h5>
+              <small>01-04-2023</small>
             </div>
           </div>
+        </div>
+        <div style={{margin: '10px 0', display: 'flex', alignItems: 'center'}} className="user_ratings">
+          <span className="rating_star" style={{marginRight: '10px'}}>
+            {[...Array(rateCount)].map((_, i) => (
+              <IoMdStar style={{ color: 'var(--main-color)' }} key={i} />
+            ))}
+          </span>
+          <small className="date">2 giờ trước</small>
         </div>
         <p className="user_review">{review}</p>
       </li>

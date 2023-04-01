@@ -9,13 +9,13 @@ const ForgotPassword = () => {
 
   const navigate = useNavigate()
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     localStorage.setItem('email', email)
-    console.log('===', email) 
+    console.log('===', email)
     const res = await forgotPassword(email)
 
-    if(res.status === 200){
+    if (res.status === 200) {
       navigate('/verify')
     }
   }
@@ -28,29 +28,30 @@ const ForgotPassword = () => {
         </a>
       </div>
       <div className="box-img-login-page">
-        <img src="https://global-uploads.webflow.com/5fd1e27d738df312147555e1/5ffcc4982f5eb04582ea5200_Mask%20Group.svg"></img>
+        <img style={{transformX: 'scale(-1)'}} src="https://img.freepik.com/free-vector/forgot-password-concept-illustration_114360-4652.jpg?w=740&t=st=1680333213~exp=1680333813~hmac=85d02f6726baf9ef1126eba8e17f20337f95118f154a63bd743d067bfa061800"></img>
       </div>
       <div className="box-form-login-page">
         <form className="form-login" onSubmit={handleSubmit}>
-          <p style={{ textAlign: "center" }}>
-            Vui lòng kiểm tra email để thay doi mat khau 
+          <p style={{ textAlign: "center", padding: '20px' }}>
+            Vui lòng kiểm tra Email trước khi gửi
           </p>
-          <p className="form-title">Quen mat khau</p>
+          <p className="form-title">Quên mật khẩu</p>
           <div className="row-form-field">
-            <label>Nhap email</label>
+            <label>Nhập email</label>
             <input
+              placeholder="Vui lòng nhập email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="text"
             ></input>
           </div>
           <div className="row-form">
-            <button>Xác nhan</button>
+            <button>Xác nhận</button>
           </div>
         </form>
       </div>
     </div>
   );
- }
+}
 
 export default ForgotPassword
