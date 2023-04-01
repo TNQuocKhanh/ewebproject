@@ -2,16 +2,28 @@ import React, { useState } from "react";
 import reviewsData from "../../data/reviewsData";
 import useActive from "../../hooks/useActive";
 import ProductReviews from "./ProductReviews";
-import { FormControl, InputLabel, Input, Rating } from "@mui/material";
+import { Rating } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { createReview } from "../../apis/product-review.api";
 
 const ProductSummary = (props) => {
   const { brand, title, info, category, type, connectivity } = props;
-
   const { active, handleActive, activeClass } = useActive("specs");
 
-  const [value, setValue] = useState(1);
+  const params = useParams();
+  const { productId } = params;
 
-  console.log('===value', value)
+  const [value, setValue] = useState(1);
+  const [comment, setComment] = useState();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await createReview(productId, { comment, rating: value });
+    } catch (e) {
+      console.log("===Err", e);
+    }
+  };
 
   return (
     <>
@@ -98,9 +110,15 @@ const ProductSummary = (props) => {
             ) : (
               <div className="prod_reviews">
                 <div>
-                  <FormControl>
-                    <InputLabel htmlFor="my-input">Noi dung</InputLabel>
-                    <Input id="my-input" aria-describedby="my-helper-text" />
+                  <form onSubmit={handleSubmit}>
+                    <label>Noi dung</label>
+                    <input
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                      style={{
+                        border: "1px solid #000",
+                      }}
+                    />
                     <Rating
                       name="simple-controlled"
                       value={value}
@@ -108,7 +126,8 @@ const ProductSummary = (props) => {
                         setValue(newValue);
                       }}
                     />
-                  </FormControl>
+                    <button type="submit">OK</button>
+                  </form>
                 </div>
                 <ul>
                   {reviewsData.map((item) => (
