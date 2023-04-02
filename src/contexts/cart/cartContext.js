@@ -3,43 +3,39 @@ import cartReducer from "./cartReducer";
 
 const cartContext = createContext();
 
-const initialState = {
-  cartItems: [],
-};
-
 const CartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, initialState);
+  const [cartState, dispatch] = useReducer(cartReducer, { cart: [] });
 
-  const addItem = (item) => {
+  const addItem = (product) => {
     return dispatch({
       type: "ADD_TO_CART",
-      payload: { item },
+      product: product,
     });
   };
 
-  const removeItem = (itemId) => {
+  const removeItem = (productId) => {
     return dispatch({
       type: "REMOVE_FROM_CART",
-      payload: { itemId },
+      productId: productId,
     });
   };
 
-  const incrementItem = (itemId) => {
+  const incrementItem = (productId) => {
     return dispatch({
       type: "INCREMENT_ITEM",
-      payload: { itemId },
+      productId: productId,
     });
   };
 
-  const decrementItem = (itemId) => {
+  const decrementItem = (productId) => {
     return dispatch({
       type: "DECREMENT_ITEM",
-      payload: { itemId },
+      productId: productId,
     });
   };
 
   const values = {
-    ...state,
+    ...cartState,
     addItem,
     removeItem,
     incrementItem,

@@ -14,7 +14,8 @@ import { storage } from "../../utils";
 import logo from "../../data/logo.png";
 
 const Header = () => {
-  const { cartItems } = useContext(cartContext);
+  const { cart } = useContext(cartContext);
+  
   const [isSticky, setIsSticky] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);
 
@@ -44,7 +45,7 @@ const Header = () => {
     };
   }, [isSticky]);
 
-  const cartQuantity = cartItems.length;
+  const cartQuantity = cart.length;
 
   const handleLogout = async () => {
     try {

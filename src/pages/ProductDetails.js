@@ -40,7 +40,6 @@ const ProductDetails = () => {
 
   const getReviewByUser = async () => {
     const res = await getReviewByCustomer(productId);
-    console.log("===res", res);
   };
 
   useEffect(() => {
@@ -69,13 +68,7 @@ const ProductDetails = () => {
   );
 
   const handleAddItem = () => {
-    const _data = {
-      id: data.id,
-      name: data.name,
-      price: data.discountPrice,
-      quantity: 1,
-    };
-    addItem(_data);
+    addItem(data);
   };
 
   useEffect(() => {

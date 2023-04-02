@@ -8,7 +8,7 @@ import useActive from "../../hooks/useActive";
 const ProductCard = (props) => {
   const { id, name, discountPrice, price, discountPercent, mainImage } = props;
 
-  const { addItem } = useContext(cartContext);
+  const { addItem, cart } = useContext(cartContext);
   const { active, handleActive, activeClass } = useActive(false);
   const [openToast, setOpenToast] = useState(false);
 

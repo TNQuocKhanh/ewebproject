@@ -12,35 +12,19 @@ import Footer from "../components/common/Footer";
 const Cart = () => {
   useDocTitle("Cart");
 
-  const { cartItems } = useContext(cartContext);
+  const { cart } = useContext(cartContext);
 
-  console.log("===", cartItems);
+  console.log("===", cart);
 
-  const cartQuantity = cartItems.length;
+  const cartQuantity = cart.length;
 
-  const ids = cartItems.map((it) => it.id);
-
-  const arrId = [...new Set(ids)];
-  console.log("===", arrId);
-
-  let newArr = [];
-  arrId.map((it) => {
-    const found = cartItems.find((v) => v.id !== it);
-    if (newArr.filter((v) => v.id === found.id)) {
-      newArr.push(found);
-    } else {
-      newArr.push({ ...found, quantity: found.quantity++ });
-    }
-  });
-
-  const cartTotal = cartItems.map((item) => {
-    return item.price * 1;
-  });
-
-  const calculateCartTotal = calculateTotal(cartTotal);
+  //total item
+  const calculateCartTotal = cart.reduce((val, acc) => {
+    return val + acc.quantity;
+  }, 0);
   const displayCartTotal = displayMoney(calculateCartTotal);
 
-  const cartDiscount = cartItems.map((item) => {
+  const cartDiscount = cart.map((item) => {
     return (item.price - item.discountPrice) * 1;
   });
 
@@ -65,8 +49,8 @@ const Cart = () => {
           ) : (
             <div className="wrapper cart_wrapper">
               <div className="cart_left_col">
-                {cartItems.map((item) => (
-                  <CartItem key={item.id} {...item} quantity={1} />
+                {cart.map((item) => (
+                  <CartItem key={item.id} {...item} />
                 ))}
               </div>
 
