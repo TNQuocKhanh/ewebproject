@@ -4,7 +4,6 @@ import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
   AiOutlineUser,
-  AiOutlineLogin,
   AiOutlineBars,
   AiOutlineCaretDown,
   AiOutlineLaptop,
@@ -63,7 +62,6 @@ const Header = () => {
     setUserProfile(res);
   };
 
-  // Open category
   const toggleCategory = () => {
     openCategory === false ? setOpenCategory(true) : setOpenCategory(false);
   };
@@ -208,7 +206,11 @@ const Header = () => {
             >
               <ul style={{ borderRadius: "10px" }}>
                 {categoryList.map((it, idx) => (
-                  <li key={idx} className="category-item" style={{ padding: "15px" }}>
+                  <li
+                    key={idx}
+                    className="category-item"
+                    style={{ padding: "15px" }}
+                  >
                     <AiOutlineLaptop
                       style={{ fontSize: "20px", marginRight: "10px" }}
                     />

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "../styles/partials/pages/_login.scss";
 import { FaArrowLeft } from "react-icons/fa";
-import { createNewPassword, login } from "../apis";
-import { Link, useNavigate } from "react-router-dom";
+import { createNewPassword } from "../apis";
+import { useNavigate } from "react-router-dom";
 
 const NewPassword = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -10,16 +10,16 @@ const NewPassword = () => {
 
   const navigate = useNavigate();
 
-  const email = localStorage.getItem('email')
+  const email = localStorage.getItem("email");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await createNewPassword(email, password);
 
     if (res.status === 200) {
-      const data = await res.json();
-      localStorage.removeItem('email')
-      navigate('/login')
+      await res.json();
+      localStorage.removeItem("email");
+      navigate("/login");
     } else {
       console.log("===Chaneg new password error");
     }
@@ -33,7 +33,10 @@ const NewPassword = () => {
         </a>
       </div>
       <div className="box-img-login-page">
-        <img src="https://img.freepik.com/free-vector/reset-password-concept-illustration_114360-7886.jpg?w=740&t=st=1680333764~exp=1680334364~hmac=0efde700efa8748b58c32ce13fcacde3bccdabbc0bb657a7acbc208800ec4c2a" alt="logo"></img>
+        <img
+          src="https://img.freepik.com/free-vector/reset-password-concept-illustration_114360-7886.jpg?w=740&t=st=1680333764~exp=1680334364~hmac=0efde700efa8748b58c32ce13fcacde3bccdabbc0bb657a7acbc208800ec4c2a"
+          alt="logo"
+        ></img>
       </div>
       <div className="box-form-login-page">
         <form className="form-login" onSubmit={handleSubmit}>

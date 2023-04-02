@@ -5,11 +5,9 @@ import { calculateDiscount, displayMoney } from "../helpers/utils";
 import useDocTitle from "../hooks/useDocTitle";
 import useActive from "../hooks/useActive";
 import cartContext from "../contexts/cart/cartContext";
-import productsData from "../data/productsData";
 import SectionsHead from "../components/common/SectionsHead";
 import RelatedSlider from "../components/sliders/RelatedSlider";
 import ProductSummary from "../components/product/ProductSummary";
-import Services from "../components/common/Services";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import {
@@ -18,22 +16,17 @@ import {
   getReviewByProductId,
 } from "../apis";
 import _ from "lodash";
+import { storage } from "../utils";
 
 const ProductDetails = () => {
   useDocTitle("Product Details");
 
   const { handleActive, activeClass } = useActive(0);
-
   const { addItem } = useContext(cartContext);
-
   const { productId } = useParams();
 
-  const prodId = parseInt(productId);
-
-  const product = productsData.find((item) => item.id === prodId);
-
   const [data, setData] = useState({});
-const [listReview, setListReview] = useState([])
+  const [listReview, setListReview] = useState([]);
 
   const getProductDetail = async () => {
     const res = await getProductById(productId);
@@ -42,7 +35,7 @@ const [listReview, setListReview] = useState([])
 
   const getListReview = async () => {
     const res = await getReviewByProductId(productId);
-  setListReview(res)
+    setListReview(res);
   };
 
   const getReviewByUser = async () => {
@@ -53,7 +46,9 @@ const [listReview, setListReview] = useState([])
   useEffect(() => {
     getProductDetail();
     getListReview();
-    getReviewByUser()
+    if (storage.load("user")) {
+      getReviewByUser();
+    }
   }, []);
 
   const {
@@ -63,10 +58,12 @@ const [listReview, setListReview] = useState([])
     price,
     inStock,
     reviewCount,
-    mainImage,
     productImages = [],
     customerCanReview,
+    specifications,
+    description,
   } = data;
+
   const [previewImg, setPreviewImg] = useState(
     _.get(productImages, "0")?.extraImage || ""
   );
@@ -91,7 +88,7 @@ const [listReview, setListReview] = useState([])
     setPreviewImg(img.extraImage);
     handleActive(i);
   };
-  // calculating Prices
+
   const discountedPrice = price - discountPrice;
   const newPrice = displayMoney(discountPrice);
   const oldPrice = displayMoney(price);
@@ -131,7 +128,7 @@ const [listReview, setListReview] = useState([])
                   <IoMdStar />
                 </span>
                 <span>|</span>
-                <Link to="*">{reviewCount} Đánh giá</Link>
+                <Link to="#">{reviewCount} Đánh giá</Link>
               </div>
 
               <div className="separator"></div>
@@ -173,7 +170,12 @@ const [listReview, setListReview] = useState([])
         </div>
       </section>
 
-      <ProductSummary customerCanReview={customerCanReview} listReview={listReview} {...product} />
+      <ProductSummary
+        customerCanReview={customerCanReview}
+        listReview={listReview}
+        specs={specifications}
+        description={description}
+      />
 
       <Footer />
     </>

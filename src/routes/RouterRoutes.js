@@ -11,10 +11,10 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Verify from "../pages/Verify";
 import ForgotPassword from "../pages/ForgotPassword";
-import ChangePassword from "../pages/ChangePassword"
+import ChangePassword from "../pages/ChangePassword";
 import Profile from "../pages/Profile";
 import NewPassword from "../pages/NewPassword";
-import {Order} from "../pages/Order";
+import { Order } from "../pages/Order";
 import { PaymentInfo } from "../pages/PaymentInfo";
 
 const RouterRoutes = () => {

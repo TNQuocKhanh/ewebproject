@@ -4,7 +4,6 @@ import commonContext from "../../contexts/common/commonContext";
 import productsData from "../../data/productsData";
 import useOutsideClose from "../../hooks/useOutsideClose";
 import useScrollDisable from "../../hooks/useScrollDisable";
-// import { AiOutlineSearch } from 'react-icons/ai';
 
 const SearchBar = () => {
   const { isSearchOpen, toggleSearch, searchResults, setSearchResults } =
@@ -12,7 +11,6 @@ const SearchBar = () => {
 
   const searchRef = useRef();
 
-  // closing the SearchBar
   const closeSearch = () => {
     toggleSearch(false);
     setSearchResults([]);
@@ -22,7 +20,6 @@ const SearchBar = () => {
 
   useScrollDisable(isSearchOpen);
 
-  // handling Search
   const handleSearching = (e) => {
     const searchedTerm = e.target.value.toLowerCase().trim();
 
@@ -47,13 +44,6 @@ const SearchBar = () => {
                 placeholder="Search for product..."
                 onChange={handleSearching}
               />
-              {/* <button
-                                    type="button"
-                                    className="btn"
-                                    disabled={searchResults.length === 0}
-                                >
-                                    <AiOutlineSearch />
-                                </button> */}
             </div>
 
             {searchResults.length !== 0 && (

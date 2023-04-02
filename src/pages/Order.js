@@ -9,7 +9,7 @@ export const Order = () => {
 
   const getAllOrders = async () => {
     const res = await getListOrders();
-    setOrders(res)
+    setOrders(res);
   };
 
   useEffect(() => {
@@ -32,15 +32,14 @@ export const Order = () => {
         {orders.map((it, idx) => {
           return (
             <Card key={idx} variant="outlined">
-            <div>{it.orderTime}</div>
-            <div>{it.paymentMethod}</div>
-            <div>{it.total}</div>
+              <div>{it.orderTime}</div>
+              <div>{it.paymentMethod}</div>
+              <div>{it.total}</div>
             </Card>
-          )
-        })
-        }
-          </div>
-    <Footer />
+          );
+        })}
+      </div>
+      <Footer />
     </>
   );
 };

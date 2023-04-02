@@ -15,7 +15,7 @@ export const getListProducts = async () => {
 
 export const getProductById = async (id) => {
   const user = storage.load("user");
-  const token = user.accessToken;
+  const token = user?.accessToken;
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -37,4 +37,4 @@ export const getListCategories = async () => {
     headers,
   });
   return res.json();
-}
+};

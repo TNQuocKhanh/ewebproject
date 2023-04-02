@@ -46,7 +46,7 @@ const HeroSlider = () => {
             key={id}
             className={`wrapper hero_wrapper hero_slide-${i}`}
           >
-            <div className="hero_item_txt" >
+            <div className="hero_item_txt">
               <h4>{title}</h4>
               <h2>{tagline}</h2>
               <h2 className="hero_price">
@@ -64,7 +64,11 @@ const HeroSlider = () => {
               </Link>
             </div>
             <figure className="hero_item_img">
-              <img style={{width: '100%'}} src={heroImage} alt="product-img" />
+              <img
+                style={{ width: "100%" }}
+                src={heroImage}
+                alt="product-img"
+              />
             </figure>
           </SwiperSlide>
         );

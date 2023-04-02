@@ -36,7 +36,10 @@ const Login = () => {
         <div>
           <h2>Chào mừng bạn đến với HDK Shop</h2>
         </div>
-        <img src="https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7883.jpg?w=2000" alt="logo"></img>
+        <img
+          src="https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7883.jpg?w=2000"
+          alt="logo"
+        ></img>
       </div>
       <div className="box-form-login-page">
         <form className="form-login" onSubmit={handleSubmit}>

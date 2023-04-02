@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import HeroSlider from "../components/sliders/HeroSlider";
 import FeaturedSlider from "../components/sliders/FeaturedSlider";
 import SectionsHead from "../components/common/SectionsHead";

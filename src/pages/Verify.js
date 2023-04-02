@@ -34,7 +34,10 @@ const Verify = () => {
         </a>
       </div>
       <div className="box-img-login-page">
-        <img src="https://img.freepik.com/free-vector/enter-otp-concept-illustration_114360-7887.jpg?w=740&t=st=1680333161~exp=1680333761~hmac=65f91748b038e0de266961794a312f6e8868d5c1ef433f466118f4a19529f2e1"></img>
+        <img
+          src="https://img.freepik.com/free-vector/enter-otp-concept-illustration_114360-7887.jpg?w=740&t=st=1680333161~exp=1680333761~hmac=65f91748b038e0de266961794a312f6e8868d5c1ef433f466118f4a19529f2e1"
+          alt="verify-logo"
+        />
       </div>
       <div
         className="box-form-login-page"
