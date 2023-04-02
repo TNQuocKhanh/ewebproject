@@ -9,9 +9,9 @@ import {
   AiOutlineLaptop,
 } from "react-icons/ai";
 import cartContext from "../../contexts/cart/cartContext";
-import SearchBar from "./SearchBar";
 import { getListCategories, getProfile, logout } from "../../apis";
 import { storage } from "../../utils";
+import logo from "../../data/logo.png";
 
 const Header = () => {
   const { cartItems } = useContext(cartContext);
@@ -32,7 +32,6 @@ const Header = () => {
   const navigate = useNavigate();
 
   const [valueSearch, setValueSearch] = useState("");
-  //console.log(valueSearch);
 
   useEffect(() => {
     const handleIsSticky = () =>
@@ -48,11 +47,13 @@ const Header = () => {
   const cartQuantity = cartItems.length;
 
   const handleLogout = async () => {
-    const res = await logout();
-    if (res.status === 200) {
+    try {
+      await logout();
       storage.remove("user");
+      navigate("/login");
+    } catch (error) {
+      console.log("===Error", error);
     }
-    navigate("/login");
   };
 
   const [userProfile, setUserProfile] = useState();
@@ -73,13 +74,19 @@ const Header = () => {
     getAllCategory();
   }, []);
 
+  const handleSearch = () => {
+    console.log("===valueSearch", valueSearch);
+  };
+
   return (
     <>
       <header id="header" className={isSticky ? "sticky" : ""}>
         <div className="container">
           <div className="navbar">
             <h2 className="nav_logo">
-              <Link to="/">HDKShop</Link>
+              <Link to="/">
+                <img src={logo} alt="logo" width="100px" />
+              </Link>
             </h2>
             <div className="nav-search">
               <input
@@ -87,7 +94,7 @@ const Header = () => {
                 placeholder="Tìm kiếm..."
                 type="text"
               ></input>
-              <button>
+              <button onClick={handleSearch}>
                 <AiOutlineSearch />
               </button>
             </div>
@@ -245,7 +252,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <SearchBar />
     </>
   );
 };

@@ -1,19 +1,15 @@
 import React, { createContext, useReducer } from "react";
 import cartReducer from "./cartReducer";
 
-// Cart-Context
 const cartContext = createContext();
 
-// Initial State
 const initialState = {
   cartItems: [],
 };
 
-// Cart-Provider Component
 const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
-  // Dispatched Actions
   const addItem = (item) => {
     return dispatch({
       type: "ADD_TO_CART",
@@ -42,7 +38,6 @@ const CartProvider = ({ children }) => {
     });
   };
 
-  // Context values
   const values = {
     ...state,
     addItem,
