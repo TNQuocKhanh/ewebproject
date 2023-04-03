@@ -2,7 +2,7 @@ import React from "react";
 import { IoMdStar } from "react-icons/io";
 
 const ProductReviews = (props) => {
-  const { name, comment, rating, reviewTime, updateReviewTime } = props;
+  const { customerName, comment, rating, customerPhoto, updateReviewTime } = props;
 
   return (
     <>
@@ -10,12 +10,12 @@ const ProductReviews = (props) => {
         <div className="user_info">
           <img
             style={{ width: "50px", height: "50px" }}
-            src="https://galaxylands.com.vn/wp-content/uploads/2022/10/tieu-su-ca-si-mono-17.jpg"
-            alt="user-img"
+          src={customerPhoto}
+          alt="user-img"
           />
           <div>
             <div style={{ marginLeft: "5px" }}>
-              <h5 style={{ marginBottom: "5px" }}>{name}</h5>
+              <h5 style={{ marginBottom: "5px" }}>{customerName}</h5>
               <small>{updateReviewTime}</small>
             </div>
           </div>
@@ -25,7 +25,7 @@ const ProductReviews = (props) => {
           className="user_ratings"
         >
           <span className="rating_star" style={{ marginRight: "10px" }}>
-            {[...Array(rating)].map((_, i) => (
+            {[...Array(Number(rating))].map((_, i) => (
               <IoMdStar style={{ color: "var(--main-color)" }} key={i} />
             ))}
           </span>

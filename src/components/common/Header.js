@@ -76,7 +76,7 @@ const Header = () => {
   }, []);
 
   const handleSearch = () => {
-    console.log("===valueSearch", valueSearch);
+    navigate(`/all-products?`+ new URLSearchParams({productName: valueSearch}))
   };
 
   return (

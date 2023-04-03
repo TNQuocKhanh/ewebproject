@@ -9,7 +9,7 @@ import { AiOutlineUpload } from "react-icons/ai";
 const Profile = () => {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
+  const [createdTime, setCreatedTime] = useState();
   const [photo, setPhoto] = useState();
   const [selectedFile, setSelectedFile] = useState();
 
@@ -17,7 +17,7 @@ const Profile = () => {
     const res = await getProfile();
     setName(res.fullName);
     setEmail(res.email);
-    setPhoneNumber(res.phoneNumber);
+    setCreatedTime(res.createdTime)
     setPhoto(res.photos);
   };
 
@@ -126,10 +126,13 @@ const Profile = () => {
               ></input>
             </div>
             <div className="row-form-field">
-              <label>Địa chỉ giao hàng</label>
-              <select>
-                <option>Số 1, Võ Văn Ngân</option>
-              </select>
+              <label>Ngày tạo</label>
+              <input
+                value={createdTime}
+                disabled
+                onChange={(e) => setCreatedTime(e.target.value)}
+                type="text"
+              ></input>
             </div>
             <div className="row-form">
               <button type="submit">Cập nhật</button>

@@ -8,23 +8,34 @@ import filtersContext from "../contexts/filters/filtersContext";
 import EmptyView from "../components/common/EmptyView";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
-import { getListProducts } from "../apis";
+import { getProductWithFilter } from "../apis";
 
 const AllProducts = () => {
   useDocTitle("All Products");
 
   const [data, setData] = useState([]);
 
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
+  const filter = urlParams.get("productName");
+
   const getAllProducts = async () => {
-    const res = await getListProducts();
-    if (res) {
-      setData(res);
+    try {
+      const res = await getProductWithFilter({
+        productName: filter || "",
+        //categoryId: 1,
+      });
+      setData(res.content);
+    } catch (err) {
+      console.log("===Error", err);
     }
   };
 
   useEffect(() => {
     getAllProducts();
   }, []);
+
   const { allProducts } = useContext(filtersContext);
 
   return (

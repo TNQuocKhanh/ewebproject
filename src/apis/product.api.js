@@ -13,6 +13,22 @@ export const getListProducts = async () => {
   return res.json();
 };
 
+export const getProductWithFilter = async (filter) => {
+  const user = storage.load("user");
+  const token = user?.accessToken;
+
+  console.log('===filter', filter)
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const res = await fetch(`${API_URL}/products/filter?` + new URLSearchParams(filter), {
+    method: "GET",
+    headers,
+  });
+  return res.json();
+};
+
 export const getProductById = async (id) => {
   const user = storage.load("user");
   const token = user?.accessToken;

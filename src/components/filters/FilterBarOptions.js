@@ -1,38 +1,53 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import filtersContext from "../../contexts/filters/filtersContext";
 import { sortMenu } from "../../data/filterBarData";
 import { displayMoney } from "../../helpers/utils";
+import { getListCategories } from "../../apis";
 
 const FilterBarOptions = () => {
   const {
     sortedValue,
     setSortedValue,
-    updatedBrandsMenu,
-    updatedCategoryMenu,
-    handleBrandsMenu,
-    handleCategoryMenu,
     handlePrice,
     selectedPrice: { price, minPrice, maxPrice },
     mobFilterBar: { isMobSortVisible, isMobFilterVisible },
     handleMobSortVisibility,
     handleMobFilterVisibility,
-    handleClearFilters,
   } = useContext(filtersContext);
 
   const displayPrice = displayMoney(price);
 
+  const [categoryList, setCategoryList] = useState([]);
+
+  const getAllCategory = async () => {
+    try {
+      const res = await getListCategories();
+      setCategoryList(res);
+    } catch (e) {
+      console.log("===Error");
+    }
+  };
+
+  useEffect(() => {
+    getAllCategory();
+  }, []);
+
+  const handleRemoveFilter = () => {
+    console.log("===remove filter");
+  };
+
+  const handleCategoryFilter = (id) => {
+    console.log("====id", id);
+  };
+
   return (
     <>
-      {/*===== Clear-Filters btn =====*/}
-      {sortedValue && (
-        <div className="clear_filter_btn">
-          <button type="button" className="btn" onClick={handleClearFilters}>
-            Bỏ lọc
-          </button>
-        </div>
-      )}
+      <div className="clear_filter_btn">
+        <button type="button" className="btn" onClick={handleRemoveFilter}>
+          Bỏ lọc
+        </button>
+      </div>
 
-      {/*===== Sort-menu =====*/}
       <div className={`sort_options ${isMobSortVisible ? "show" : ""}`}>
         <div className="sort_head">
           <h3 className="title">Sắp xếp theo</h3>
@@ -63,7 +78,6 @@ const FilterBarOptions = () => {
         </ul>
       </div>
 
-      {/*===== Filter-menu =====*/}
       <div className={`filter_options ${isMobFilterVisible ? "show" : ""}`}>
         <div className="filter_head">
           <h3 className="title">Lọc theo</h3>
@@ -78,51 +92,26 @@ const FilterBarOptions = () => {
 
         <div className="separator"></div>
 
-        {/* Filter by Brands */}
-        <div className="filter_block">
-          <h4>Nhãn hiệu</h4>
-          <ul className="filter_menu">
-            {updatedBrandsMenu.map((item) => {
-              const { id, checked, label } = item;
-              return (
-                <li key={id} className="filter_btn">
-                  <input
-                    type="checkbox"
-                    id={label}
-                    value={label}
-                    checked={checked}
-                    onChange={() => handleBrandsMenu(id)}
-                  />
-                  <label htmlFor={label}>{label}</label>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        {/* Filter by Category */}
         <div className="filter_block">
           <h4>Danh mục</h4>
           <ul className="filter_menu">
-            {updatedCategoryMenu.map((item) => {
-              const { id, checked, label } = item;
+            {categoryList.map((item) => {
+              const { id, name } = item;
               return (
                 <li key={id} className="filter_btn">
                   <input
                     type="checkbox"
-                    id={label}
-                    value={label}
-                    checked={checked}
-                    onChange={() => handleCategoryMenu(id)}
+                    id={name}
+                    value={name}
+                    onChange={() => handleCategoryFilter(id)}
                   />
-                  <label htmlFor={label}>{label}</label>
+                  <label htmlFor={name}>{name}</label>
                 </li>
               );
             })}
           </ul>
         </div>
 
-        {/* Filter by Price */}
         <div className="filter_block">
           <h4>Giá</h4>
           <div className="price_filter">
