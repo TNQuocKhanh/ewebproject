@@ -167,3 +167,37 @@ export const updateProfile = async (data) => {
 
   return res.json();
 };
+
+export const createAddress = async (data) => {
+  const auth = storage.load('user')
+  const token = auth.accessToken
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const res = await fetch(`${API_URL}/shipping-address/create`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data),
+  });
+
+  return res.json();
+}
+
+export const updateAddress = async (id, data) => {
+  const auth = storage.load('user')
+  const token = auth.accessToken
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const res = await fetch(`${API_URL}/shipping-address/update/${id}`, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(data),
+  });
+
+  return res.json();
+}

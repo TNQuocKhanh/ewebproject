@@ -4,16 +4,21 @@ import { FaArrowLeft } from "react-icons/fa";
 import { login } from "../apis";
 import { storage } from "../utils";
 import { Link, useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 const Login = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const res = await login(email, password);
 
     if (res.status === 200) {
@@ -21,8 +26,10 @@ const Login = () => {
       storage.save("user", data);
       navigate("/");
     } else {
+      setMessage("Có lỗi xảy ra, vui lòng thử lại");
       console.log("===Login error");
     }
+    setIsLoading(false);
   };
 
   return (
@@ -44,6 +51,9 @@ const Login = () => {
       <div className="box-form-login-page">
         <form className="form-login" onSubmit={handleSubmit}>
           <p className="form-title">Đăng nhập</p>
+          <div className="row-form">
+            <p>{message}</p>
+          </div>
           <div className="row-form-field">
             <label>Email</label>
             <input
@@ -70,7 +80,13 @@ const Login = () => {
             <label>Hiển thị mật khẩu</label>
           </div>
           <div className="row-form">
-            <button type="submit">Đăng nhập</button>
+            {isLoading ? (
+              <div style={{margin: 'auto'}}>
+                <CircularProgress />
+              </div>
+            ) : (
+              <button type="submit">Đăng nhập</button>
+            )}
           </div>
           <div className="row-form">
             <p>Hoặc</p>
