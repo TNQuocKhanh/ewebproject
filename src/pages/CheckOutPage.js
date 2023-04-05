@@ -1,33 +1,50 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import "../styles/partials/pages/_checkout.scss";
 import { FaCheckCircle } from "react-icons/fa";
 import cartContext from "../contexts/cart/cartContext";
-import { createOrder, createPayment } from "../apis";
+import { createOrder, createPayment, getProfile } from "../apis";
 import { useNavigate } from "react-router-dom";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 const CheckOutPage = () => {
   const navigate = useNavigate();
   const [method, setMethod] = useState(1);
+  const [shippingAddress, setShippingAddress] = useState();
+  const [address, setAddress] = useState();
 
-  const [district, setDistrict] = useState();
-  const [street, setStreet] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
-
-  const { cartItems } = useContext(cartContext);
-  console.log("===cartItems", cartItems);
+  const { cart } = useContext(cartContext);
 
   const item = [];
-  cartItems.map((it) =>
+  cart.map((it) =>
     item.push({ productId: it.id, quantity: 1, productPrice: it.discountPrice })
   );
 
-  const totalPrice = cartItems.reduce((acc, cur) => acc + cur.discountPrice, 0);
+  const getUserProfile = async () => {
+    const res = await getProfile();
+    setAddress(res.address);
+  };
+
+  useEffect(() => {
+    getUserProfile();
+  }, []);
+
+  const totalPrice = cart.reduce(
+    (acc, cur) => acc + cur.discountPrice * cur.quantity,
+    0
+  );
 
   const handleCheckout = async () => {
     const value = {
-      shippingAddress: { district, street, phoneNumber },
+      shippingAddress: {
+        district: shippingAddress.district,
+        street: shippingAddress.street,
+        phoneNumber: shippingAddress.phoneNumber,
+      },
       paymentMethod: method === 1 ? "COD" : "VNPay",
       totalPrice: totalPrice,
       lineItem: item,
@@ -44,11 +61,13 @@ const CheckOutPage = () => {
       const res = await createPayment({ totalPrice: totalPrice.toString() });
       if (res.status === 200) {
         const url = await res.json();
-
-        console.log("====url", url.url);
         window.location.replace(url.url);
       }
     }
+  };
+
+  const handleChange = (e) => {
+    setShippingAddress(e.target.value);
   };
 
   return (
@@ -76,105 +95,51 @@ const CheckOutPage = () => {
           </div>
           <h4>Thông tin thanh toán</h4>
           <div className="payment-infor">
-            <div className="row-form-payment">
-              <label>District</label>
-              <input
-                value={district}
-                onChange={(e) => setDistrict(e.target.value)}
-                type="text"
-              ></input>
-            </div>
-            <div className="row-form-payment">
-              <label>Street</label>
-              <input
-                value={street}
-                onChange={(e) => setStreet(e.target.value)}
-                type="text"
-              ></input>
-            </div>
-            <div className="row-form-payment">
-              <label>SDT</label>
-              <input
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                type="number"
-              ></input>
-            </div>
+            <FormControl fullWidth>
+              <InputLabel>Địa chỉ</InputLabel>
+              <Select label="Địa chỉ" onChange={handleChange}>
+                {address?.map((item) => {
+                  return (
+                    <MenuItem
+                      value={item}
+                    >{`${item.name} | ${item.phoneNumber}, ${item.street}, ${item.district}
+                        `}</MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
           </div>
         </div>
         <div className="box-item-checkout">
           <h4>Thông tin đơn hàng</h4>
           <div className="check-item">
-            <div className="row-item-cart">
-              <img
-                src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg"
-                alt=""
-              ></img>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                }}
-              >
-                <p style={{ paddingBottom: "10px", fontSize: "13px" }}>
-                  Tên: DELL 120xr Gaming
-                </p>
-                <p style={{ fontSize: "13px" }}>SL: 1</p>
-              </div>
-              <strong style={{ fontSize: "13px" }}>12.000.000 VNĐ</strong>
-            </div>
-            <div className="row-item-cart">
-              <img
-                src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg"
-                alt=""
-              ></img>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                }}
-              >
-                <p style={{ paddingBottom: "10px", fontSize: "13px" }}>
-                  Tên: DELL 120xr Gaming
-                </p>
-                <p style={{ fontSize: "13px" }}>SL: 1</p>
-              </div>
-              <strong style={{ fontSize: "13px" }}>12.000.000 VNĐ</strong>
-            </div>
-            <div className="row-item-cart">
-              <img
-                src="https://st4.tkcomputer.vn/uploads/dell_inspiron_3511_1635936929_1024.jpg"
-                alt=""
-              ></img>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                }}
-              >
-                <p style={{ paddingBottom: "10px", fontSize: "13px" }}>
-                  Tên: DELL 120xr Gaming
-                </p>
-                <p style={{ fontSize: "13px" }}>SL: 1</p>
-              </div>
-              <strong style={{ fontSize: "13px" }}>12.000.000 VNĐ</strong>
-            </div>
+            {cart.map((it) => {
+              return (
+                <div className="row-item-cart">
+                  <img src={it.mainImage} alt={it.name}></img>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <p style={{ paddingBottom: "10px", fontSize: "13px" }}>
+                      Tên: {it.name}
+                    </p>
+                    <p style={{ fontSize: "13px" }}>SL: {it.quantity}</p>
+                  </div>
+                  <strong style={{ fontSize: "13px" }}>
+                    {it.quantity * it.discountPrice}
+                  </strong>
+                </div>
+              );
+            })}
           </div>
           <div className="total-price">
             <div className="row-total-price">
-              <strong>Tổng giá sản phẩm:</strong>
-              <p>19.000.000 VNĐ</p>
-            </div>
-            <div className="row-total-price">
-              <strong>Ship:</strong>
-              <p>190.000 VNĐ</p>
-            </div>
-            <div className="row-total-price">
               <strong>Thành tiền:</strong>
-              <p style={{ fontSize: "25px", color: "red" }}>19.000.000 VNĐ</p>
+              <p style={{ fontSize: "25px", color: "red" }}>{totalPrice} VNĐ</p>
             </div>
           </div>
           <div>

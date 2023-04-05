@@ -15,7 +15,7 @@ import logo from "../../data/logo.png";
 
 const Header = () => {
   const { cart } = useContext(cartContext);
-  
+
   const [isSticky, setIsSticky] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);
 
@@ -45,7 +45,9 @@ const Header = () => {
     };
   }, [isSticky]);
 
-  const cartQuantity = cart.length;
+  const cartQuantity = cart.reduce((val, acc) => {
+    return val + acc.quantity;
+  }, 0);
 
   const handleLogout = async () => {
     try {
@@ -76,7 +78,9 @@ const Header = () => {
   }, []);
 
   const handleSearch = () => {
-    navigate(`/all-products?`+ new URLSearchParams({productName: valueSearch}))
+    navigate(
+      `/all-products?` + new URLSearchParams({ productName: valueSearch })
+    );
   };
 
   return (

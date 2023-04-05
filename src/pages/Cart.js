@@ -18,21 +18,17 @@ const Cart = () => {
 
   const cartQuantity = cart.length;
 
-  //total item
   const calculateCartTotal = cart.reduce((val, acc) => {
-    return val + acc.quantity;
+    return val + acc.quantity * acc.price;
   }, 0);
-  const displayCartTotal = displayMoney(calculateCartTotal);
 
   const cartDiscount = cart.map((item) => {
     return (item.price - item.discountPrice) * 1;
   });
 
   const calculateCartDiscount = calculateTotal(cartDiscount);
-  const displayCartDiscount = displayMoney(calculateCartDiscount);
 
   const totalAmount = calculateCartTotal - calculateCartDiscount;
-  const displayTotalAmount = displayMoney(totalAmount);
 
   return (
     <>
@@ -60,11 +56,11 @@ const Cart = () => {
                   <div className="order_summary_details">
                     <div className="price">
                       <span>Giá gốc</span>
-                      <b>{displayCartTotal}</b>
+                      <b>{calculateCartTotal}</b>
                     </div>
                     <div className="discount">
                       <span>Giảm</span>
-                      <b>- {displayCartDiscount}</b>
+                      <b>- {calculateCartDiscount}</b>
                     </div>
                     <div className="delivery">
                       <span>Giao hàng</span>
@@ -75,7 +71,7 @@ const Cart = () => {
                       <b>
                         <small>Tổng tiền</small>
                       </b>
-                      <b>{displayTotalAmount}</b>
+                      <b>{totalAmount}</b>
                     </div>
                   </div>
                   <Link to="/checkout">
