@@ -48,7 +48,7 @@ const ProductCard = (props) => {
             <IoMdStar />
           </span> */}
           <h3 className="products_title">
-            <Link to={`/product-detail/${id}`}>{name}</Link>
+            <Link to={`/product-details/${id}`}>{name}</Link>
           </h3>
           {/* <div className="separator"></div> */}
           <h2 className="products_price">
