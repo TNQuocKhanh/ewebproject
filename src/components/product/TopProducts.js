@@ -19,7 +19,7 @@ const TopProducts = () => {
   return (
     <>
       <div className="wrapper products_wrapper">
-        {data.slice(0.1).map((item) => (
+        {data?.slice(0.1).map((item) => (
           <ProductCard key={item.id} {...item} />
         ))}
       </div>

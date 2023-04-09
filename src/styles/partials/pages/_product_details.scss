@@ -53,9 +53,9 @@
 }
 
 .prod_details_img {
-
-    margin: 0 auto 5% auto;
-    width: 70%;
+    background-color: aliceblue;
+    text-align: center;
+    width: 100%;
 
     @include devices(lg) {
         width: 90%;

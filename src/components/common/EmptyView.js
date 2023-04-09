@@ -7,8 +7,10 @@ const EmptyView = (props) => {
   return (
     <>
       <div className="empty_view_wrapper">
-        <div className="empty_view_icon">{icon}</div>
-        <h2>{msg}</h2>
+        <div className="empty_view_icon" style={{textAlign: 'center'}}>
+          <img src="https://www.espressoclubegypt.com/resources/assets/front/images/cartempty.png" alt="empty-cart"></img>
+        </div>
+        <p>{msg}</p>
         {link && (
           <Link to={link} className="btn">
             {btnText}

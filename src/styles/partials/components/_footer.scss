@@ -1,6 +1,6 @@
 #footer {
-  background-color: var(--black-color);
-  @include padding-y(3rem, 2rem);
+  background-color: white;
+  @include padding-y(0.2rem, 2rem);
 
   .separator {
     @include margin-y(2.5rem, 2rem);

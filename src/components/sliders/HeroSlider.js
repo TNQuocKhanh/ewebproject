@@ -24,7 +24,7 @@ const HeroSlider = () => {
       slidesPerView={1}
       pagination={{ clickable: true }}
       autoplay={{
-        delay: 40000,
+        delay: 4000,
         disableOnInteraction: false,
       }}
     >

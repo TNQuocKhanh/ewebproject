@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/partials/pages/_profile.scss";
+import "../styles/partials/pages/_change_password.scss";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { changePassword } from "../apis/customer.api";
@@ -24,9 +24,9 @@ const ChangePassword = () => {
   return (
     <>
       <Header />
-      <div id="page-profile" className="container">
-        <div className="box-form-profile">
-          <form className="form-profile" onSubmit={handleSubmit}>
+      <div id="page-change-password" className="container">
+        <div className="box-form-change-password">
+          <form className="form-change-password" onSubmit={handleSubmit}>
             <p className="form-title">Thay đổi mật khẩu</p>
             <div className="row-form-field">
               <label>Mật khẩu cũ</label>
@@ -47,7 +47,7 @@ const ChangePassword = () => {
               ></input>
             </div>
             <div className="row-form">
-              <button>Xác thực</button>
+              <button style={{color: 'white'}}>Thay đổi mật khẩu</button>
             </div>
           </form>
         </div>

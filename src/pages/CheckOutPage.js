@@ -73,7 +73,7 @@ const CheckOutPage = () => {
   return (
     <>
       <Header />
-      <section id="checkout">
+      <section id="checkout" className="container">
         <div className="box-form-checkout">
           <h4>Phương thức thanh toán</h4>
           <div className="payment-method">
@@ -115,23 +115,21 @@ const CheckOutPage = () => {
           <div className="check-item">
             {cart.map((it) => {
               return (
-                <div className="row-item-cart">
-                  <img src={it.mainImage} alt={it.name}></img>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <p style={{ paddingBottom: "10px", fontSize: "13px" }}>
-                      Tên: {it.name}
-                    </p>
-                    <p style={{ fontSize: "13px" }}>SL: {it.quantity}</p>
+                <div>
+                  <div className="row-item-cart">
+                    <div style={{ display: 'flex' }}>
+                      <img src={it.mainImage} alt={it.name}></img>
+                      <div style={{marginLeft: '20px'}}>
+                        <p style={{ paddingBottom: "10px", fontSize: "13px" }}>
+                          Tên: {it.name}                    <br />
+                        </p>
+                        <p style={{ fontSize: "13px" }}>SL: {it.quantity}</p>
+                      </div>
+                    </div>
+                    <strong style={{ fontSize: "13px" }}>
+                      {it.quantity * it.discountPrice}
+                    </strong>
                   </div>
-                  <strong style={{ fontSize: "13px" }}>
-                    {it.quantity * it.discountPrice}
-                  </strong>
                 </div>
               );
             })}
