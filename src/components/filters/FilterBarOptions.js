@@ -50,7 +50,7 @@ const FilterBarOptions = () => {
 
       <div className={`sort_options ${isMobSortVisible ? "show" : ""}`}>
         <div className="sort_head">
-          <h3 className="title">Sắp xếp theo</h3>
+          <h4 className="title">Sắp xếp theo</h4>
           <button
             type="button"
             className="close_btn"
@@ -80,7 +80,7 @@ const FilterBarOptions = () => {
 
       <div className={`filter_options ${isMobFilterVisible ? "show" : ""}`}>
         <div className="filter_head">
-          <h3 className="title">Lọc theo</h3>
+          <h4 className="title">Lọc theo</h4>
           <button
             type="button"
             className="close_btn"
@@ -113,7 +113,7 @@ const FilterBarOptions = () => {
         </div>
 
         <div className="filter_block">
-          <h4>Giá</h4>
+          <h4>Khoảng giá</h4>
           <div className="price_filter">
             <p>{displayPrice}</p>
             <input

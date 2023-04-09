@@ -101,7 +101,7 @@
 
 .separator {
     @include margin-y(1rem, 1rem);
-    border-top: 1px solid rgba($color: #666666, $alpha: 0.6);
+    border-top: 1px solid rgba($color: #aaaaaa, $alpha: 0.6);
 }
 
 .rating_star {

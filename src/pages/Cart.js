@@ -38,19 +38,19 @@ const Cart = () => {
           {cartQuantity === 0 ? (
             <EmptyView
               icon={<BsCartX />}
-              msg="Giỏ hàng trống"
+              msg="Giỏ hàng chưa có sản phẩm nào"
               link="/all-products"
-              btnText="Mua ngay"
+              btnText="Mua sắm ngay"
             />
           ) : (
             <div className="wrapper cart_wrapper">
-              <div className="cart_left_col">
+              <div>
                 {cart.map((item) => (
                   <CartItem key={item.id} {...item} />
                 ))}
               </div>
 
-              <div className="cart_right_col">
+              <div className="cart_right_col" style={{background: 'white', padding: '20px', borderRadius: '5px'}}>
                 <div className="order_summary">
                   <h3>Tổng đơn hàng &nbsp; ( {cartQuantity} sản phẩm )</h3>
                   <div className="order_summary_details">

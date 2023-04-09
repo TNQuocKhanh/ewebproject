@@ -23,23 +23,10 @@ const Footer = () => {
               <Link to="/">HDKShop</Link>
             </h2>
             <div className="foot_subs">
-              <p>
+              <p style={{lineHeight: '30px'}}>
                 Đăng ký với chúng tôi để nhận các thông tin ưu đãi và các sản
                 phẩm mới nhất
               </p>
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="email"
-                  className="input-footer"
-                  placeholder="Email Address*"
-                  required
-                  value={subValue}
-                  onChange={(e) => setSubValue(e.target.value)}
-                />
-                <button type="submit" className="btn">
-                  Đăng ký ngay
-                </button>
-              </form>
             </div>
           </div>
 

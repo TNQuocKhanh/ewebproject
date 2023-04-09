@@ -1,9 +1,8 @@
 #checkout {
     width: 100%;
     display: flex;
-    justify-content: space-around;
-    margin: 150px 0;
-    padding: 2%;
+    justify-content: space-between;
+    margin: 150px auto 50px auto;
     flex-wrap: wrap;
 
     .box-form-checkout {
@@ -90,7 +89,7 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: 20px;
+                padding: 10px;
 
                 img {
                     width: 70px;

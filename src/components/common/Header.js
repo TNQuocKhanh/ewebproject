@@ -66,9 +66,17 @@ const Header = () => {
     setUserProfile(res);
   };
 
+  // Event toggle menu category
   const toggleCategory = () => {
     openCategory === false ? setOpenCategory(true) : setOpenCategory(false);
   };
+
+  window.addEventListener('mouseup', function (event) {
+    var pol = document.getElementById('box-item');
+    if (event.target !== pol && event.target.parentNode !== pol) {
+      setOpenCategory(false)
+    }
+  });
 
   useEffect(() => {
     if (storage.load("user")) {
@@ -189,6 +197,7 @@ const Header = () => {
         >
           <div style={{ position: "relative" }}>
             <div
+              id="category"
               onClick={toggleCategory}
               style={{
                 display: "flex",
@@ -208,6 +217,7 @@ const Header = () => {
               />
             </div>
             <div
+              id="box-item"
               hidden={openCategory ? false : true}
               style={{
                 position: "absolute",
