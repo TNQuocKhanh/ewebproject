@@ -74,7 +74,7 @@ const Header = () => {
   window.addEventListener('mouseup', function (event) {
     var pol = document.getElementById('box-item');
     if (event.target !== pol && event.target.parentNode !== pol) {
-      pol.hidden = true;
+      setOpenCategory(false)
     }
   });
 
