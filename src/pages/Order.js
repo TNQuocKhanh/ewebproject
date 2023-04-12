@@ -4,40 +4,75 @@ import { getListOrders } from "../apis";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { TabPanel } from "../components/common/TabPanel";
+import { formatDateTime } from "../utils";
 
 const OrderTab = (props) => {
   const { data } = props;
+
   return (
-    <div>
-      {data.map((it) => {
-        return (
-          <Card sx={{ maxWidth: 600, marginBottom: 2 }} variant="outlined">
-            <Grid container>
-              <Grid item md={10} xs={10}>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  Tong tien: {it.total}
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  SDT: {it.phoneNumber}
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  Chi tiet: {it.phoneNumber}
-                </Typography>
-                <Typography variant="body1">
-                  {`${it.street}, ${it.district}`}
-                </Typography>
-                <Typography variant="body1">
-                Ngay dat hang: {it.orderTime}
-                </Typography>
-                <Typography variant="body1">
-               Phuong thuc: {it.paymentMethod}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Card>
-        );
-      })}
-    </div>
+    <>
+      {data.length > 0 ? (
+        <div>
+          {data.map((it) => {
+            return (
+              <Card
+                sx={{ minWidth: 700, marginBottom: 2, padding: 2 }}
+                variant="outlined"
+              >
+                <Grid container>
+                  <Grid item md={12} xs={12}>
+                    {it.orderDetails.map((v) => {
+                      return (
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            marginBottom: "10px",
+                          }}
+                        >
+                          <div style={{ display: "flex" }}>
+                            <img
+                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjyGYdKSbNljYxeVeFr8h8r0quDTV24v4FAA&usqp=CAU"
+                              alt="img"
+                              width="70px"
+                            />
+                            <div style={{ marginLeft: 10 }}>
+                              <p>Ten: Ten san pham</p>
+                              <p>x 5</p>
+                            </div>
+                          </div>
+                          <Typography>100.000 đ</Typography>
+                        </div>
+                      );
+                    })}
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                      Thành tiền: {it.total}
+                    </Typography>
+                    <hr />
+                    <div>Thông tin đặt hàng:</div>
+                    <Typography color="text.secondary">
+                      Số điện thoại: {it.phoneNumber}
+                    </Typography>
+                    <Typography color="text.secondary">
+                      Địa chỉ: {`${it.street}, ${it.district}`}
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                      Phương thức thanh toán: {it.paymentMethod}
+                    </Typography>
+                    <Typography variant="caption" sx={{float: 'right'}}>
+                      Ngày đặt hàng: {formatDateTime(it.orderTime)}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Card>
+            );
+          })}
+        </div>
+      ) : (
+        <Typography color="text.secondary">Không có đơn hàng nào</Typography>
+      )}
+    </>
   );
 };
 
@@ -63,9 +98,9 @@ export const Order = () => {
     <>
       <Header />
       <div
+        id="page-profile"
         className="container"
         style={{
-          margin: "13rem auto 0 auto",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -74,29 +109,29 @@ export const Order = () => {
       >
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Chờ xác nhận" />
-          <Tab label="Chờ lấy hàng" />
-          <Tab label="Đang giao" />
+          <Tab label="Đang xử lý" />
+          <Tab label="Đã đóng gói" />
+          <Tab label="Đang vận chuyển" />
           <Tab label="Đã giao" />
-          <Tab label="Đã huỷ" />
           <Tab label="Trả hàng" />
         </Tabs>
         <TabPanel value={value} index={0}>
           <OrderTab data={orders.filter((v) => v.status === "NEW")} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Cho lay hang
+          <OrderTab data={orders.filter((v) => v.status === "PROCESSING")} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Dang giao
+          <OrderTab data={orders.filter((v) => v.status === "PACKAGED")} />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <OrderTab data={orders.filter((v) => v.status === "DELIVERED")} />
+          <OrderTab data={orders.filter((v) => v.status === "SHIPPING")} />
         </TabPanel>
         <TabPanel value={value} index={4}>
-          Da giao
+          <OrderTab data={orders.filter((v) => v.status === "DELIVERED")} />
         </TabPanel>
         <TabPanel value={value} index={5}>
-          Tra hang
+          <OrderTab data={orders.filter((v) => v.status === "RETURNED")} />
         </TabPanel>
       </div>
       <Footer />
