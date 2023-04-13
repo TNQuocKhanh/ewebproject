@@ -52,7 +52,7 @@ const ProductCard = (props) => {
           </h3>
           {/* <div className="separator"></div> */}
           <h2 className="products_price">
-            <h4 style={{ marginBottom: "5px" }}>{newPrice}</h4>
+            <p style={{ marginBottom: "5px" }}>{newPrice}</p>
             <small style={{ fontWeight: "500" }}>
               <del>{oldPrice}</del> <small> -{discountPercent}%</small>
             </small>

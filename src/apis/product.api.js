@@ -17,7 +17,6 @@ export const getProductWithFilter = async (filter) => {
   const user = storage.load("user");
   const token = user?.accessToken;
 
-  console.log('===filter', filter)
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Authorization", `Bearer ${token}`);
