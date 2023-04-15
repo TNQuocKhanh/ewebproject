@@ -14,7 +14,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 const CheckOutPage = () => {
   const navigate = useNavigate();
   const [method, setMethod] = useState(1);
-  const [shippingAddress, setShippingAddress] = useState();
+  const [shippingAddress, setShippingAddress] = useState({});
   const [address, setAddress] = useState();
 
   const { cart } = useContext(cartContext);
@@ -59,6 +59,7 @@ const CheckOutPage = () => {
       }
     } else {
       const res = await createPayment({ totalPrice: totalPrice.toString() });
+      localStorage.setItem('order', JSON.stringify(value))
       if (res.status === 200) {
         const url = await res.json();
         window.location.replace(url.url);

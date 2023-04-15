@@ -22,7 +22,7 @@ const ProductDetails = () => {
   useDocTitle("Product Details");
 
   const { handleActive, activeClass } = useActive(0);
-  const { addItem } = useContext(cartContext);
+  const { addItem, cart } = useContext(cartContext);
   const { productId } = useParams();
 
   const [data, setData] = useState({});

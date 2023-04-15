@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const NewPassword = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ const NewPassword = () => {
       localStorage.removeItem("email");
       navigate("/login");
     } else {
-      console.log("===Chaneg new password error");
+      console.log("===Change new password error");
     }
   };
 
@@ -53,10 +54,10 @@ const NewPassword = () => {
           <div className="row-form-field">
             <label>Nhập lại mật khẩu mới</label>
             <input
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
+              onChange={(e) => setRePassword(e.target.value)}
+              value={rePassword}
               type={isShowPassword ? "text" : "password"}
-              placeholder="Nhập mật khẩu"
+              placeholder="Nhập lại mật khẩu"
             ></input>
           </div>
           <div className="row-form">

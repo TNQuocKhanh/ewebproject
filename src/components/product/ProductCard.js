@@ -8,16 +8,14 @@ import useActive from "../../hooks/useActive";
 const ProductCard = (props) => {
   const { id, name, discountPrice, price, discountPercent, mainImage } = props;
 
-  const { addItem, cart } = useContext(cartContext);
+  const { addItem } = useContext(cartContext);
   const { active, handleActive, activeClass } = useActive(false);
   const [openToast, setOpenToast] = useState(false);
 
   const handleAddItem = () => {
     const item = { ...props };
     addItem(item);
-
     handleActive(id);
-
     toastAdd();
 
     setTimeout(() => {
@@ -43,14 +41,10 @@ const ProductCard = (props) => {
           </Link>
         </figure>
         <div className="products_details">
-          {/* <span className="rating_star">
-            <IoMdStar />
-            <IoMdStar />
-          </span> */}
           <h3 className="products_title">
             <Link to={`/product-details/${id}`}>{name}</Link>
           </h3>
-          {/* <div className="separator"></div> */}
+          {<div className="separator"></div>}
           <h2 className="products_price">
             <p style={{ marginBottom: "5px" }}>{newPrice}</p>
             <small style={{ fontWeight: "500" }}>

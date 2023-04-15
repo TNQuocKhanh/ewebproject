@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BsCartX } from "react-icons/bs";
 import { calculateTotal, displayMoney } from "../helpers/utils";
 import useDocTitle from "../hooks/useDocTitle";
@@ -12,9 +12,9 @@ import Footer from "../components/common/Footer";
 const Cart = () => {
   useDocTitle("Cart");
 
-  const { cart } = useContext(cartContext);
+  //const { cart } = useContext(cartContext);
 
-  console.log("===", cart);
+  const cart = JSON.parse(localStorage.getItem('cart'))
 
   const cartQuantity = cart.length;
 
@@ -50,7 +50,14 @@ const Cart = () => {
                 ))}
               </div>
 
-              <div className="cart_right_col" style={{background: 'white', padding: '20px', borderRadius: '5px'}}>
+              <div
+                className="cart_right_col"
+                style={{
+                  background: "white",
+                  padding: "20px",
+                  borderRadius: "5px",
+                }}
+              >
                 <div className="order_summary">
                   <h3>Tổng đơn hàng &nbsp; ( {cartQuantity} sản phẩm )</h3>
                   <div className="order_summary_details">

@@ -4,13 +4,15 @@ import Footer from "../components/common/Footer";
 import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import _ from "lodash";
-import { createPaymentInfo } from "../apis";
+import { createOrder, createPaymentInfo } from "../apis";
 
 export const PaymentInfo = () => {
   const url = window.location.search;
   const urlParams = new URLSearchParams(url);
 
   //Create payment with VNPay method
+
+  const order = JSON.parse(localStorage.getItem('order'))
 
   const data = {};
 
@@ -20,7 +22,8 @@ export const PaymentInfo = () => {
 
   const _data = {
     vnpTxnRef: data.vnp_TxnRef,
-    amount: data.vnp_Amount.slice(0, -2),
+    amount: data.vnp_Amount,
+    //amount: data.vnp_Amount.slice(0, -2),
     vnpBankCode: data.vnp_BankCode,
     vnpBankTranNo: data.vnp_BankTranNo,
     vnpCardType: data.vnp_CardType,
@@ -33,16 +36,26 @@ export const PaymentInfo = () => {
     vnpSecureHash: data.vnp_SecureHash,
   };
 
-  const createPayment = async () => {
+  const savePayment = async () => {
     try {
       await createPaymentInfo(_data);
     } catch (error) {
       console.log("===ERROR", error);
     }
   };
+  
+  const saveOrder = async () => {
+    try {
+      await createOrder(order)
+      localStorage.removeItem('order')
+    } catch (error) {
+      console.log("===ERROR", error);
+    }
+  };
 
   useEffect(() => {
-    createPayment();
+    savePayment();
+    saveOrder()
   }, []);
 
   return (

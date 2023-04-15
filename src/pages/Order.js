@@ -109,6 +109,7 @@ export const Order = () => {
       >
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Chờ xác nhận" />
+          <Tab label="Đã thanh toán" />
           <Tab label="Đang xử lý" />
           <Tab label="Đã đóng gói" />
           <Tab label="Đang vận chuyển" />
@@ -119,18 +120,21 @@ export const Order = () => {
           <OrderTab data={orders.filter((v) => v.status === "NEW")} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <OrderTab data={orders.filter((v) => v.status === "PROCESSING")} />
+          <OrderTab data={orders.filter((v) => v.status === "PAID")} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <OrderTab data={orders.filter((v) => v.status === "PACKAGED")} />
+          <OrderTab data={orders.filter((v) => v.status === "PROCESSING")} />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <OrderTab data={orders.filter((v) => v.status === "SHIPPING")} />
+          <OrderTab data={orders.filter((v) => v.status === "PACKAGED")} />
         </TabPanel>
         <TabPanel value={value} index={4}>
-          <OrderTab data={orders.filter((v) => v.status === "DELIVERED")} />
+          <OrderTab data={orders.filter((v) => v.status === "SHIPPING")} />
         </TabPanel>
         <TabPanel value={value} index={5}>
+          <OrderTab data={orders.filter((v) => v.status === "DELIVERED")} />
+        </TabPanel>
+        <TabPanel value={value} index={6}>
           <OrderTab data={orders.filter((v) => v.status === "RETURNED")} />
         </TabPanel>
       </div>

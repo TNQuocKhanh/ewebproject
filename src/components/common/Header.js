@@ -14,7 +14,9 @@ import { storage } from "../../utils";
 import logo from "../../data/logo.png";
 
 const Header = () => {
-  const { cart } = useContext(cartContext);
+  //const { cart } = useContext(cartContext);
+
+  const cart = JSON.parse(localStorage.getItem('cart'))
 
   const [isSticky, setIsSticky] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);
@@ -48,6 +50,10 @@ const Header = () => {
   const cartQuantity = cart.reduce((val, acc) => {
     return val + acc.quantity;
   }, 0);
+
+  //const cartQuantity = carts.reduce((val, acc) => {
+    //return val + acc.quantity;
+  //}, 0);
 
   const handleLogout = async () => {
     try {
