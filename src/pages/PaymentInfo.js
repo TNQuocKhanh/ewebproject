@@ -10,8 +10,6 @@ export const PaymentInfo = () => {
   const url = window.location.search;
   const urlParams = new URLSearchParams(url);
 
-  //Create payment with VNPay method
-
   const order = JSON.parse(localStorage.getItem('order'))
 
   const data = {};

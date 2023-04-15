@@ -10,6 +10,9 @@ const ProductSummary = (props) => {
 
   const { active, handleActive, activeClass } = useActive("specs");
 
+  const specsTransform = specs?.split('\n')
+  console.log('===specsTransform', specsTransform)
+
   const params = useParams();
   const { productId } = params;
 
@@ -54,7 +57,9 @@ const ProductSummary = (props) => {
 
           <div className="prod_summary_details">
             {active === "specs" ? (
-              <div className="prod_specs">{specs}</div>
+              <div className="prod_specs">{
+                specsTransform?.map(it => <div>{it}</div>)
+              }</div>
             ) : active === "overview" ? (
               <div className="prod_overview">
                 <p>{description}</p>
