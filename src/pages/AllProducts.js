@@ -8,6 +8,7 @@ import Footer from "../components/common/Footer";
 import { getProductWithFilter, getListCategories } from "../apis";
 import { Button } from "@mui/material";
 import _ from "lodash";
+import Slider from "@mui/material/Slider";
 
 const AllProducts = () => {
   useDocTitle("All Products");
@@ -21,22 +22,23 @@ const AllProducts = () => {
   const [order, setOrder] = useState();
   const [categoryId, setCategoryId] = useState();
   const [page, setPage] = useState(1);
-  const [minPrice, setMinPrice] = useState();
-  const [maxPrice, setMaxPrice] = useState();
+
+  const [range, setRange] = useState([0, 100]);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const name = urlParams.get("productName");
+  const cateId = urlParams.get("categoryId")
 
   const filter = {
     productName: name,
-    categoryId,
+    categoryId: cateId,
     page,
     size: perPage,
     sortBy,
     order,
-    minPrice,
-    maxPrice,
+    minPrice: range[0] * 300000,
+    maxPrice: range[1] * 300000,
   };
 
   const _filter = _.omitBy(filter, (v) => !v);
@@ -67,8 +69,12 @@ const AllProducts = () => {
   useEffect(() => {
     getAllProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, order, categoryId, minPrice, maxPrice]);
+  }, [page, order, categoryId, range, cateId]);
 
+  const handleChanges = (e, newValue) => {
+    setRange(newValue);
+  };
+  
   return (
     <>
       <Header />
@@ -126,20 +132,13 @@ const AllProducts = () => {
             </div>
             <div className="filter_block">
               <h4>Khoảng giá</h4>
+              <input value={range[0]*300000} />
+              <input value={range[1]*300000} />
               <div className="price_filter">
-                <label>Giá từ</label>
-                <input
-                  style={{ border: "1px solid #000" }}
-                  type="number"
-                  value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
-                />
-                <label>Đến</label>
-                <input
-                  style={{ border: "1px solid #000" }}
-                  type="number"
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
+                <Slider
+                  value={range}
+                  onChange={handleChanges}
+                  valueLabelDisplay="auto"
                 />
               </div>
             </div>

@@ -14,7 +14,7 @@ const Cart = () => {
 
   //const { cart } = useContext(cartContext);
 
-  const cart = JSON.parse(localStorage.getItem('cart'))
+  const cart = JSON.parse(localStorage.getItem('cart')) || []
 
   const cartQuantity = cart.length;
 

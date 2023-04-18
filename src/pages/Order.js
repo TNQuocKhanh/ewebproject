@@ -7,7 +7,7 @@ import { TabPanel } from "../components/common/TabPanel";
 import { formatDateTime } from "../utils";
 
 const OrderTab = (props) => {
-  const { data } = props;
+  const { data = [] } = props;
 
   return (
     <>

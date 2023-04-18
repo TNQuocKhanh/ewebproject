@@ -16,7 +16,7 @@ import logo from "../../data/logo.png";
 const Header = () => {
   //const { cart } = useContext(cartContext);
 
-  const cart = JSON.parse(localStorage.getItem('cart'))
+  const cart = JSON.parse(localStorage.getItem("cart"));
 
   const [isSticky, setIsSticky] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);
@@ -47,12 +47,12 @@ const Header = () => {
     };
   }, [isSticky]);
 
-  const cartQuantity = cart.reduce((val, acc) => {
+  const cartQuantity = cart?.reduce((val, acc) => {
     return val + acc.quantity;
   }, 0);
 
   //const cartQuantity = carts.reduce((val, acc) => {
-    //return val + acc.quantity;
+  //return val + acc.quantity;
   //}, 0);
 
   const handleLogout = async () => {
@@ -77,10 +77,10 @@ const Header = () => {
     openCategory === false ? setOpenCategory(true) : setOpenCategory(false);
   };
 
-  window.addEventListener('mouseup', function (event) {
-    var pol = document.getElementById('box-item');
+  window.addEventListener("mouseup", function (event) {
+    var pol = document.getElementById("box-item");
     if (event.target !== pol && event.target.parentNode !== pol) {
-      setOpenCategory(false)
+      setOpenCategory(false);
     }
   });
 
@@ -95,6 +95,10 @@ const Header = () => {
     navigate(
       `/all-products?` + new URLSearchParams({ productName: valueSearch })
     );
+  };
+
+  const handleClickCategory = (value) => {
+    navigate(`/all-products?` + new URLSearchParams({ categoryId: value }));
   };
 
   return (
@@ -238,11 +242,12 @@ const Header = () => {
                     key={idx}
                     className="category-item"
                     style={{ padding: "15px" }}
+                    onClick={() => handleClickCategory(it.id)}
                   >
                     <AiOutlineLaptop
                       style={{ fontSize: "20px", marginRight: "10px" }}
                     />
-                    {it.name}{" "}
+                    {it.name}
                   </li>
                 ))}
               </ul>
@@ -264,12 +269,14 @@ const Header = () => {
             >
               <strong>Sản phẩm</strong>
             </NavLink>
-            <NavLink
-              style={{ marginLeft: "15px", fontSize: "0.8rem" }}
-              to="/orders"
-            >
-              <strong>Đơn hàng</strong>
-            </NavLink>
+            {storage.load("user") && (
+              <NavLink
+                style={{ marginLeft: "15px", fontSize: "0.8rem" }}
+                to="/orders"
+              >
+                <strong>Đơn hàng</strong>
+              </NavLink>
+            )}
           </div>
         </div>
       </header>
