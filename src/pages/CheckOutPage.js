@@ -10,6 +10,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import {formatPrice} from "../utils";
 
 const CheckOutPage = () => {
   const navigate = useNavigate();
@@ -124,11 +125,11 @@ const CheckOutPage = () => {
                         <p style={{ paddingBottom: "10px", fontSize: "13px" }}>
                           Tên: {it.name}                    <br />
                         </p>
-                        <p style={{ fontSize: "13px" }}>SL: {it.quantity}</p>
+                        <p style={{ fontSize: "13px" }}>x {it.quantity}</p>
                       </div>
                     </div>
                     <strong style={{ fontSize: "13px" }}>
-                      {it.quantity * it.discountPrice}
+                      {formatPrice(it.quantity * it.discountPrice)}
                     </strong>
                   </div>
                 </div>
@@ -138,7 +139,7 @@ const CheckOutPage = () => {
           <div className="total-price">
             <div className="row-total-price">
               <strong>Thành tiền:</strong>
-              <p style={{ fontSize: "25px", color: "red" }}>{totalPrice} VNĐ</p>
+              <p style={{ fontSize: "25px", color: "red" }}>{formatPrice(totalPrice)}</p>
             </div>
           </div>
           <div>

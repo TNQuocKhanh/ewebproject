@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { BsCartX } from "react-icons/bs";
-import { calculateTotal, displayMoney } from "../helpers/utils";
 import useDocTitle from "../hooks/useDocTitle";
 import cartContext from "../contexts/cart/cartContext";
 import CartItem from "../components/cart/CartItem";
@@ -8,14 +7,12 @@ import EmptyView from "../components/common/EmptyView";
 import { Link } from "react-router-dom";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
+import {formatPrice} from "../utils";
 
 const Cart = () => {
   useDocTitle("Cart");
 
-  //const { cart } = useContext(cartContext);
-
-  const cart = JSON.parse(localStorage.getItem('cart')) || []
-
+  const { cart } = useContext(cartContext);
   const cartQuantity = cart.length;
 
   const calculateCartTotal = cart.reduce((val, acc) => {
@@ -26,7 +23,7 @@ const Cart = () => {
     return (item.price - item.discountPrice) * 1;
   });
 
-  const calculateCartDiscount = calculateTotal(cartDiscount);
+  const calculateCartDiscount = cartDiscount.reduce((accum, val) => accum + val, 0)
 
   const totalAmount = calculateCartTotal - calculateCartDiscount;
 
@@ -63,11 +60,11 @@ const Cart = () => {
                   <div className="order_summary_details">
                     <div className="price">
                       <span>Giá gốc</span>
-                      <b>{calculateCartTotal}</b>
+                      <b>{ formatPrice(calculateCartTotal)}</b>
                     </div>
                     <div className="discount">
                       <span>Giảm</span>
-                      <b>- {calculateCartDiscount}</b>
+                      <b>- {formatPrice(calculateCartDiscount)}</b>
                     </div>
                     <div className="delivery">
                       <span>Giao hàng</span>
@@ -78,7 +75,7 @@ const Cart = () => {
                       <b>
                         <small>Tổng tiền</small>
                       </b>
-                      <b>{totalAmount}</b>
+                      <b>{formatPrice(totalAmount)}</b>
                     </div>
                   </div>
                   <Link to="/checkout">

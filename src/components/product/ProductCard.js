@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { displayMoney } from "../../helpers/utils";
 import cartContext from "../../contexts/cart/cartContext";
 import ToastAddProduct from "./ToastAddProduct";
 import useActive from "../../hooks/useActive";
+import { formatPrice } from "../../utils/format";
 
 const ProductCard = (props) => {
   const { id, name, discountPrice, price, discountPercent, mainImage } = props;
@@ -28,8 +28,8 @@ const ProductCard = (props) => {
     setOpenToast(true);
   };
 
-  const newPrice = displayMoney(discountPrice);
-  const oldPrice = displayMoney(price);
+  const newPrice = formatPrice(discountPrice);
+  const oldPrice = formatPrice(price);
 
   return (
     <>

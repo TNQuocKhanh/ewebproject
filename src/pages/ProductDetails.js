@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { IoMdStar, IoMdCheckmark } from "react-icons/io";
-import { calculateDiscount, displayMoney } from "../helpers/utils";
 import useDocTitle from "../hooks/useDocTitle";
 import useActive from "../hooks/useActive";
 import cartContext from "../contexts/cart/cartContext";
@@ -17,6 +16,7 @@ import {
 } from "../apis";
 import _ from "lodash";
 import { storage } from "../utils";
+import { formatPrice } from "../utils";
 
 const ProductDetails = () => {
   useDocTitle("Product Details");
@@ -61,6 +61,7 @@ const ProductDetails = () => {
     customerCanReview,
     specifications,
     description,
+    averageRating,
   } = data;
 
   const [previewImg, setPreviewImg] = useState(
@@ -83,10 +84,11 @@ const ProductDetails = () => {
   };
 
   const discountedPrice = price - discountPrice;
-  const newPrice = displayMoney(discountPrice);
-  const oldPrice = displayMoney(price);
-  const savedPrice = displayMoney(discountedPrice);
-  const savedDiscount = calculateDiscount(discountedPrice, price);
+  const newPrice = formatPrice(discountPrice);
+  const oldPrice = formatPrice(price);
+  const savedPrice = formatPrice(discountedPrice);
+  const savedDiscount = Math.round((1 - discountPrice/price) * 100)
+
 
   return (
     <>
@@ -117,8 +119,7 @@ const ProductDetails = () => {
 
               <div className="prod_details_ratings">
                 <span className="rating_star">
-                  <IoMdStar />
-                  <IoMdStar />
+                  {Array(averageRating).fill().map(it => <IoMdStar />)}
                 </span>
                 <span>|</span>
                 <Link to="#">{reviewCount} Đánh giá</Link>

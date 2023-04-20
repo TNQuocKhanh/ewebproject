@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import { TbTrash } from "react-icons/tb";
-import { displayMoney } from "../../helpers/utils";
 import cartContext from "../../contexts/cart/cartContext";
 import QuantityBox from "../common/QuantityBox";
+import {formatPrice} from "../../utils/format";
 
 const CartItem = (props) => {
   const { id, name, quantity, mainImage, price, discountPrice } = props;
 
   const { removeItem } = useContext(cartContext);
 
-  const newPrice = displayMoney(discountPrice);
-  const oldPrice = displayMoney(price);
+  const newPrice =formatPrice(discountPrice);
+  const oldPrice = formatPrice(price);
 
   return (
     <>

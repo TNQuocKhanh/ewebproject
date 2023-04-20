@@ -11,12 +11,11 @@ const ProductSummary = (props) => {
   const { active, handleActive, activeClass } = useActive("specs");
 
   const specsTransform = specs?.split('\n')
-  console.log('===specsTransform', specsTransform)
 
   const params = useParams();
   const { productId } = params;
 
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(5);
   const [comment, setComment] = useState();
 
   const handleSubmit = async (e) => {

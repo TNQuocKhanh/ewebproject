@@ -15,7 +15,6 @@ import logo from "../../data/logo.png";
 
 const Header = () => {
   //const { cart } = useContext(cartContext);
-
   const cart = JSON.parse(localStorage.getItem("cart"));
 
   const [isSticky, setIsSticky] = useState(false);

@@ -1,5 +1,6 @@
 import React from "react";
 import { IoMdStar } from "react-icons/io";
+import { formatDateTime } from "../../utils";
 
 const ProductReviews = (props) => {
   const { customerName, comment, rating, customerPhoto, updateReviewTime } = props;
@@ -16,7 +17,7 @@ const ProductReviews = (props) => {
           <div>
             <div style={{ marginLeft: "5px" }}>
               <h5 style={{ marginBottom: "5px" }}>{customerName}</h5>
-              <small>{updateReviewTime}</small>
+              <small>{formatDateTime(updateReviewTime)}</small>
             </div>
           </div>
         </div>
@@ -29,7 +30,6 @@ const ProductReviews = (props) => {
               <IoMdStar style={{ color: "var(--main-color)" }} key={i} />
             ))}
           </span>
-          <small className="date">2 giờ trước</small>
         </div>
         <p className="user_review">{comment}</p>
       </li>
