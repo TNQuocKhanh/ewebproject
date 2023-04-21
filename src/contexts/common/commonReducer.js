@@ -1,14 +1,13 @@
-import { getProfile } from "../../apis";
-
-const getUserProfile = async (state) => {
-  const res = await getProfile();
-  return {...state, profile: res}
-};
-
 const commonReducer = (state, action) => {
   switch (action.type) {
-    case "GET_PROFILE":
-      return getUserProfile();
+    case "REQUEST":
+      return {...state, loading: true}
+    case "PROFILE_SUCCESS":
+      return {...state, loading: false, userProfile: action.data}
+    case "CATEGORY_SUCCESS":
+      return {...state, loading: false, category: action.data}
+    case "ERROR":
+      return {...state, loading: false, error: action.error}
     default:
       return state;
   }

@@ -7,7 +7,7 @@ import EmptyView from "../components/common/EmptyView";
 import { Link } from "react-router-dom";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
-import {formatPrice} from "../utils";
+import { formatPrice, storage } from "../utils";
 
 const Cart = () => {
   useDocTitle("Cart");
@@ -23,7 +23,10 @@ const Cart = () => {
     return (item.price - item.discountPrice) * 1;
   });
 
-  const calculateCartDiscount = cartDiscount.reduce((accum, val) => accum + val, 0)
+  const calculateCartDiscount = cartDiscount.reduce(
+    (accum, val) => accum + val,
+    0
+  );
 
   const totalAmount = calculateCartTotal - calculateCartDiscount;
 
@@ -60,7 +63,7 @@ const Cart = () => {
                   <div className="order_summary_details">
                     <div className="price">
                       <span>Giá gốc</span>
-                      <b>{ formatPrice(calculateCartTotal)}</b>
+                      <b>{formatPrice(calculateCartTotal)}</b>
                     </div>
                     <div className="discount">
                       <span>Giảm</span>
@@ -78,11 +81,23 @@ const Cart = () => {
                       <b>{formatPrice(totalAmount)}</b>
                     </div>
                   </div>
-                  <Link to="/checkout">
-                    <button type="button" className="btn checkout_btn">
-                      Thanh toán
-                    </button>
-                  </Link>
+                  {storage.load("user") ? (
+                    <Link to="/checkout">
+                      <button type="button" className="btn checkout_btn">
+                        Thanh toán
+                      </button>
+                    </Link>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        disabled={true}
+                        className="btn checkout_btn"
+                      >
+                        Thanh toán
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

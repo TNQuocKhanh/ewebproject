@@ -13,13 +13,11 @@ const addProductToCart = (product, state) => {
     updatedItem.quantity++;
     updatedCart[updatedItemIndex] = updatedItem;
   }
-  localStorage.setItem('cart', JSON.stringify(updatedCart))
   return { ...state, cart: updatedCart };
 };
 
 const removeProductFromCart = (productId, state) => {
   const carts = state.cart.filter((it) => it.id !== productId)
-  localStorage.setItem('cart', JSON.stringify(carts))
   return {
     ...state,
     cart: state.cart.filter((it) => it.id !== productId),
@@ -41,7 +39,6 @@ const increaseQuantity = (productId, state) => {
   } else {
     updatedCart[updatedItemIndex] = updatedItem;
   }
-  localStorage.setItem('cart', JSON.stringify(updatedCart))
   return { ...state, cart: updatedCart };
 };
 
@@ -60,7 +57,6 @@ const decreaseQuantity = (productId, state) => {
   } else {
     updatedCart[updatedItemIndex] = updatedItem;
   }
-  localStorage.setItem('cart', JSON.stringify(updatedCart))
   return { ...state, cart: updatedCart };
 };
 

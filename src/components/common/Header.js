@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   AiOutlineSearch,
@@ -6,72 +6,26 @@ import {
   AiOutlineUser,
   AiOutlineBars,
   AiOutlineCaretDown,
-  AiOutlineLaptop,
 } from "react-icons/ai";
+import CategoryIcon from "@mui/icons-material/Category";
 import cartContext from "../../contexts/cart/cartContext";
-import { getListCategories, getProfile, logout } from "../../apis";
+import commonContext from "../../contexts/common/commonContext";
+import { logout } from "../../apis";
 import { storage } from "../../utils";
 import logo from "../../data/logo.png";
 
 const Header = () => {
-  //const { cart } = useContext(cartContext);
-  const cart = JSON.parse(localStorage.getItem("cart"));
-
-  const [isSticky, setIsSticky] = useState(false);
-  const [openCategory, setOpenCategory] = useState(false);
-
-  const [categoryList, setCategoryList] = useState([]);
-
-  const getAllCategory = async () => {
-    try {
-      const res = await getListCategories();
-      setCategoryList(res);
-    } catch (e) {
-      console.log("===Error");
-    }
-  };
-
+  const { cart } = useContext(cartContext);
+  const { profile, category = [] } = useContext(commonContext);
   const navigate = useNavigate();
 
   const [valueSearch, setValueSearch] = useState("");
-
-  useEffect(() => {
-    const handleIsSticky = () =>
-      window.scrollY >= 50 ? setIsSticky(true) : setIsSticky(false);
-
-    window.addEventListener("scroll", handleIsSticky);
-
-    return () => {
-      window.removeEventListener("scroll", handleIsSticky);
-    };
-  }, [isSticky]);
+  const [openCategory, setOpenCategory] = useState(false);
 
   const cartQuantity = cart?.reduce((val, acc) => {
     return val + acc.quantity;
   }, 0);
 
-  //const cartQuantity = carts.reduce((val, acc) => {
-  //return val + acc.quantity;
-  //}, 0);
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      storage.remove("user");
-      navigate("/login");
-    } catch (error) {
-      console.log("===Error", error);
-    }
-  };
-
-  const [userProfile, setUserProfile] = useState();
-
-  const getUserProfile = async () => {
-    const res = await getProfile();
-    setUserProfile(res);
-  };
-
-  // Event toggle menu category
   const toggleCategory = () => {
     openCategory === false ? setOpenCategory(true) : setOpenCategory(false);
   };
@@ -83,13 +37,6 @@ const Header = () => {
     }
   });
 
-  useEffect(() => {
-    if (storage.load("user")) {
-      getUserProfile();
-    }
-    getAllCategory();
-  }, []);
-
   const handleSearch = () => {
     navigate(
       `/all-products?` + new URLSearchParams({ productName: valueSearch })
@@ -99,10 +46,20 @@ const Header = () => {
   const handleClickCategory = (value) => {
     navigate(`/all-products?` + new URLSearchParams({ categoryId: value }));
   };
+  
+  const handleLogout = async () => {
+    try {
+      await logout();
+      storage.remove("user");
+      navigate("/login");
+    } catch (error) {
+      console.log("===Error", error);
+    }
+  };
 
   return (
     <>
-      <header id="header" className={isSticky ? "sticky" : ""}>
+      <header id="header">
         <div className="container">
           <div className="navbar">
             <h2 className="nav_logo">
@@ -121,7 +78,7 @@ const Header = () => {
               </button>
             </div>
             <nav className="nav_actions">
-              {userProfile?.fullName && (
+              {profile?.fullName && (
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <div
                     className="user_action"
@@ -162,7 +119,7 @@ const Header = () => {
                       Xin chào,
                     </small>
                     <strong style={{ fontSize: "0.8rem", paddingTop: "2 px" }}>
-                      {userProfile?.fullName}
+                      {profile?.fullName}
                     </strong>
                   </div>
                 </div>
@@ -185,7 +142,7 @@ const Header = () => {
                 </Link>
                 <div className="tooltip">Giỏ hàng</div>
               </div>
-              {!userProfile?.fullName && (
+              {!profile?.fullName && (
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <Link to="/login">
                     <strong style={{ fontSize: "0.9rem" }}>Đăng nhập</strong>
@@ -236,14 +193,14 @@ const Header = () => {
               }}
             >
               <ul style={{ borderRadius: "10px" }}>
-                {categoryList.map((it, idx) => (
+                {category.map((it, idx) => (
                   <li
                     key={idx}
                     className="category-item"
                     style={{ padding: "15px" }}
                     onClick={() => handleClickCategory(it.id)}
                   >
-                    <AiOutlineLaptop
+                    <CategoryIcon
                       style={{ fontSize: "20px", marginRight: "10px" }}
                     />
                     {it.name}
