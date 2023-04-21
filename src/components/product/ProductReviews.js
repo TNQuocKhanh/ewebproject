@@ -3,7 +3,8 @@ import { IoMdStar } from "react-icons/io";
 import { formatDateTime } from "../../utils";
 
 const ProductReviews = (props) => {
-  const { customerName, comment, rating, customerPhoto, updateReviewTime } = props;
+  const { customerName, comment, rating, customerPhoto, updateReviewTime } =
+    props;
 
   return (
     <>
@@ -11,8 +12,8 @@ const ProductReviews = (props) => {
         <div className="user_info">
           <img
             style={{ width: "50px", height: "50px" }}
-          src={customerPhoto}
-          alt="user-img"
+            src={customerPhoto}
+            alt="user-img"
           />
           <div>
             <div style={{ marginLeft: "5px" }}>

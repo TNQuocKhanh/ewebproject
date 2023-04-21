@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import cartContext from "../../contexts/cart/cartContext";
-import ToastAddProduct from "./ToastAddProduct";
+import Toastify from "./Toastify";
 import useActive from "../../hooks/useActive";
 import { formatPrice } from "../../utils/format";
 import { toast } from "react-toastify";
@@ -30,7 +30,7 @@ const ProductCard = (props) => {
   return (
     <>
       <div className="card products_card">
-        <ToastAddProduct />
+        <Toastify />
         <figure className="products_img">
           <Link to={`/product-details/${id}`}>
             <img src={mainImage} alt="product-img" />

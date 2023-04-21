@@ -1,16 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { footMenu, footSocial } from "../../data/footerData";
 
 const Footer = () => {
-  const [subValue, setSubValue] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubValue("");
-    alert("Thankyou, you are subscribed to receive our daily newsletter");
-  };
-
   const currYear = new Date().getFullYear();
 
   return (
@@ -23,7 +15,7 @@ const Footer = () => {
               <Link to="/">HDKShop</Link>
             </h2>
             <div className="foot_subs">
-              <p style={{lineHeight: '30px'}}>
+              <p style={{ lineHeight: "30px" }}>
                 Đăng ký với chúng tôi để nhận các thông tin ưu đãi và các sản
                 phẩm mới nhất
               </p>

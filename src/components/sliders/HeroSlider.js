@@ -37,8 +37,8 @@ const HeroSlider = () => {
           originalPrice,
           path,
         } = item;
-        const newPrice =finalPrice;
-        const oldPrice =originalPrice;
+        const newPrice = finalPrice;
+        const oldPrice = originalPrice;
 
         return (
           <SwiperSlide

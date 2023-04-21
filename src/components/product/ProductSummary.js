@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useActive from "../../hooks/useActive";
 import ProductReviews from "./ProductReviews";
 import { Rating } from "@mui/material";
@@ -10,7 +10,7 @@ const ProductSummary = (props) => {
 
   const { active, handleActive, activeClass } = useActive("specs");
 
-  const specsTransform = specs?.split('\n')
+  const specsTransform = specs?.split("\n");
 
   const params = useParams();
   const { productId } = params;
@@ -23,7 +23,7 @@ const ProductSummary = (props) => {
     try {
       await createReview(productId, { comment, rating: value });
     } catch (e) {
-      console.log("===Err", e);
+      console.log("[Create review] error", e);
     }
   };
 
@@ -56,9 +56,11 @@ const ProductSummary = (props) => {
 
           <div className="prod_summary_details">
             {active === "specs" ? (
-              <div className="prod_specs">{
-                specsTransform?.map(it => <div>{it}</div>)
-              }</div>
+              <div className="prod_specs">
+                {specsTransform?.map((it) => (
+                  <div>{it}</div>
+                ))}
+              </div>
             ) : active === "overview" ? (
               <div className="prod_overview">
                 <p>{description}</p>

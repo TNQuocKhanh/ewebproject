@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles/partials/components/_toast_add_product.scss";
 import { ToastContainer } from "react-toastify";
 
-const ToastAddProduct = () => {
+const Toastify = () => {
   return (
     <ToastContainer
       position="top-right"
@@ -19,4 +19,4 @@ const ToastAddProduct = () => {
   );
 };
 
-export default ToastAddProduct;
+export default Toastify;

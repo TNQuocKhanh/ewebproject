@@ -46,14 +46,14 @@ const Header = () => {
   const handleClickCategory = (value) => {
     navigate(`/all-products?` + new URLSearchParams({ categoryId: value }));
   };
-  
+
   const handleLogout = async () => {
     try {
       await logout();
       storage.remove("user");
       navigate("/login");
     } catch (error) {
-      console.log("===Error", error);
+      console.log("[Logout] Error", error);
     }
   };
 

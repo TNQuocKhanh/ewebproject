@@ -1,43 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
-import {
-  createAddress,
-  getProfile,
-  updateAddress,
-  updatePhoto,
-  updateProfile,
-} from "../apis";
+import { getProfile, updatePhoto, updateProfile } from "../apis";
 import "../styles/partials/pages/_profile.scss";
-import { storage } from "../utils";
+import { formatDateTime, storage } from "../utils";
 import { AiOutlineUpload } from "react-icons/ai";
 import { TabPanel } from "../components/common/TabPanel";
-import {
-  Card,
-  Tabs,
-  Tab,
-  Grid,
-  CardContent,
-  Typography,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { Tabs, Tab, Grid } from "@mui/material";
+import { ProfileAddress } from "./Address";
+import { toast } from "react-toastify";
+import Toastify from "../components/product/Toastify";
+import commonContext from "../contexts/common/commonContext";
 
 const ProfileInfo = () => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [createdTime, setCreatedTime] = useState();
-  const [photo, setPhoto] = useState();
-  const [selectedFile, setSelectedFile] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [createdTime, setCreatedTime] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [selectedFile, setSelectedFile] = useState("");
+  const [provider, setProvider] = useState("");
 
   const getUserProfile = async () => {
     const res = await getProfile();
@@ -45,6 +26,7 @@ const ProfileInfo = () => {
     setEmail(res.email);
     setCreatedTime(res.createdTime);
     setPhoto(res.photos);
+    setProvider(res.provider);
   };
 
   useEffect(() => {
@@ -57,8 +39,10 @@ const ProfileInfo = () => {
     e.preventDefault();
     try {
       updateProfile({ fullName: name });
+      toast.success("Cập nhật thành công");
     } catch (e) {
-      console.log("====Update profile error", e);
+      toast.error("Đã có lỗi xảy ra");
+      console.log("[Update profile] Error", e);
     }
   };
 
@@ -86,8 +70,10 @@ const ProfileInfo = () => {
   const handleUploadImage = async () => {
     try {
       await updatePhoto(selectedFile);
+      toast.success("Cập nhật thành công");
     } catch (err) {
-      console.log("====Upload image error");
+      toast.error("Đã có lỗi xảy ra");
+      console.log("[Upload image] Error");
     }
   };
 
@@ -120,13 +106,13 @@ const ProfileInfo = () => {
                 }}
               >
                 {selectedFile ? (
-                  <button onClick={handleUploadImage}>Upload</button>
+                  <button onClick={handleUploadImage}>Tải ảnh lên</button>
                 ) : (
                   <>
                     <AiOutlineUpload
                       style={{ fontSize: "1.3rem", marginRight: "5px" }}
                     />
-                    Tải ảnh mới
+                    Chọn ảnh
                   </>
                 )}
               </label>
@@ -147,6 +133,7 @@ const ProfileInfo = () => {
                 <label>Tên người dùng</label>
                 <input
                   value={name}
+                  disabled={provider !== "local"}
                   onChange={(e) => setName(e.target.value)}
                   type="text"
                 ></input>
@@ -163,7 +150,7 @@ const ProfileInfo = () => {
               <div className="row-form-field">
                 <label>Ngày tạo</label>
                 <input
-                  value={createdTime}
+                  value={formatDateTime(createdTime)}
                   disabled
                   onChange={(e) => setCreatedTime(e.target.value)}
                   type="text"
@@ -176,169 +163,19 @@ const ProfileInfo = () => {
           </div>
         </Grid>
       </Grid>
+      <Toastify />
     </>
   );
 };
 
-const ProfileAddress = (props) => {
-  const { address } = props;
-
-  const [open, setOpen] = useState(false);
-
-  const [name, setName] = useState("");
-  const [district, setDistrict] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [street, setStreet] = useState("");
-
-  const [idAddress, setIdAddress] = useState();
-
-  const handleEdit = (it) => {
-    setOpen(true);
-    setIdAddress(it.id);
-    setName(it.name);
-    setDistrict(it.district);
-    setPhoneNumber(it.phoneNumber);
-    setStreet(it.street);
-  };
-
-  const handleAdd = () => {
-    setOpen(true);
-    setIdAddress(null);
-    setName("");
-    setDistrict("");
-    setPhoneNumber("");
-    setStreet("");
-  };
-
-  const handleSubmit = async () => {
-    if (idAddress) {
-      try {
-        await updateAddress(idAddress, { name, district, phoneNumber, street });
-      } catch (err) {
-        console.log("===Error", err);
-      }
-    } else {
-      try {
-        await createAddress({ name, district, phoneNumber, street });
-      } catch (err) {
-        console.log("===Error", err);
-      }
-    }
-    setOpen(false);
-  };
-
-  return (
-    <div>
-      {address.map((it) => {
-        return (
-          <Card sx={{ maxWidth: 600, marginBottom: 2 }} variant="outlined">
-            <Grid container>
-              <Grid item md={10} xs={10}>
-                <CardContent>
-                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    {it.name} | {it.phoneNumber}
-                  </Typography>
-                  <Typography variant="body1">
-                    {`${it.street}, ${it.district}`}
-                  </Typography>
-                  <Typography variant="body1">
-                    {it.defaultAddress && (
-                      <Chip sx={{ mt: 1 }} label="Mặc định" />
-                    )}
-                  </Typography>
-                </CardContent>
-              </Grid>
-              <Grid item md={2} xs={2}>
-                <div
-                  style={{
-                    position: "relative",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                >
-                  <Tooltip title="Cập nhật" onClick={() => handleEdit(it)}>
-                    <IconButton>
-                      <EditIcon />
-                    </IconButton>
-                  </Tooltip>
-                </div>
-              </Grid>
-            </Grid>
-          </Card>
-        );
-      })}
-      <Tooltip title="Thêm địa chỉ mới" onClick={handleAdd}>
-        <IconButton>
-          <AddCircleOutlineIcon />
-        </IconButton>
-      </Tooltip>
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>{idAddress ? "Cập nhật" : "Thêm mới"}</DialogTitle>
-        <DialogContent>
-          <TextField
-            margin="dense"
-            label="Tên"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            label="Số điện thoại"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            type="text"
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            label="Quận"
-            value={district}
-            onChange={(e) => setDistrict(e.target.value)}
-            type="text"
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            label="Tên đường"
-            value={street}
-            onChange={(e) => setStreet(e.target.value)}
-            type="text"
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpen(false)} color="secondary">
-            Huỷ
-          </Button>
-          <Button onClick={handleSubmit} color="primary">
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
-};
-
 const Profile = () => {
+  const { profile = [] } = useContext(commonContext)
+  
   const [value, setValue] = useState(0);
-  const [address, setAddress] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const getUserProfile = async () => {
-    const res = await getProfile();
-    setAddress(res.address);
-  };
-
-  useEffect(() => {
-    if (storage.load("user")) {
-      getUserProfile();
-    }
-  }, []);
 
   return (
     <>
@@ -348,7 +185,6 @@ const Profile = () => {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="simple tabs example"
         >
           <Tab label="Thông tin" />
           <Tab label="Địa chỉ" />
@@ -359,7 +195,7 @@ const Profile = () => {
         <TabPanel value={value} index={1}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={12}>
-              <ProfileAddress address={address} />
+              <ProfileAddress address={profile.address} />
             </Grid>
           </Grid>
         </TabPanel>

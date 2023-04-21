@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { formatPrice, storage } from "../utils";
+import { toast } from "react-toastify";
+import Toastify from "../components/product/Toastify";
 
 const Cart = () => {
   useDocTitle("Cart");
@@ -91,7 +93,9 @@ const Cart = () => {
                     <>
                       <button
                         type="button"
-                        disabled={true}
+                        onClick={() =>
+                          toast.info("Vui lòng đăng nhập để tiếp tục.")
+                        }
                         className="btn checkout_btn"
                       >
                         Thanh toán
@@ -104,6 +108,7 @@ const Cart = () => {
           )}
         </div>
       </section>
+      <Toastify />
       <Footer />
     </>
   );

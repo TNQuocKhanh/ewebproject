@@ -4,7 +4,7 @@ import cartContext from "../../contexts/cart/cartContext";
 const QuantityBox = (props) => {
   const { itemId, itemQuantity } = props;
 
-  const { incrementItem, decrementItem, cart } = useContext(cartContext);
+  const { incrementItem, decrementItem } = useContext(cartContext);
 
   return (
     <>
