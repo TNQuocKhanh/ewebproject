@@ -1,31 +1,27 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import cartContext from "../../contexts/cart/cartContext";
 import ToastAddProduct from "./ToastAddProduct";
 import useActive from "../../hooks/useActive";
 import { formatPrice } from "../../utils/format";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductCard = (props) => {
   const { id, name, discountPrice, price, discountPercent, mainImage } = props;
 
   const { addItem } = useContext(cartContext);
   const { active, handleActive, activeClass } = useActive(false);
-  const [openToast, setOpenToast] = useState(false);
 
   const handleAddItem = () => {
     const item = { ...props };
     addItem(item);
     handleActive(id);
-    toastAdd();
 
+    toast.success("Thêm vào giỏ hàng thành công");
     setTimeout(() => {
       handleActive(false);
-      setOpenToast(false);
     }, 3000);
-  };
-
-  const toastAdd = () => {
-    setOpenToast(true);
   };
 
   const newPrice = formatPrice(discountPrice);
@@ -33,8 +29,8 @@ const ProductCard = (props) => {
 
   return (
     <>
-      {openToast === true && <ToastAddProduct />}
       <div className="card products_card">
+        <ToastAddProduct />
         <figure className="products_img">
           <Link to={`/product-details/${id}`}>
             <img src={mainImage} alt="product-img" />
