@@ -10,7 +10,7 @@ export const PaymentInfo = () => {
   const url = window.location.search;
   const urlParams = new URLSearchParams(url);
 
-  const order = JSON.parse(localStorage.getItem('order'))
+  const order = JSON.parse(localStorage.getItem("order"));
 
   const data = {};
 
@@ -36,24 +36,21 @@ export const PaymentInfo = () => {
 
   const savePayment = async () => {
     try {
-      await createPaymentInfo(_data);
+      const res = await createPaymentInfo(_data);
+      console.log("====res", res);
+      if (res.status === 200) {
+        await createOrder(order);
+        localStorage.removeItem("order");
+        localStorage.removeItem("myCart");
+      }
     } catch (error) {
-      console.log("===ERROR", error);
-    }
-  };
-  
-  const saveOrder = async () => {
-    try {
-      await createOrder(order)
-      localStorage.removeItem('order')
-    } catch (error) {
-      console.log("===ERROR", error);
+      console.log("[Save payment] error", error);
     }
   };
 
   useEffect(() => {
     savePayment();
-    saveOrder()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

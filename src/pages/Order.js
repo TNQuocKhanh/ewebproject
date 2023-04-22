@@ -60,7 +60,7 @@ const OrderTab = (props) => {
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                       Phương thức thanh toán: {it.paymentMethod}
                     </Typography>
-                    <Typography variant="caption" sx={{float: 'right'}}>
+                    <Typography variant="caption" sx={{ float: "right" }}>
                       Ngày đặt hàng: {formatDateTime(it.orderTime)}
                     </Typography>
                   </Grid>
@@ -111,7 +111,6 @@ export const Order = () => {
           <Tab label="Chờ xác nhận" />
           <Tab label="Đã thanh toán" />
           <Tab label="Đang xử lý" />
-          <Tab label="Đã đóng gói" />
           <Tab label="Đang vận chuyển" />
           <Tab label="Đã giao" />
           <Tab label="Trả hàng" />
@@ -123,18 +122,19 @@ export const Order = () => {
           <OrderTab data={orders.filter((v) => v.status === "PAID")} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <OrderTab data={orders.filter((v) => v.status === "PROCESSING")} />
+          <OrderTab
+            data={orders.filter(
+              (v) => v.status === "PROCESSING" || v.status === "PACKAGED"
+            )}
+          />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <OrderTab data={orders.filter((v) => v.status === "PACKAGED")} />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
           <OrderTab data={orders.filter((v) => v.status === "SHIPPING")} />
         </TabPanel>
-        <TabPanel value={value} index={5}>
+        <TabPanel value={value} index={4}>
           <OrderTab data={orders.filter((v) => v.status === "DELIVERED")} />
         </TabPanel>
-        <TabPanel value={value} index={6}>
+        <TabPanel value={value} index={5}>
           <OrderTab data={orders.filter((v) => v.status === "RETURNED")} />
         </TabPanel>
       </div>

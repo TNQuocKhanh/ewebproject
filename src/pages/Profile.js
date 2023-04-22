@@ -92,30 +92,32 @@ const ProfileInfo = () => {
             <h4 style={{ padding: "20px 0 10px 0" }}>{name}</h4>
             <small style={{ padding: "0px 0 20px 0" }}>{email}</small>
             <div className="btn-upload-img">
-              <label
-                htmlFor="input-upload"
-                style={{
-                  cursor: "pointer",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "white",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  border: "1px solid #cccccc",
-                }}
-              >
-                {selectedFile ? (
-                  <button onClick={handleUploadImage}>Tải ảnh lên</button>
-                ) : (
-                  <>
-                    <AiOutlineUpload
-                      style={{ fontSize: "1.3rem", marginRight: "5px" }}
-                    />
-                    Chọn ảnh
-                  </>
-                )}
-              </label>
+              {provider === "local" && (
+                <label
+                  htmlFor="input-upload"
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    background: "white",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    border: "1px solid #cccccc",
+                  }}
+                >
+                  {selectedFile ? (
+                    <button onClick={handleUploadImage}>Tải ảnh lên</button>
+                  ) : (
+                    <>
+                      <AiOutlineUpload
+                        style={{ fontSize: "1.3rem", marginRight: "5px" }}
+                      />
+                      Chọn ảnh
+                    </>
+                  )}
+                </label>
+              )}
               <input
                 hidden
                 id="input-upload"
@@ -169,8 +171,8 @@ const ProfileInfo = () => {
 };
 
 const Profile = () => {
-  const { profile = [] } = useContext(commonContext)
-  
+  const { profile = [] } = useContext(commonContext);
+
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -182,10 +184,7 @@ const Profile = () => {
       <Header />
 
       <div id="page-profile" className="container">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-        >
+        <Tabs value={value} onChange={handleChange}>
           <Tab label="Thông tin" />
           <Tab label="Địa chỉ" />
         </Tabs>

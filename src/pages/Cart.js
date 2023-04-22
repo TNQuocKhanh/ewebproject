@@ -98,7 +98,8 @@ const Cart = () => {
                         }
                         className="btn checkout_btn"
                       >
-                        Thanh toán
+                        {`Thanh toán
+                          Vui long dang nhap de tiep tuc`}
                       </button>
                     </>
                   )}

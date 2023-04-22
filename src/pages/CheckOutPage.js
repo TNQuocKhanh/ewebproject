@@ -9,14 +9,15 @@ import { useNavigate } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import {formatPrice} from "../utils";
+import Select from "@mui/material/Select";
+import { formatPrice } from "../utils";
 
 const CheckOutPage = () => {
   const navigate = useNavigate();
   const [method, setMethod] = useState(1);
   const [shippingAddress, setShippingAddress] = useState({});
   const [address, setAddress] = useState();
+  const [note, setNote] = useState();
 
   const { cart } = useContext(cartContext);
 
@@ -49,18 +50,22 @@ const CheckOutPage = () => {
       paymentMethod: method === 1 ? "COD" : "VNPay",
       totalPrice: totalPrice,
       lineItem: item,
+      note,
     };
 
     if (method === 1) {
       const res = await createOrder(value);
-      if (res) {
+      if (res.status === 201) {
+        alert("Đặt hàng thành công");
+        localStorage.removeItem("myCart");
         navigate("/");
       } else {
-        alert("Dat hang ko thanh cong");
+        console.log("[Create order] error", res);
+        alert("Có lỗi xảy ra");
       }
     } else {
       const res = await createPayment({ totalPrice: totalPrice.toString() });
-      localStorage.setItem('order', JSON.stringify(value))
+      localStorage.setItem("order", JSON.stringify(value));
       if (res.status === 200) {
         const url = await res.json();
         window.location.replace(url.url);
@@ -111,6 +116,20 @@ const CheckOutPage = () => {
               </Select>
             </FormControl>
           </div>
+          <h4>Ghi chú</h4>
+          <textarea
+            cols={50}
+            rows={2}
+            placeholder="Ghi chú cho người bán"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            style={{
+              border: "1px solid #cccccc",
+              borderRadius: "5px",
+              fontSize: "16px",
+              padding: "15px",
+            }}
+          />
         </div>
         <div className="box-item-checkout">
           <h4>Thông tin đơn hàng</h4>
@@ -119,11 +138,11 @@ const CheckOutPage = () => {
               return (
                 <div>
                   <div className="row-item-cart">
-                    <div style={{ display: 'flex' }}>
+                    <div style={{ display: "flex" }}>
                       <img src={it.mainImage} alt={it.name}></img>
-                      <div style={{marginLeft: '20px'}}>
+                      <div style={{ marginLeft: "20px" }}>
                         <p style={{ paddingBottom: "10px", fontSize: "13px" }}>
-                          Tên: {it.name}                    <br />
+                          Tên: {it.name} <br />
                         </p>
                         <p style={{ fontSize: "13px" }}>x {it.quantity}</p>
                       </div>
@@ -139,7 +158,9 @@ const CheckOutPage = () => {
           <div className="total-price">
             <div className="row-total-price">
               <strong>Thành tiền:</strong>
-              <p style={{ fontSize: "25px", color: "red" }}>{formatPrice(totalPrice)}</p>
+              <p style={{ fontSize: "25px", color: "red" }}>
+                {formatPrice(totalPrice)}
+              </p>
             </div>
           </div>
           <div>
