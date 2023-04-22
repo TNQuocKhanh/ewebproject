@@ -134,6 +134,7 @@ const ProfileInfo = () => {
               <div className="row-form-field">
                 <label>Tên người dùng</label>
                 <input
+                  style={{ cursor: provider !== "local" ? 'not-allowed' : 'auto' }}
                   value={name}
                   disabled={provider !== "local"}
                   onChange={(e) => setName(e.target.value)}
@@ -143,6 +144,7 @@ const ProfileInfo = () => {
               <div className="row-form-field">
                 <label>Email</label>
                 <input
+                  style={{ cursor: provider !== "local" ? 'not-allowed' : 'auto' }}
                   value={email}
                   disabled
                   onChange={(e) => setEmail(e.target.value)}
@@ -152,6 +154,7 @@ const ProfileInfo = () => {
               <div className="row-form-field">
                 <label>Ngày tạo</label>
                 <input
+                  style={{ cursor: provider !== "local" ? 'not-allowed' : 'auto' }}
                   value={formatDateTime(createdTime)}
                   disabled
                   onChange={(e) => setCreatedTime(e.target.value)}

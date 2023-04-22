@@ -16,21 +16,22 @@ const FeaturedSlider = () => {
 
   return (
     <Swiper
+      style={{background: 'linear-gradient(to right, var(--main-color) , #a1def5)', padding: '50px'}}
       modules={[EffectCoverflow, Pagination, A11y, Autoplay]}
       loop={true}
       speed={400}
       spaceBetween={100}
       slidesPerView={"auto"}
       pagination={{ clickable: true }}
-      effect={"coverflow"}
+      // effect={"coverflow"}
       centeredSlides={true}
-      coverflowEffect={{
-        rotate: 0,
-        stretch: 0,
-        depth: 70,
-        modifier: 3,
-        slideShadows: false,
-      }}
+      // coverflowEffect={{
+      //   rotate: 0,
+      //   stretch: 0,
+      //   depth: 70,
+      //   modifier: 3,
+      //   slideShadows: false,
+      // }}
       autoplay={{
         delay: 3500,
         disableOnInteraction: false,
@@ -41,8 +42,8 @@ const FeaturedSlider = () => {
           spaceBetween: 200,
         },
         992: {
-          slidesPerView: 3,
-          spaceBetween: 250,
+          slidesPerView: 4,
+          spaceBetween: 30,
         },
       }}
       className="featured_swiper"
@@ -57,18 +58,16 @@ const FeaturedSlider = () => {
             key={id}
             className="featured_slides"
             style={{
-              border: "1px solid var(--border-form)",
-              padding: "1.5%",
-              borderRadius: "10px",
-              boxShadow: "0px 5px 15px #00000019",
+              borderRadius: "5px",
+              background: 'white'
             }}
           >
-            <div className="featured_title">{title}</div>
             <figure className="featured_img">
               <Link to={`${path}${id}`}>
                 <img src={images[0]} alt="" />
               </Link>
             </figure>
+            <div className="featured_title">{title}</div>
             <h2 className="products_price">
               {newPrice} &nbsp;
               <small>

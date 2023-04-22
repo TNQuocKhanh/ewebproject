@@ -84,17 +84,15 @@ const CheckOutPage = () => {
         <div className="box-form-checkout">
           <h4>Phương thức thanh toán</h4>
           <div className="payment-method">
-            <button onClick={() => setMethod(1)}>
-              Tiền mặt
+            <button style={{ border: method === 1 && '1px solid rgb(0, 0, 186)' }} onClick={() => setMethod(1)}>
+              <strong>Thanh toán khi nhận hàng</strong>
               <div className="check-payment-method">
                 {method === 1 && <FaCheckCircle />}
               </div>
             </button>
-            <button onClick={() => setMethod(2)}>
-              <img
-                src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-1.png"
-                alt=""
-              ></img>
+            <button style={{ border: method === 2 && '1px solid rgb(0, 0, 186)' }} onClick={() => setMethod(2)}>
+              <strong>Thanh toán VNPay<small style={{color: 'white', background: 'rgb(0, 0, 186)', padding: '5px', borderRadius: '5px', fontSize: '10px', marginLeft: '10px'}}>Khuyên dùng</small></strong>
+              <p style={{marginTop: '20px', lineHeight: '30px', color:'#aaaaaa', fontSize: '13px', padding: '0 20px'}}>Thanh toán qua Internet Banking, Visa, Master, JBC, VNPay-QR</p>
               <div className="check-payment-method">
                 {method === 2 && <FaCheckCircle />}
               </div>
@@ -116,10 +114,8 @@ const CheckOutPage = () => {
               </Select>
             </FormControl>
           </div>
-          <h4>Ghi chú</h4>
+          <h4 style={{ marginTop: '20px' }}>Ghi chú</h4>
           <textarea
-            cols={50}
-            rows={2}
             placeholder="Ghi chú cho người bán"
             value={note}
             onChange={(e) => setNote(e.target.value)}
@@ -128,6 +124,7 @@ const CheckOutPage = () => {
               borderRadius: "5px",
               fontSize: "16px",
               padding: "15px",
+              width: '100%',
             }}
           />
         </div>
@@ -164,7 +161,7 @@ const CheckOutPage = () => {
             </div>
           </div>
           <div>
-            <button onClick={handleCheckout} className="btn-checkout">
+            <button disabled onClick={handleCheckout} className="btn-checkout">
               Thanh toán
             </button>
           </div>

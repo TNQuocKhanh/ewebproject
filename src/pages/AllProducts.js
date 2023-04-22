@@ -132,8 +132,10 @@ const AllProducts = () => {
             </div>
             <div className="filter_block">
               <h4>Khoảng giá</h4>
-              <input value={range[0]*300000} />
-              <input value={range[1]*300000} />
+              <div style={{display: 'flex', gap: '8px'}}>
+              <input style={{maxWidth: '90px', border: '1px solid #dddddd', padding: '10px', borderRadius: '5px', textAlign: 'center'}} value={range[0]*300000} />
+              <input style={{maxWidth: '90px', border: '1px solid #dddddd', padding: '10px', borderRadius: '5px', textAlign: 'center'}} value={range[1]*300000} />
+              </div>
               <div className="price_filter">
                 <Slider
                   value={range}
@@ -153,7 +155,7 @@ const AllProducts = () => {
                   <ProductCard key={item.id} {...item} />
                 ))}
               </div>
-              <div style={{ margin: "10px 0" }}>
+              <div style={{ margin: "10px 0", textAlign: 'center' }}>
                 {Array(Math.ceil(total / perPage))
                   .fill()
                   .map((v, i) => (

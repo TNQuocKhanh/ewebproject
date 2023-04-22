@@ -137,12 +137,13 @@
     .dropdown_menu {
         position: absolute;
         top: 50px;
+        left: 0;
         right: 0;
-        width: 17.5rem;
+        width: 15rem;
         background-color: var(--bg-color-2);
-        padding: 1.2rem;
+        padding: 1rem;
         font-size: 0.9rem;
-        border-radius: 3px;
+        border-radius: 5px;
         @include bordered(1px, var(--text-muted));
         @include toggleVisibility(hidden, 0);
         @include transition(all, 0.2s, ease-in-out);
@@ -153,17 +154,18 @@
 
             a {
                 color: var(--main-color);
-                opacity: 0.95;
-
-                &:hover {
-                    opacity: 1;
-                }
+                opacity: 1;
             }
         }
 
-        p {
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
+        .item-menu {
+            color: rgb(52, 52, 52);
+            padding: 20px 0;
+        }
+
+        .item-menu:hover {
+            color: var(--main-color);
+            padding: 20px 0;
         }
 
         button {

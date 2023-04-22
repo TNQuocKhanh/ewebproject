@@ -28,7 +28,7 @@ const Home = () => {
 
       <section id="featured" className="section">
         <div className="container">
-          <SectionsHead heading="Sản phẩm nổi bật" />
+          <SectionsHead background="linear-gradient(to right, var(--main-color) , #a1def5)" color='white' heading="Sản phẩm nổi bật" />
           <FeaturedSlider />
         </div>
       </section>

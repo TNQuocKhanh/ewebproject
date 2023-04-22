@@ -85,8 +85,9 @@ const Cart = () => {
                   </div>
                   {storage.load("user") ? (
                     <Link to="/checkout">
-                      <button type="button" className="btn checkout_btn">
-                        Thanh toán
+                      <button type="button" className="btn checkout_btn" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                        <strong style={{textTransform: 'uppercase'}}>Thanh toán</strong>
+                        <small style={{marginTop: '10px'}}>Bạn cần đăng nhập để tiếp tục</small>
                       </button>
                     </Link>
                   ) : (

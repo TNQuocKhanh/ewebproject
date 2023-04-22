@@ -13,6 +13,8 @@ import commonContext from "../../contexts/common/commonContext";
 import { logout } from "../../apis";
 import { storage } from "../../utils";
 import logo from "../../data/logo.png";
+import { AiOutlineRetweet } from "react-icons/ai";
+import { AiOutlineExport } from "react-icons/ai";
 
 const Header = () => {
   const { cart } = useContext(cartContext);
@@ -95,13 +97,20 @@ const Header = () => {
                     <div className="dropdown_menu">
                       <ul>
                         <li>
-                          <Link to="/profile">Thông tin</Link>
+                          <Link className="item-menu" to="/profile">
+                            <AiOutlineUser style={{ fontSize: '20px', marginRight: '20px' }} />
+                            Thông tin tài khoản
+                          </Link>
                         </li>
                         <li>
-                          <Link to="/change-password">Đổi mật khẩu</Link>
+                          <Link className="item-menu" to="/change-password">
+                          <AiOutlineRetweet style={{ fontSize: '20px', marginRight: '20px' }} />
+                            Thay đổi mật khẩu
+                          </Link>
                         </li>
                         <li>
-                          <Link to="/login" onClick={handleLogout}>
+                          <Link className="item-menu" to="/login" onClick={handleLogout}>
+                          <AiOutlineExport style={{ fontSize: '20px', marginRight: '20px' }} />
                             Đăng xuất
                           </Link>
                         </li>
