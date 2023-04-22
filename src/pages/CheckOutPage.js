@@ -11,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { formatPrice } from "../utils";
+import Messenger from "../components/common/Messenger";
 
 const CheckOutPage = () => {
   const navigate = useNavigate();
@@ -167,6 +168,7 @@ const CheckOutPage = () => {
           </div>
         </div>
       </section>
+      <Messenger/>
       <Footer />
     </>
   );

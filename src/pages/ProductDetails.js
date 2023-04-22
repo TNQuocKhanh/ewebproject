@@ -17,6 +17,7 @@ import {
 import _ from "lodash";
 import { storage } from "../utils";
 import { formatPrice } from "../utils";
+import Messenger from "../components/common/Messenger";
 
 const ProductDetails = () => {
   useDocTitle("Product Details");
@@ -170,7 +171,7 @@ const ProductDetails = () => {
         specs={specifications}
         description={description}
       />
-
+      <Messenger/>
       <Footer />
     </>
   );

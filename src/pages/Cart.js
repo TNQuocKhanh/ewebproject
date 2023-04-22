@@ -10,6 +10,7 @@ import Footer from "../components/common/Footer";
 import { formatPrice, storage } from "../utils";
 import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
+import Messenger from "../components/common/Messenger";
 
 const Cart = () => {
   useDocTitle("Cart");
@@ -111,6 +112,7 @@ const Cart = () => {
         </div>
       </section>
       <Toastify />
+      <Messenger/>
       <Footer />
     </>
   );

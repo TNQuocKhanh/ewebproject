@@ -11,6 +11,7 @@ import { ProfileAddress } from "./Address";
 import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
 import commonContext from "../contexts/common/commonContext";
+import Messenger from "../components/common/Messenger";
 
 const ProfileInfo = () => {
   const [name, setName] = useState("");
@@ -202,6 +203,7 @@ const Profile = () => {
           </Grid>
         </TabPanel>
       </div>
+      <Messenger/>
       <Footer />
     </>
   );

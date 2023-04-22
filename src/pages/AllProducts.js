@@ -9,6 +9,7 @@ import { getProductWithFilter, getListCategories } from "../apis";
 import { Button } from "@mui/material";
 import _ from "lodash";
 import Slider from "@mui/material/Slider";
+import Messenger from "../components/common/Messenger";
 
 const AllProducts = () => {
   useDocTitle("All Products");
@@ -178,6 +179,7 @@ const AllProducts = () => {
           )}
         </div>
       </section>
+      <Messenger/>
       <Footer />
     </>
   );
