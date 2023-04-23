@@ -5,6 +5,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 import { createOrder, createPaymentInfo } from "../apis";
+import Messenger from "../components/common/Messenger";
 
 export const PaymentInfo = () => {
   const url = window.location.search;
@@ -111,6 +112,7 @@ export const PaymentInfo = () => {
           </Link>
         </div>
       </div>
+      <Messenger/>
       <Footer />
     </div>
   );

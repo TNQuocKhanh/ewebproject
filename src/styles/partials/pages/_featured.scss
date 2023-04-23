@@ -12,12 +12,21 @@
     }
 }
 
+.featured_title {
+    padding: 10px 0 20px 0;
+}
+
+.products_price {
+    padding: 0 0 20px 0;
+}
+
 .featured_swiper {
-    @include padding-y(1rem !important, 2rem !important);
+    @include padding-y(2rem !important, 2rem !important);
 }
 
 .featured_img {
-    @include margin-y(2rem, 2rem);
+    width: 80%;
+    margin: 30px auto;
     overflow: hidden;
 
     img {

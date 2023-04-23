@@ -5,6 +5,7 @@ import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { TabPanel } from "../components/common/TabPanel";
 import { formatDateTime } from "../utils";
+import Messenger from "../components/common/Messenger";
 
 const OrderTab = (props) => {
   const { data = [] } = props;
@@ -138,6 +139,7 @@ export const Order = () => {
           <OrderTab data={orders.filter((v) => v.status === "RETURNED")} />
         </TabPanel>
       </div>
+      <Messenger/>
       <Footer />
     </>
   );

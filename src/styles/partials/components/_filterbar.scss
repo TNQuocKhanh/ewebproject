@@ -1,6 +1,6 @@
 #filterbar {
     background: white;
-    padding: 1.5rem;
+    padding: 1rem;
     margin: 0 10px;
     max-height: 82vh;
     overflow-y: auto;
@@ -95,9 +95,23 @@
 }
 
 .price_filter {
+    margin-top: 10px;
+
     p {
         font-weight: 600;
         margin-bottom: 0.5rem;
+    }
+
+    .MuiSlider-thumb {
+        background-color: white;
+        width: 15px;
+        height: 15px;
+        border: 2px solid rgba(40, 44, 255, 0.818);
+    }
+    
+    .MuiSlider-track {
+        background-color: rgba(0, 4, 220, 0.818);
+        border: none;
     }
 }
 

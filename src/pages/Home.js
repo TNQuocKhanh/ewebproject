@@ -7,6 +7,7 @@ import Services from "../components/common/Services";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { storage } from "../utils";
+import Messenger from "../components/common/Messenger";
 
 const Home = () => {
   const url = window.location.search;
@@ -28,7 +29,7 @@ const Home = () => {
 
       <section id="featured" className="section">
         <div className="container">
-          <SectionsHead heading="Sản phẩm nổi bật" />
+          <SectionsHead background="linear-gradient(to right, var(--main-color) , #a1def5)" color='white' heading="Sản phẩm nổi bật" />
           <FeaturedSlider />
         </div>
       </section>
@@ -40,6 +41,7 @@ const Home = () => {
         </div>
       </section>
       <Services />
+      <Messenger/>
       <Footer />
     </main>
   );

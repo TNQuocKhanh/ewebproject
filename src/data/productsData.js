@@ -3,7 +3,7 @@ const productsData = [
     id: 1,
     tag: "hero-product",
     tagline: "Keep the noise out, or in. You choose.",
-    heroImage: "/images/products/jbl660nc-1.png",
+    heroImage: "https://lh3.googleusercontent.com/zK0EzIVjDqm1rEJ42vvagt5lyaxe6LaUh2mykIYXGebsX9X4mdkIKUGdO6MDH1mF_eJNNYNk8LTRilXFpbEXa7vl7ZBSMvyE=w1920-rw",
     images: [
       "/images/products/jbl660nc-1.png",
       "/images/products/jbl660nc-2.png",
@@ -49,7 +49,7 @@ const productsData = [
     id: 3,
     tag: "hero-product",
     tagline: "Featherweight for comfort all-day.",
-    heroImage: "/images/products/boat131-3.png",
+    heroImage: "https://lh3.googleusercontent.com/FXs0Avw0ggc2aVTIpcirJCIcA21CgXg0Y90mtKkftwmy7KRRcQhU7wcmyLw6q1pKDCvBkyQVgwZg7hywsJlN11TCJQB12Oem=w1920-rw",
     images: [
       "/images/products/boat131-1.png",
       "/images/products/boat131-2.png",
@@ -136,7 +136,7 @@ const productsData = [
     id: 7,
     tag: "hero-product",
     tagline: "Give your favourite music a boost.",
-    heroImage: "/images/products/sonyxb910n-1.png",
+    heroImage: "https://lh3.googleusercontent.com/DeuDtvSXQ6vfWsXmcHkut5jy3q499znlciy3442mAjVIub_D_5AO4_DTPGXqCYALnoBIPlN_yh19vkMLFu_f8DsPZVQs-CHd=w1920-rw",
     images: [
       "/images/products/sonyxb910n-1.png",
       "/images/products/sonyxb910n-2.png",

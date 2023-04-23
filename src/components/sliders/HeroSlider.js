@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, A11y, Autoplay } from "swiper";
 import productsData from "../../data/productsData";
 
-import "swiper/scss";
+// import "swiper/scss";
 import "swiper/scss/autoplay";
 import "swiper/scss/pagination";
 
@@ -45,7 +45,7 @@ const HeroSlider = () => {
             key={id}
             className={`wrapper hero_wrapper hero_slide-${i}`}
           >
-            <div className="hero_item_txt">
+            {/* <div className="hero_item_txt">
               <h4>{title}</h4>
               <h2>{tagline}</h2>
               <h2 className="hero_price">
@@ -68,7 +68,12 @@ const HeroSlider = () => {
                 src={heroImage}
                 alt="product-img"
               />
-            </figure>
+            </figure> */}
+
+            <div style={{width: '100%', position: 'relative'}}>
+              <img style={{width: '100%'}} src={heroImage}></img>
+              <div onClick={console.log('event choose banner')} style={{position: 'absolute', top: '0', left: '0', background: 'transparent', width: '100%', height: '100%'}}></div>
+            </div>
           </SwiperSlide>
         );
       })}

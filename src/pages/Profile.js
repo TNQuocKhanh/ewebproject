@@ -11,6 +11,7 @@ import { ProfileAddress } from "./Address";
 import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
 import commonContext from "../contexts/common/commonContext";
+import Messenger from "../components/common/Messenger";
 
 const ProfileInfo = () => {
   const [name, setName] = useState("");
@@ -134,6 +135,7 @@ const ProfileInfo = () => {
               <div className="row-form-field">
                 <label>Tên người dùng</label>
                 <input
+                  style={{ cursor: provider !== "local" ? 'not-allowed' : 'auto' }}
                   value={name}
                   disabled={provider !== "local"}
                   onChange={(e) => setName(e.target.value)}
@@ -143,6 +145,7 @@ const ProfileInfo = () => {
               <div className="row-form-field">
                 <label>Email</label>
                 <input
+                  style={{ cursor: provider !== "local" ? 'not-allowed' : 'auto' }}
                   value={email}
                   disabled
                   onChange={(e) => setEmail(e.target.value)}
@@ -152,6 +155,7 @@ const ProfileInfo = () => {
               <div className="row-form-field">
                 <label>Ngày tạo</label>
                 <input
+                  style={{ cursor: provider !== "local" ? 'not-allowed' : 'auto' }}
                   value={formatDateTime(createdTime)}
                   disabled
                   onChange={(e) => setCreatedTime(e.target.value)}
@@ -199,6 +203,7 @@ const Profile = () => {
           </Grid>
         </TabPanel>
       </div>
+      <Messenger/>
       <Footer />
     </>
   );
