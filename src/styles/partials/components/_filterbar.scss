@@ -2,8 +2,10 @@
     background: white;
     padding: 1rem;
     margin: 0 10px;
-    max-height: 82vh;
-    overflow-y: auto;
+    max-height: 90vh;
+    width: fit-content;
+    //max-height: 82vh;
+    //overflow-y: auto;
     border-radius: 5px;
 
     &::-webkit-scrollbar {
@@ -108,7 +110,7 @@
         height: 15px;
         border: 2px solid rgba(40, 44, 255, 0.818);
     }
-    
+
     .MuiSlider-track {
         background-color: rgba(0, 4, 220, 0.818);
         border: none;

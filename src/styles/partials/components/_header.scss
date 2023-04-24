@@ -1,212 +1,212 @@
 #header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    width: 100%;
-    box-shadow: 0px 5px 15px #00000019;
-    background-color: var(--main-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  box-shadow: 0px 5px 15px #00000019;
+  background-color: var(--main-color);
 
-    &.sticky {
-        background-color: var(--main-color);
-    }
+  &.sticky {
+    background-color: var(--main-color);
+  }
 }
 
 .navbar {
-    padding: 12px 0;
-    display: flex;
-    flex-wrap: wrap;
-    @include flexbox(space-between, center);
+  padding: 12px 0;
+  display: flex;
+  flex-wrap: wrap;
+  @include flexbox(space-between, center);
 }
 
 .nav-search {
-    width: 50%;
-    display: flex;
+  width: 50%;
+  display: flex;
+
+  @include devices(lg) {
+    width: 300px;
+  }
+
+  @include devices(xs) {
+    width: 200px;
+  }
+
+  input {
+    // border: solid 2px var(--border-form);
+    background-color: white;
+    width: 90%;
+    height: 40px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    text-indent: 20px;
 
     @include devices(lg) {
-        width: 300px;
+      width: 90%;
+    }
+
+    @include devices(md) {
+      width: 90%;
     }
 
     @include devices(xs) {
-        width: 200px;
+      width: 80%;
+    }
+  }
+
+  button {
+    width: 10%;
+    height: 40px;
+    background: var(--main-color-2);
+    font-size: 1.4rem;
+    color: var(--main-color);
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+
+    @include devices(md) {
+      width: 30%;
     }
 
-    input {
-        // border: solid 2px var(--border-form);
-        background-color: white;
-        width: 90%;
-        height: 40px;
-        border-bottom-left-radius: 20px;
-        border-top-left-radius: 20px;
-        text-indent: 20px;
-
-        @include devices(lg) {
-            width: 90%;
-        }
-
-        @include devices(md) {
-            width: 90%;
-        }
-
-        @include devices(xs) {
-            width: 80%;
-        }
+    @include devices(xs) {
+      width: 20%;
     }
-
-    button {
-        width: 10%;
-        height: 40px;
-        background: var(--main-color-2);
-        font-size: 1.4rem;
-        color: var(--main-color);
-        border-bottom-right-radius: 20px;
-        border-top-right-radius: 20px;
-
-        @include devices(md) {
-            width: 30%;
-        }
-
-        @include devices(xs) {
-            width: 20%;
-        }
-    }
+  }
 }
 
 .nav_logo {
-    @include devices(xs) {
-        font-size: 1.2rem;
-    }
+  @include devices(xs) {
+    font-size: 1.2rem;
+  }
 }
 
 .nav_actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1.2rem;
+
+  @include devices(md) {
+    width: 100%;
+    padding: 20px 0 0 0;
+  }
+
+  @include devices(xs) {
+    width: 100%;
+    gap: 2.5rem;
     font-size: 1.2rem;
-
-    @include devices(md) {
-        width: 100%;
-        padding: 20px 0 0 0;
-    }
-
-    @include devices(xs) {
-        width: 100%;
-        gap: 2.5rem;
-        font-size: 1.2rem;
-        padding: 20px 0 0 0;
-    }
+    padding: 20px 0 0 0;
+  }
 }
 
 .search_action,
 .cart_action,
 .user_action {
-    position: relative;
+  position: relative;
 }
 
 .search_action,
 .cart_action {
-    &:hover .tooltip {
-        @include toggleVisibility(visible, 1);
-    }
+  &:hover .tooltip {
+    @include toggleVisibility(visible, 1);
+  }
 }
 
 .search_action,
 .user_action {
-    span {
-        cursor: pointer;
-    }
+  span {
+    cursor: pointer;
+  }
 }
 
 .cart_action {
-    .badge {
-        @include centered;
-        @include dimension(20px, 20px);
-        position: absolute;
-        top: 0;
-        font-size: 0.7rem;
-        right: -9px;
-        color: var(--main-color-2);
-        border: 1px solid var(--main-color-2);
-        background-color: var(--main-color);
-        border-radius: 50%;
-    }
+  .badge {
+    @include centered;
+    @include dimension(20px, 20px);
+    position: absolute;
+    top: 0;
+    font-size: 0.7rem;
+    right: -9px;
+    color: var(--main-color-2);
+    border: 1px solid var(--main-color-2);
+    background-color: var(--main-color);
+    border-radius: 50%;
+  }
 }
 
 .user_action {
-    .dropdown_menu {
-        position: absolute;
-        top: 50px;
-        left: 0;
-        right: 0;
-        width: 15rem;
-        background-color: var(--bg-color-2);
-        padding: 1rem;
-        font-size: 0.9rem;
-        border-radius: 5px;
-        @include bordered(1px, var(--text-muted));
-        @include toggleVisibility(hidden, 0);
-        @include transition(all, 0.2s, ease-in-out);
+  .dropdown_menu {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    width: 15rem;
+    background-color: var(--bg-color-2);
+    padding: 1rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    @include bordered(1px, var(--text-muted));
+    @include toggleVisibility(hidden, 0);
+    @include transition(all, 0.2s, ease-in-out);
 
-        h4 {
-            font-weight: 600;
-            letter-spacing: 0.5px;
+    h4 {
+      font-weight: 600;
+      letter-spacing: 0.5px;
 
-            a {
-                color: var(--main-color);
-                opacity: 1;
-            }
-        }
-
-        .item-menu {
-            color: rgb(52, 52, 52);
-            padding: 20px 0;
-        }
-
-        .item-menu:hover {
-            color: var(--main-color);
-            padding: 20px 0;
-        }
-
-        button {
-            margin-top: 1rem;
-            padding: 0.8rem 1rem;
-            @include bordered(1px, var(--text-muted));
-            @include transition(all, 0.3s, ease);
-
-            &:hover {
-                color: #000;
-                border-color: #000;
-            }
-        }
-
-        li {
-            &:not(:last-child) {
-                margin-bottom: 0.5rem;
-            }
-
-            a:hover {
-                color: #000;
-            }
-        }
+      a {
+        color: var(--main-color);
+        opacity: 1;
+      }
     }
 
-    &:hover .dropdown_menu {
-        @include toggleVisibility(visible, 1);
+    .item-menu {
+      color: rgb(52, 52, 52);
+      //padding: 20px 0;
     }
+
+    .item-menu:hover {
+      color: var(--main-color);
+      padding: 20px 0;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.8rem 1rem;
+      @include bordered(1px, var(--text-muted));
+      @include transition(all, 0.3s, ease);
+
+      &:hover {
+        color: #000;
+        border-color: #000;
+      }
+    }
+
+    li {
+      &:not(:last-child) {
+        margin-bottom: 0.5rem;
+      }
+
+      a:hover {
+        color: #000;
+      }
+    }
+  }
+
+  &:hover .dropdown_menu {
+    @include toggleVisibility(visible, 1);
+  }
 }
 
 .navigation {
-    @include flexbox(space-between, center);
+  @include flexbox(space-between, center);
 
-    .btn-category {
-        width: auto;
-        background-color: red;
-        padding: 2%;
-    }
+  .btn-category {
+    width: auto;
+    background-color: red;
+    padding: 2%;
+  }
 
-    .category-item:hover {
-        cursor: pointer;
-        background-color: rgba(255, 238, 215, 0.348);
-    }
+  .category-item:hover {
+    cursor: pointer;
+    background-color: rgba(255, 238, 215, 0.348);
+  }
 }

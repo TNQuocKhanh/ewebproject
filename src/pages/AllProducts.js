@@ -6,10 +6,11 @@ import EmptyView from "../components/common/EmptyView";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { getProductWithFilter, getListCategories } from "../apis";
-import { Button } from "@mui/material";
+import { Button, Pagination } from "@mui/material";
 import _ from "lodash";
 import Slider from "@mui/material/Slider";
 import Messenger from "../components/common/Messenger";
+import { formatPrice } from "../utils";
 
 const AllProducts = () => {
   useDocTitle("All Products");
@@ -29,7 +30,7 @@ const AllProducts = () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const name = urlParams.get("productName");
-  const cateId = urlParams.get("categoryId")
+  const cateId = urlParams.get("categoryId");
 
   const filter = {
     productName: name,
@@ -75,7 +76,7 @@ const AllProducts = () => {
   const handleChanges = (e, newValue) => {
     setRange(newValue);
   };
-  
+
   return (
     <>
       <Header />
@@ -133,9 +134,27 @@ const AllProducts = () => {
             </div>
             <div className="filter_block">
               <h4>Khoảng giá</h4>
-              <div style={{display: 'flex', gap: '8px'}}>
-              <input style={{maxWidth: '90px', border: '1px solid #dddddd', padding: '10px', borderRadius: '5px', textAlign: 'center'}} value={range[0]*300000} />
-              <input style={{maxWidth: '90px', border: '1px solid #dddddd', padding: '10px', borderRadius: '5px', textAlign: 'center'}} value={range[1]*300000} />
+              <div style={{ display: "flex", gap: "8px" }}>
+                <input
+                  style={{
+                    maxWidth: "120px",
+                    border: "1px solid #dddddd",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    textAlign: "center",
+                  }}
+                  value={formatPrice(range[0] * 300000)}
+                />
+                <input
+                  style={{
+                    maxWidth: "130px",
+                    border: "1px solid #dddddd",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    textAlign: "center",
+                  }}
+                  value={formatPrice(range[1] * 300000)}
+                />
               </div>
               <div className="price_filter">
                 <Slider
@@ -156,19 +175,13 @@ const AllProducts = () => {
                   <ProductCard key={item.id} {...item} />
                 ))}
               </div>
-              <div style={{ margin: "10px 0", textAlign: 'center' }}>
-                {Array(Math.ceil(total / perPage))
-                  .fill()
-                  .map((v, i) => (
-                    <Button
-                      key={i}
-                      variant="outlined"
-                      sx={{ marginRight: 2 }}
-                      onClick={() => setPage(i + 1)}
-                    >
-                      {i + 1}
-                    </Button>
-                  ))}
+              <div style={{ margin: "20px 0", textAlign: "center" }}>
+                <Pagination
+                  count={Math.ceil(total / perPage)}
+                  variant="outlined"
+                  shape="rounded"
+                  onChange={(e, v) => setPage(v)}
+                />
               </div>
             </>
           ) : (
@@ -179,7 +192,7 @@ const AllProducts = () => {
           )}
         </div>
       </section>
-      <Messenger/>
+      <Messenger />
       <Footer />
     </>
   );

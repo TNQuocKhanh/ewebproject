@@ -4,7 +4,7 @@ import { getListOrders } from "../apis";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { TabPanel } from "../components/common/TabPanel";
-import { formatDateTime } from "../utils";
+import { formatDateTime, formatPrice } from "../utils";
 import Messenger from "../components/common/Messenger";
 
 const OrderTab = (props) => {
@@ -39,11 +39,11 @@ const OrderTab = (props) => {
                               width="70px"
                             />
                             <div style={{ marginLeft: 10 }}>
-                              <p>Ten: Ten san pham</p>
-                              <p>x 5</p>
+                              <p>{v.productName || 'abc'}</p>
+                              <p>x {v.quantity}</p>
                             </div>
                           </div>
-                          <Typography>100.000 đ</Typography>
+                          <Typography>{formatPrice(v.productPrice)}</Typography>
                         </div>
                       );
                     })}
