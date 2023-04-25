@@ -70,9 +70,22 @@ const HeroSlider = () => {
               />
             </figure> */}
 
-            <div style={{width: '100%', position: 'relative'}}>
-              <img style={{width: '100%'}} src={heroImage}></img>
-              <div onClick={console.log('event choose banner')} style={{position: 'absolute', top: '0', left: '0', background: 'transparent', width: '100%', height: '100%'}}></div>
+            <div style={{ width: "100%", position: "relative" }}>
+              <img
+                style={{ width: "100%" }}
+                src={heroImage}
+                alt="heroImg"
+              ></img>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "0",
+                  left: "0",
+                  background: "transparent",
+                  width: "100%",
+                  height: "100%",
+                }}
+              ></div>
             </div>
           </SwiperSlide>
         );

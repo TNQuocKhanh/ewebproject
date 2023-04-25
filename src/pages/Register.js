@@ -16,10 +16,11 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await signup(email, password, fullName);
-    if (res) {
+    console.log("===res", res);
+    if (res.status === 201) {
       navigate("/verify");
     } else {
-      alert("Co loi xay ra. Vui long thu lai");
+      alert("Có lỗi xảy ra. Vui lòng thử lại sau.");
     }
   };
 
@@ -49,6 +50,7 @@ const Register = () => {
               onChange={(e) => setFullName(e.target.value)}
               type="text"
               placeholder="Nhập tên người dùng"
+              required
             ></input>
           </div>
           <div className="row-form-field">
@@ -58,6 +60,7 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Nhập email"
+              required
             ></input>
           </div>
           <div className="row-form-field">
@@ -67,6 +70,7 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Nhập mật khẩu"
+              required
             ></input>
           </div>
           <div className="row-form">

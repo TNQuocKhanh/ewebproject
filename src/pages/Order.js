@@ -33,13 +33,9 @@ const OrderTab = (props) => {
                           }}
                         >
                           <div style={{ display: "flex" }}>
-                            <img
-                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjyGYdKSbNljYxeVeFr8h8r0quDTV24v4FAA&usqp=CAU"
-                              alt="img"
-                              width="70px"
-                            />
+                            <img src={v.productImage} alt="img" width="70px" />
                             <div style={{ marginLeft: 10 }}>
-                              <p>{v.productName || 'abc'}</p>
+                              <p>{v.productName || "abc"}</p>
                               <p>x {v.quantity}</p>
                             </div>
                           </div>
@@ -48,7 +44,7 @@ const OrderTab = (props) => {
                       );
                     })}
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      Thành tiền: {it.total}
+                      Thành tiền: {formatPrice(it.total)}
                     </Typography>
                     <hr />
                     <div>Thông tin đặt hàng:</div>
@@ -139,7 +135,7 @@ export const Order = () => {
           <OrderTab data={orders.filter((v) => v.status === "RETURNED")} />
         </TabPanel>
       </div>
-      <Messenger/>
+      <Messenger />
       <Footer />
     </>
   );

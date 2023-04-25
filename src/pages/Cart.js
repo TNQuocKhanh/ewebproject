@@ -86,24 +86,41 @@ const Cart = () => {
                   </div>
                   {storage.load("user") ? (
                     <Link to="/checkout">
-                      <button type="button" className="btn checkout_btn" style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                        <strong style={{textTransform: 'uppercase'}}>Thanh toán</strong>
-                        <small style={{marginTop: '10px'}}>Bạn cần đăng nhập để tiếp tục</small>
+                      <button
+                        type="button"
+                        className="btn checkout_btn"
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <strong style={{ textTransform: "uppercase" }}>
+                          Thanh toán
+                        </strong>
                       </button>
                     </Link>
                   ) : (
-                    <>
+                    <Link to="/login">
                       <button
                         type="button"
-                        onClick={() =>
-                          toast.info("Vui lòng đăng nhập để tiếp tục.")
-                        }
                         className="btn checkout_btn"
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
                       >
-                        {`Thanh toán
-                          Vui long dang nhap de tiep tuc`}
+                        <strong style={{ textTransform: "uppercase" }}>
+                          Thanh toán
+                        </strong>
+                        <small style={{ marginTop: "10px" }}>
+                          Bạn cần đăng nhập để tiếp tục
+                        </small>
                       </button>
-                    </>
+                    </Link>
                   )}
                 </div>
               </div>
@@ -112,7 +129,7 @@ const Cart = () => {
         </div>
       </section>
       <Toastify />
-      <Messenger/>
+      <Messenger />
       <Footer />
     </>
   );

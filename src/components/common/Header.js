@@ -149,7 +149,6 @@ const Header = () => {
                     )}
                   </div>
                 </Link>
-                <div className="tooltip">Giỏ hàng</div>
               </div>
               {!profile?.fullName && (
                 <div style={{ display: "flex", alignItems: "center" }}>

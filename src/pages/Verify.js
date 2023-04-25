@@ -13,16 +13,15 @@ const Verify = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("===", code);
-    const res = await verifyAccount(code);
-    if (res) {
+    try {
+      await verifyAccount(code);
       if (isChangePasswd) {
         navigate("/new-password");
       } else {
         navigate("/login");
       }
-    } else {
-      alert("Ma xac thuc khong hop le");
+    } catch (err) {
+      alert("Mã xác thực không hợp lệ.");
     }
   };
 
