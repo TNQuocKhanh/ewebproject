@@ -22,7 +22,6 @@ export const PaymentInfo = () => {
   const _data = {
     vnpTxnRef: data.vnp_TxnRef,
     amount: data.vnp_Amount,
-    //amount: data.vnp_Amount.slice(0, -2),
     vnpBankCode: data.vnp_BankCode,
     vnpBankTranNo: data.vnp_BankTranNo,
     vnpCardType: data.vnp_CardType,
@@ -51,7 +50,7 @@ export const PaymentInfo = () => {
 
   useEffect(() => {
     savePayment();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -112,7 +111,7 @@ export const PaymentInfo = () => {
           </Link>
         </div>
       </div>
-      <Messenger/>
+      <Messenger />
       <Footer />
     </div>
   );

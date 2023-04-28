@@ -1,6 +1,7 @@
 import { storage } from "../utils";
 
 const API_URL = process.env.REACT_APP_API_URL;
+const SHIPPING_URL = process.env.REACT_APP_SHIPPING;
 
 export const login = async (email, password) => {
   const headers = new Headers();
@@ -169,8 +170,8 @@ export const updateProfile = async (data) => {
 };
 
 export const createAddress = async (data) => {
-  const auth = storage.load('user')
-  const token = auth.accessToken
+  const auth = storage.load("user");
+  const token = auth.accessToken;
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -183,11 +184,11 @@ export const createAddress = async (data) => {
   });
 
   return res.json();
-}
+};
 
 export const updateAddress = async (id, data) => {
-  const auth = storage.load('user')
-  const token = auth.accessToken
+  const auth = storage.load("user");
+  const token = auth.accessToken;
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -200,4 +201,95 @@ export const updateAddress = async (id, data) => {
   });
 
   return res.json();
-}
+};
+
+export const deleteAddress = async (id) => {
+  const auth = storage.load("user");
+  const token = auth.accessToken;
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const res = await fetch(`${API_URL}/shipping-address/delete/${id}`, {
+    method: "PUT",
+    headers,
+  });
+
+  return res.json();
+};
+
+export const getDistrict = async () => {
+  const token = "40a84bcb-dde0-11ed-921c-de4829400020";
+  const myHeaders = new Headers();
+  myHeaders.append("token", token);
+  myHeaders.append("Content-Type", "application/json");
+
+  const params = new URLSearchParams({
+    province_id: 202,
+  });
+
+  const res = await fetch(`${SHIPPING_URL}/master-data/district?${params}`, {
+    method: "GET",
+    headers: myHeaders,
+  });
+
+  return res.json();
+};
+
+export const getWard = async (id) => {
+  const token = "40a84bcb-dde0-11ed-921c-de4829400020";
+  const myHeaders = new Headers();
+  myHeaders.append("token", token);
+  myHeaders.append("Content-Type", "application/json");
+
+  const params = new URLSearchParams({
+    district_id: id,
+  });
+
+  const res = await fetch(`${SHIPPING_URL}/master-data/ward?${params}`, {
+    method: "GET",
+    headers: myHeaders,
+  });
+
+  return res.json();
+};
+
+export const getServices = async (id) => {
+  const token = "40a84bcb-dde0-11ed-921c-de4829400020";
+  const myHeaders = new Headers();
+  myHeaders.append("token", token);
+  myHeaders.append("Content-Type", "application/json");
+
+  const params = new URLSearchParams({
+    shop_id: 3656679,
+    from_district: 3695,
+    to_district: id,
+  });
+
+  const res = await fetch(
+    `${SHIPPING_URL}/v2/shipping-order/available-services?${params}`,
+    {
+      method: "GET",
+      headers: myHeaders,
+    }
+  );
+
+  return res.json();
+};
+
+export const getShippingFee = async (data) => {
+  const token = "40a84bcb-dde0-11ed-921c-de4829400020";
+  const myHeaders = new Headers();
+  myHeaders.append("token", token);
+  myHeaders.append("Content-Type", "application/json");
+
+  const params = new URLSearchParams(data);
+
+  const res = await fetch(`${SHIPPING_URL}/v2/shipping-order/fee?${params}`, {
+    method: "GET",
+    headers: myHeaders,
+  });
+
+  return res.json();
+};

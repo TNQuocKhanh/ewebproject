@@ -4,53 +4,80 @@ import Footer from "../components/common/Footer";
 import "../styles/partials/pages/_checkout.scss";
 import { FaCheckCircle } from "react-icons/fa";
 import cartContext from "../contexts/cart/cartContext";
-import { createOrder, createPayment, getProfile } from "../apis";
+import {
+  createOrder,
+  createPayment,
+  getProfile,
+  getServices,
+  getShippingFee,
+} from "../apis";
 import { useNavigate } from "react-router-dom";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import { formatPrice } from "../utils";
 import Messenger from "../components/common/Messenger";
+import { ProfileAddress } from "./Address";
+import {
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+} from "@mui/material";
 
 const CheckOutPage = () => {
   const navigate = useNavigate();
   const [method, setMethod] = useState(1);
-  const [shippingAddress, setShippingAddress] = useState({});
   const [address, setAddress] = useState();
   const [note, setNote] = useState();
+  const [lineItem, setLineItem] = useState();
+
+  const [valueAddress, setValueAddress] = useState();
+
+  const [services, setServices] = useState([]);
+  const [serviceId, setServiceId] = useState();
 
   const { cart } = useContext(cartContext);
-
-  const item = [];
-  cart.map((it) =>
-    item.push({ productId: it.id, quantity: 1, productPrice: it.discountPrice })
-  );
 
   const getUserProfile = async () => {
     const res = await getProfile();
     setAddress(res.address);
   };
 
+  const getAllService = async () => {
+    const { data = [] } = await getServices(valueAddress?.districtId);
+    setServices(data);
+  };
+
   useEffect(() => {
     getUserProfile();
-  }, []);
+    if (valueAddress?.districtId) {
+      getAllService();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [valueAddress?.districtId]);
 
   const totalPrice = cart.reduce(
     (acc, cur) => acc + cur.discountPrice * cur.quantity,
     0
   );
 
+  const totalShipping =
+    lineItem &&
+    lineItem.length > 0 &&
+    lineItem.reduce((acc, cur) => acc + cur.shippingFee * cur.quantity, 0);
+
   const handleCheckout = async () => {
     const value = {
       shippingAddress: {
-        district: shippingAddress.district,
-        street: shippingAddress.street,
-        phoneNumber: shippingAddress.phoneNumber,
+        receiver: valueAddress.name,
+        phoneNumber: valueAddress.phoneNumber,
+        districtId: valueAddress.districtId,
+        district: valueAddress.district,
+        wardCode: valueAddress.wardCode,
+        ward: valueAddress.ward,
+        street: valueAddress.street,
       },
       paymentMethod: method === 1 ? "COD" : "VNPay",
       totalPrice: totalPrice,
-      lineItem: item,
+      lineItem: lineItem,
       note,
     };
 
@@ -69,14 +96,57 @@ const CheckOutPage = () => {
       localStorage.setItem("order", JSON.stringify(value));
       if (res.status === 200) {
         const url = await res.json();
+        console.log("===url", url);
         window.location.replace(url.url);
       }
     }
   };
 
-  const handleChange = (e) => {
-    setShippingAddress(e.target.value);
+  const calculateShipping = async () => {
+    const test = {
+      service_id: serviceId,
+      insurance_value: 5000000,
+      from_district_id: 3695,
+      to_district_id: valueAddress?.districtId,
+      to_ward_code: valueAddress?.wardCode,
+      height: 15,
+      length: 15,
+      weight: 5000,
+      width: 15,
+    };
+
+    const items = [];
+    try {
+      const getFee = async (val) => {
+        try {
+          if (val.service_id) {
+            const { data: res } = await getShippingFee(val);
+            return res;
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      const cartNew = await Promise.all(cart.map((v) => getFee(test)));
+      cart.forEach((it, idx) => {
+        items.push({
+          productId: it.id,
+          quantity: it.quantity,
+          productPrice: it.discountPrice,
+          shippingFee: cartNew[idx]?.total,
+        });
+      });
+      setLineItem(items);
+    } catch (e) {
+      console.log(e);
+    }
   };
+
+  useEffect(() => {
+    calculateShipping();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [serviceId]);
 
   return (
     <>
@@ -119,21 +189,30 @@ const CheckOutPage = () => {
             </button>
           </div>
           <h4>Thông tin thanh toán</h4>
-          <div className="payment-infor">
-            <FormControl fullWidth>
-              <InputLabel>Địa chỉ</InputLabel>
-              <Select label="Địa chỉ" onChange={handleChange}>
-                {address?.map((item) => {
-                  return (
-                    <MenuItem
-                      value={item}
-                    >{`${item.name} | ${item.phoneNumber}, ${item.street}, ${item.district}
-                        `}</MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-          </div>
+          <ProfileAddress
+            address={address}
+            canChoose={true}
+            setValueAddress={setValueAddress}
+          />
+          <FormControl>
+            <h4>Phương thức giao hàng</h4>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="female"
+              name="radio-buttons-group"
+            >
+              {services &&
+                services.map((it, idx) => (
+                  <FormControlLabel
+                    key={idx}
+                    value={it.service_id}
+                    control={<Radio />}
+                    label={it.short_name}
+                    onChange={(e) => setServiceId(e.target.value)}
+                  />
+                ))}
+            </RadioGroup>
+          </FormControl>
           <h4 style={{ marginTop: "20px" }}>Ghi chú</h4>
           <textarea
             placeholder="Ghi chú cho người bán"
@@ -151,9 +230,9 @@ const CheckOutPage = () => {
         <div className="box-item-checkout">
           <h4>Thông tin đơn hàng</h4>
           <div className="check-item">
-            {cart.map((it) => {
+            {cart.map((it, idx) => {
               return (
-                <div>
+                <div key={idx}>
                   <div className="row-item-cart">
                     <div style={{ display: "flex" }}>
                       <img src={it.mainImage} alt={it.name}></img>
@@ -179,9 +258,21 @@ const CheckOutPage = () => {
                 {formatPrice(totalPrice)}
               </p>
             </div>
+            {serviceId && (
+              <div className="row-total-price">
+                <strong>Phí vận chuyển:</strong>
+                <p style={{ fontSize: "20px", color: "red" }}>
+                  {formatPrice(totalShipping)}
+                </p>
+              </div>
+            )}
           </div>
           <div>
-            <button onClick={handleCheckout} className="btn-checkout">
+            <button
+              disabled={!valueAddress?.districtId || !serviceId}
+              onClick={handleCheckout}
+              className="btn-checkout"
+            >
               Thanh toán
             </button>
           </div>

@@ -72,14 +72,10 @@ const Cart = () => {
                       <span>Giảm</span>
                       <b>- {formatPrice(calculateCartDiscount)}</b>
                     </div>
-                    <div className="delivery">
-                      <span>Giao hàng</span>
-                      <b>Free</b>
-                    </div>
                     <div className="separator"></div>
                     <div className="total_price">
                       <b>
-                        <small>Tổng tiền</small>
+                        <small>Tổng tạm tính</small>
                       </b>
                       <b>{formatPrice(totalAmount)}</b>
                     </div>
@@ -97,7 +93,7 @@ const Cart = () => {
                         }}
                       >
                         <strong style={{ textTransform: "uppercase" }}>
-                          Thanh toán
+                         Tiếp tục 
                         </strong>
                       </button>
                     </Link>
@@ -114,7 +110,7 @@ const Cart = () => {
                         }}
                       >
                         <strong style={{ textTransform: "uppercase" }}>
-                          Thanh toán
+                        Tiếp tục
                         </strong>
                         <small style={{ marginTop: "10px" }}>
                           Bạn cần đăng nhập để tiếp tục

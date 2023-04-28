@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   AiOutlineSearch,
@@ -24,9 +24,12 @@ const Header = () => {
   const [valueSearch, setValueSearch] = useState("");
   const [openCategory, setOpenCategory] = useState(false);
 
-  const cartQuantity = cart?.reduce((val, acc) => {
-    return val + acc.quantity;
-  }, 0);
+  const cartQuantity = useMemo(() => {
+    if (!cart || !cart.length) return 0;
+    return  cart?.reduce((val, acc) => {
+      return val + acc.quantity;
+    }, 0);
+  }, [cart]);
 
   const toggleCategory = () => {
     openCategory === false ? setOpenCategory(true) : setOpenCategory(false);
@@ -98,19 +101,29 @@ const Header = () => {
                       <ul>
                         <li>
                           <Link className="item-menu" to="/profile">
-                            <AiOutlineUser style={{ fontSize: '20px', marginRight: '20px' }} />
+                            <AiOutlineUser
+                              style={{ fontSize: "20px", marginRight: "20px" }}
+                            />
                             Thông tin tài khoản
                           </Link>
                         </li>
                         <li>
                           <Link className="item-menu" to="/change-password">
-                          <AiOutlineRetweet style={{ fontSize: '20px', marginRight: '20px' }} />
+                            <AiOutlineRetweet
+                              style={{ fontSize: "20px", marginRight: "20px" }}
+                            />
                             Thay đổi mật khẩu
                           </Link>
                         </li>
                         <li>
-                          <Link className="item-menu" to="/login" onClick={handleLogout}>
-                          <AiOutlineExport style={{ fontSize: '20px', marginRight: '20px' }} />
+                          <Link
+                            className="item-menu"
+                            to="/login"
+                            onClick={handleLogout}
+                          >
+                            <AiOutlineExport
+                              style={{ fontSize: "20px", marginRight: "20px" }}
+                            />
                             Đăng xuất
                           </Link>
                         </li>

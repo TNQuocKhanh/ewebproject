@@ -24,7 +24,7 @@ const Login = () => {
     if (res.status === 200) {
       const data = await res.json();
       storage.save("user", data);
-      navigate("/");
+      window.location.replace('/')
     } else {
       setMessage("Có lỗi xảy ra, vui lòng thử lại");
       console.log("===Login error");
