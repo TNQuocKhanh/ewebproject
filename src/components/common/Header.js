@@ -15,6 +15,7 @@ import { storage } from "../../utils";
 import logo from "../../data/logo.png";
 import { AiOutlineRetweet } from "react-icons/ai";
 import { AiOutlineExport } from "react-icons/ai";
+import Breadcrumbs from "./Breadcrumbs";
 
 const Header = () => {
   const { cart } = useContext(cartContext);
@@ -256,6 +257,7 @@ const Header = () => {
             )}
           </div>
         </div>
+        <Breadcrumbs />
       </header>
     </>
   );

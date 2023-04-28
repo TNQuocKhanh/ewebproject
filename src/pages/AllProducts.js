@@ -26,6 +26,9 @@ const AllProducts = () => {
   const [page, setPage] = useState(1);
 
   const [range, setRange] = useState([0, 100]);
+  const [cateArr, setCateArr] = useState([]);
+
+  const [cateFilter, setCateFilter] = useState([]);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -34,7 +37,7 @@ const AllProducts = () => {
 
   const filter = {
     productName: name,
-    categoryId: cateId,
+    categoryId: cateId ? cateId : categoryId,
     page,
     size: perPage,
     sortBy,
@@ -71,10 +74,20 @@ const AllProducts = () => {
   useEffect(() => {
     getAllProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, order, categoryId, range, cateId]);
+  }, [page, order, categoryId, range, cateId, cateFilter, cateArr]);
 
   const handleChanges = (e, newValue) => {
     setRange(newValue);
+  };
+
+  const handleCategory = (id) => {
+    const index = cateArr.indexOf(id);
+    if (index !== -1) {
+      cateArr.splice(index, 1);
+    } else {
+      cateArr.push(id);
+    }
+    setCategoryId(cateArr.join(","));
   };
 
   return (
@@ -124,7 +137,7 @@ const AllProducts = () => {
                         type="checkbox"
                         id={name}
                         value={name}
-                        onChange={() => setCategoryId(id)}
+                        onChange={() => handleCategory(id)}
                       />
                       <label htmlFor={name}>{name}</label>
                     </li>

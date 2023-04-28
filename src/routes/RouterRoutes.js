@@ -16,12 +16,14 @@ import Profile from "../pages/Profile";
 import NewPassword from "../pages/NewPassword";
 import { Order } from "../pages/Order";
 import { PaymentInfo } from "../pages/PaymentInfo";
+import Breadcrumbs from "../components/common/Breadcrumbs";
 
 const RouterRoutes = () => {
   useScrollRestore();
 
   return (
     <>
+    <Breadcrumbs />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
