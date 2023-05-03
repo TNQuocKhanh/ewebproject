@@ -4,6 +4,9 @@ import { FaArrowLeft } from "react-icons/fa";
 import { signup } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
 
+const signUpBg = "/assets/signup-bg.png";
+const googleLogo = "/assets/google-logo.png";
+
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -35,10 +38,7 @@ const Register = () => {
         <div>
           <h2>Chào mừng bạn đến với HDK Shop</h2>
         </div>
-        <img
-          alt="register"
-          src="https://img.freepik.com/free-vector/sign-up-concept-illustration_114360-7885.jpg?w=740&t=st=1680333360~exp=1680333960~hmac=720947a276467d95c3783f1a254f7a5bee7169d4be939398ea56fad53c3d9ca4"
-        ></img>
+        <img alt="register" src={signUpBg}></img>
       </div>
       <div className="box-form-login-page">
         <form className="form-login" onSubmit={handleSubmit}>
@@ -88,10 +88,7 @@ const Register = () => {
           </div>
           <div className="row-form-google">
             <button>
-              <img
-                src="https://i.pinimg.com/originals/74/65/f3/7465f30319191e2729668875e7a557f2.png"
-                alt="google-logo"
-              ></img>
+              <img src={googleLogo} alt="google-logo"></img>
               Đăng nhập với Google
             </button>
           </div>

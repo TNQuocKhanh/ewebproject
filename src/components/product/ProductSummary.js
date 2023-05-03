@@ -83,17 +83,6 @@ const ProductSummary = (props) => {
                           marginBottom: "20px",
                         }}
                       >
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <img
-                            style={{ borderRadius: "50%", width: "50px" }}
-                            alt="#"
-                            src="https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png"
-                          />
-                          <div style={{ marginLeft: "10px" }}>
-                            <h5 style={{ marginBottom: "5px" }}>Hải đại ca</h5>
-                            <small>01-04-2023 9:50AM</small>
-                          </div>
-                        </div>
                       </div>
                       <div
                         style={{

@@ -3,6 +3,10 @@ import "../styles/partials/pages/_login.scss";
 import { FaArrowLeft } from "react-icons/fa";
 import { createNewPassword } from "../apis";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Toastify from "../components/product/Toastify";
+
+const resetPasswdBg = "/assets/reset-passwd.png";
 
 const NewPassword = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -15,6 +19,11 @@ const NewPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (password !== rePassword) {
+      toast.info("Mật khẩu không trùng khớp");
+    }
+
     const res = await createNewPassword(email, password);
 
     if (res.status === 200) {
@@ -34,10 +43,7 @@ const NewPassword = () => {
         </a>
       </div>
       <div className="box-img-login-page">
-        <img
-          src="https://img.freepik.com/free-vector/reset-password-concept-illustration_114360-7886.jpg?w=740&t=st=1680333764~exp=1680334364~hmac=0efde700efa8748b58c32ce13fcacde3bccdabbc0bb657a7acbc208800ec4c2a"
-          alt="logo"
-        ></img>
+        <img src={resetPasswdBg} alt="logo" />
       </div>
       <div className="box-form-login-page">
         <form className="form-login" onSubmit={handleSubmit}>
@@ -72,6 +78,7 @@ const NewPassword = () => {
           </div>
         </form>
       </div>
+      <Toastify />
     </div>
   );
 };

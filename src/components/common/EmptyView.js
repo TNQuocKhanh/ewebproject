@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+const emptyView = "/assets/cart-empty.png"
+
 const EmptyView = (props) => {
   const { icon, msg, link, btnText } = props;
 
@@ -8,7 +10,7 @@ const EmptyView = (props) => {
     <>
       <div className="empty_view_wrapper">
         <div className="empty_view_icon" style={{textAlign: 'center'}}>
-          <img src="https://www.espressoclubegypt.com/resources/assets/front/images/cartempty.png" alt="empty-cart"></img>
+          <img src={emptyView} alt='cart-empty' />
         </div>
         <p>{msg}</p>
         {link && (

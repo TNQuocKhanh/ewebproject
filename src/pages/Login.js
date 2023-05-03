@@ -3,8 +3,11 @@ import "../styles/partials/pages/_login.scss";
 import { FaArrowLeft } from "react-icons/fa";
 import { login } from "../apis";
 import { storage } from "../utils";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+
+const loginBg = "/assets/login-bg.png";
+const googleLogo = "/assets/google-logo.png";
 
 const Login = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -14,8 +17,6 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -24,7 +25,7 @@ const Login = () => {
     if (res.status === 200) {
       const data = await res.json();
       storage.save("user", data);
-      window.location.replace('/')
+      window.location.replace("/");
     } else {
       setMessage("Có lỗi xảy ra, vui lòng thử lại");
       console.log("===Login error");
@@ -43,10 +44,7 @@ const Login = () => {
         <div>
           <h2>Chào mừng bạn đến với HDK Shop</h2>
         </div>
-        <img
-          src="https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7883.jpg?w=2000"
-          alt="logo"
-        ></img>
+        <img src={loginBg} alt="logo"></img>
       </div>
       <div className="box-form-login-page">
         <form className="form-login" onSubmit={handleSubmit}>
@@ -81,7 +79,7 @@ const Login = () => {
           </div>
           <div className="row-form">
             {isLoading ? (
-              <div style={{margin: 'auto'}}>
+              <div style={{ margin: "auto" }}>
                 <CircularProgress />
               </div>
             ) : (
@@ -97,11 +95,7 @@ const Login = () => {
                 "http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000"
               }
             >
-              <img
-                src="https://i.pinimg.com/originals/74/65/f3/7465f30319191e2729668875e7a557f2.png"
-                alt="GG-icon"
-                width={30}
-              />
+              <img src={googleLogo} alt="GG-icon" width={30} />
               <span>Đăng nhập với Google</span>
             </Link>
           </div>

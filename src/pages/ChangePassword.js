@@ -4,6 +4,8 @@ import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { changePassword } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Toastify from "../components/product/Toastify";
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -14,10 +16,14 @@ const ChangePassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await changePassword(oldPassword, newPassword);
+    console.log("===res", res);
     if (res.status === 200) {
-      navigate("/");
+      toast.success("Thay đổi mật khẩu thành công");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } else {
-      alert("ERROR");
+      toast.error("Mật khẩu cũ không trùng khớp");
     }
   };
 
@@ -47,11 +53,12 @@ const ChangePassword = () => {
               ></input>
             </div>
             <div className="row-form">
-              <button style={{color: 'white'}}>Thay đổi mật khẩu</button>
+              <button style={{ color: "white" }}>Thay đổi mật khẩu</button>
             </div>
           </form>
         </div>
       </div>
+      <Toastify />
       <Footer />
     </>
   );

@@ -232,9 +232,6 @@ const Header = () => {
             </div>
           </div>
           <div>
-            <NavLink style={{ marginLeft: "15px", fontSize: "0.8rem" }} to="/">
-              <strong>Trang chủ</strong>
-            </NavLink>
             <NavLink
               style={{ marginLeft: "15px", fontSize: "0.8rem" }}
               to="/cart"
