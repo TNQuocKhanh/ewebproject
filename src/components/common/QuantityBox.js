@@ -9,14 +9,17 @@ const QuantityBox = (props) => {
   return (
     <>
       <div className="quantity_box">
-        <button type="button" onClick={() => decrementItem(itemId)}>
+        <button
+          type="button"
+          onClick={() => decrementItem(itemId)}
+        disabled={itemQuantity <=1}
+        >
           -
         </button>
         <span className="quantity_count">{itemQuantity}</span>
         <button
           type="button"
           onClick={() => incrementItem(itemId)}
-          disabled={itemQuantity >= 5}
         >
           +
         </button>

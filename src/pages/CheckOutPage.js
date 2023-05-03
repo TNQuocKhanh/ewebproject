@@ -20,6 +20,7 @@ import {
   RadioGroup,
   FormControlLabel,
   FormControl,
+  Button,
 } from "@mui/material";
 
 const CheckOutPage = () => {
@@ -188,14 +189,14 @@ const CheckOutPage = () => {
               </div>
             </button>
           </div>
-          <h4>Thông tin thanh toán</h4>
+          <h4>Thông tin thanh toán (*)</h4>
           <ProfileAddress
             address={address}
             canChoose={true}
             setValueAddress={setValueAddress}
           />
           <FormControl>
-            <h4>Phương thức giao hàng</h4>
+            <h4>Phương thức giao hàng (*)</h4>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               defaultValue="female"
@@ -253,29 +254,46 @@ const CheckOutPage = () => {
           </div>
           <div className="total-price">
             <div className="row-total-price">
-              <strong>Thành tiền:</strong>
-              <p style={{ fontSize: "25px", color: "red" }}>
+              <strong>Tổng tạm tính:</strong>
+              <p style={{ fontSize: "20px", color: "red" }}>
                 {formatPrice(totalPrice)}
               </p>
             </div>
             {serviceId && (
-              <div className="row-total-price">
-                <strong>Phí vận chuyển:</strong>
-                <p style={{ fontSize: "20px", color: "red" }}>
-                  {formatPrice(totalShipping)}
-                </p>
-              </div>
+              <>
+                <div className="row-total-price">
+                  <strong>Phí vận chuyển:</strong>
+                  <p style={{ fontSize: "20px", color: "red" }}>
+                    {formatPrice(totalShipping)}
+                  </p>
+                </div>
+                <div className="row-total-price">
+                  <strong>Thành tiền:</strong>
+                  <p style={{ fontSize: "25px", color: "red" }}>
+                    {formatPrice(totalPrice + totalShipping)}
+                  </p>
+                </div>
+              </>
             )}
           </div>
-          <div>
-            <button
-              disabled={!valueAddress?.districtId || !serviceId}
-              onClick={handleCheckout}
-              className="btn-checkout"
-            >
-              Thanh toán
-            </button>
-          </div>
+          <Button
+            onClick={handleCheckout}
+            disabled={!valueAddress?.districtId || !serviceId}
+            variant="outlined"
+            sx={{
+              bgcolor: "rgb(16, 170, 16)",
+              width: "100%",
+              padding: "15px",
+              color: "aliceblue",
+              borderRadius: "10px",
+              fontWeight: "600",
+              ":hover": {
+                bgcolor: "rgb(22, 195, 22)",
+              },
+            }}
+          >
+            Thanh toán
+          </Button>
         </div>
       </section>
       <Messenger />

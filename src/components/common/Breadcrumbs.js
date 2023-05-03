@@ -20,7 +20,10 @@ const Breadcrumbs = (props) => {
   return (
     <MUIBreadcrumbs aria-label="breadcrumb">
       {pathnames?.length > 0 ? (
-        <Link sx={{ cursor: "pointer" }} onClick={() => navigate("/")}>
+        <Link
+          sx={{ cursor: "pointer", textDecoration: "none" }}
+          onClick={() => navigate("/")}
+        >
           Trang chủ
         </Link>
       ) : (

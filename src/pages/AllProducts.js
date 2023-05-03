@@ -98,6 +98,7 @@ const AllProducts = () => {
           <div className="filterbar_wrapper">
             <div className={`sort_options show`}>
               <div className="sort_head">
+                <Button variant="outlined" sx={{margin: '10px 0'}} onClick={() => window.location.replace('/all-products')}>Bỏ lọc</Button>
                 <h4 className="title">Sắp xếp theo</h4>
                 <button type="button" className="close_btn">
                   &times;
@@ -123,7 +124,6 @@ const AllProducts = () => {
                 >
                   Giá giảm dần
                 </li>
-                <li>Mới nhất</li>
               </ul>
             </div>
             <div className="filter_block">

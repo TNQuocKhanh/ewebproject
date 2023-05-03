@@ -1,13 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { TbTrash } from "react-icons/tb";
 import cartContext from "../../contexts/cart/cartContext";
 import QuantityBox from "../common/QuantityBox";
 import { formatPrice } from "../../utils/format";
+import { ConfirmDialog } from "../common/ConfirmDialog";
 
 const CartItem = (props) => {
   const { id, name, quantity, mainImage, price, discountPrice } = props;
 
   const { removeItem } = useContext(cartContext);
+
+  const [openDialog, setOpenDialog] = useState(false);
 
   const newPrice = formatPrice(discountPrice);
   const oldPrice = formatPrice(price);
@@ -55,7 +58,7 @@ const CartItem = (props) => {
             </div>
             <QuantityBox itemId={id} itemQuantity={quantity} />
             <div className="cart_item_del">
-              <span onClick={() => removeItem(id)}>
+              <span onClick={() => setOpenDialog(true)}>
                 <TbTrash
                   style={{
                     background: "red",
@@ -70,6 +73,12 @@ const CartItem = (props) => {
             </div>
           </div>
         </div>
+        <ConfirmDialog
+          open={openDialog}
+          message={"Bạn có chắc chắn muốn xoá sản phẩm này?"}
+          handleClose={() => setOpenDialog(false)}
+          handleClick={() => removeItem(id)}
+        />
       </div>
     </>
   );
