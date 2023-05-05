@@ -1,150 +1,148 @@
 #product_details {
-    padding-top: 10rem;
+  padding-top: 10rem;
 }
 
 .prod_details_wrapper {
-    grid-template-columns: 0.5fr 0.7fr;
-    gap: 4rem;
+  grid-template-columns: 0.5fr 0.7fr;
+  gap: 4rem;
 
-    @include devices(lg) {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
+  @include devices(lg) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
 }
 
 .prod_details_left_col {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .prod_details_tabs {
-    // display: grid;
-    // gap: 1rem;
+  // display: grid;
+  // gap: 1rem;
 
-    display: flex;
-    justify-content: space-between;
+  display: flex;
 
-    .tabs_item {
-        @include dimension(5rem, 5rem);
-        @include bordered(2px, rgba($color: #ffffff, $alpha: 0.2));
-        border-radius: 3px;
-        padding: 0.5rem;
-        cursor: pointer;
-        @include transition(border-color, 0.2s);
+  .tabs_item {
+    @include dimension(5rem, 5rem);
+    @include bordered(2px, rgba($color: #ffffff, $alpha: 0.2));
+    border-radius: 3px;
+    padding: 0.5rem;
+    cursor: pointer;
+    @include transition(border-color, 0.2s);
 
-        &.active {
-            border-color: #eee;
-        }
+    &.active {
+      border-color: #eee;
+    }
 
-        img {
-            @include img-fit;
-        }
-
-        @include devices(sm) {
-            @include dimension();
-            padding: 0.3rem;
-        }
+    img {
+      @include img-fit;
     }
 
     @include devices(sm) {
-        display: flex;
-        gap: 0.4rem;
+      @include dimension();
+      padding: 0.3rem;
     }
+  }
+
+  @include devices(sm) {
+    display: flex;
+    gap: 0.4rem;
+  }
 }
 
 .prod_details_img {
-    background-color: aliceblue;
-    text-align: center;
-    width: 100%;
+  //border: 1px solid;
+  text-align: center;
+  height: 340px;
+  width: 100%;
 
-    @include devices(lg) {
-        width: 90%;
-    }
+  @include devices(lg) {
+    width: 90%;
+  }
 
-    @include devices(xl) {
-        width: 50%;
-    }
+  @include devices(xl) {
+    width: 50%;
+  }
 }
 
 .prod_details_right_col {
-    .separator {
-        @include margin-y(2.2rem, 2.2rem);
-    }
+  .separator {
+    @include margin-y(2.2rem, 2.2rem);
+  }
 }
 
 .prod_details_info {
-    @include margin-y(0.6rem, 1.2rem);
-    font-weight: 600;
+  @include margin-y(0.6rem, 1.2rem);
+  font-weight: 600;
 }
 
 .prod_details_ratings {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 
-    a {
-        opacity: 0.8;
+  a {
+    opacity: 0.8;
 
-        &:hover {
-            opacity: 1;
-        }
+    &:hover {
+      opacity: 1;
     }
+  }
 }
 
 .prod_details_price {
-    @include flexbox(space-between, center);
+  @include flexbox(space-between, center);
 
-    .price {
-        font-size: 2rem;
-    }
+  .price {
+    font-size: 2rem;
+  }
 
-    .del_price {
-        font-size: 1.3rem;
-    }
+  .del_price {
+    font-size: 1.3rem;
+  }
 
-    .saved_price {
-        font-weight: 500;
-        color: green;
-        @include margin-y(0.8rem, 0.4rem);
-    }
+  .saved_price {
+    font-weight: 500;
+    color: green;
+    @include margin-y(0.8rem, 0.4rem);
+  }
 
-    .tax_txt {
-        font-size: 0.9rem;
-        color: var(--text-muted);
-    }
+  .tax_txt {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
 
-    .badge {
-        background-color: green;
-        border-radius: 3px;
-        padding: 0.5rem 0.7rem;
-    }
-
+  .badge {
+    background-color: green;
+    border-radius: 3px;
+    padding: 0.5rem 0.7rem;
+  }
 }
 
 .prod_details_offers {
+  h4 {
+    font-weight: 600;
+  }
 
-    h4 {
-        font-weight: 600;
+  ul {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+
+    li {
+      @include bordered(1px, var(--text-muted));
+      background-color: var(--bg-color-2);
+      border-radius: 3px;
+      font-size: 0.9rem;
+      padding: 0.6rem;
     }
-
-    ul {
-        display: flex;
-        gap: 0.8rem;
-        margin-top: 1.5rem;
-
-        li {
-            @include bordered(1px, var(--text-muted));
-            background-color: var(--bg-color-2);
-            border-radius: 3px;
-            font-size: 0.9rem;
-            padding: 0.6rem;
-        }
-    }
+  }
 }
 
 .prod_details_buy_btn {
-    .btn {
-        width: 200px;
-        background-color: var(--main-color);
-    }
+  .btn {
+    width: 200px;
+    background-color: var(--main-color);
+  }
 }

@@ -4,8 +4,6 @@ import { IoMdStar, IoMdCheckmark } from "react-icons/io";
 import useDocTitle from "../hooks/useDocTitle";
 import useActive from "../hooks/useActive";
 import cartContext from "../contexts/cart/cartContext";
-import SectionsHead from "../components/common/SectionsHead";
-import RelatedSlider from "../components/sliders/RelatedSlider";
 import ProductSummary from "../components/product/ProductSummary";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
@@ -15,8 +13,7 @@ import {
   getReviewByProductId,
 } from "../apis";
 import _ from "lodash";
-import { storage } from "../utils";
-import { formatPrice } from "../utils";
+import { storage, formatPrice } from "../utils";
 import Messenger from "../components/common/Messenger";
 
 const ProductDetails = () => {
@@ -94,12 +91,16 @@ const ProductDetails = () => {
   return (
     <>
       <Header />
-      <section id="product_details" className="section">
+    <section id="product_details" className="section">
         <div className="container">
           <div className="wrapper prod_details_wrapper">
             <div className="prod_details_left_col">
               <figure className="prod_details_img">
-                <img src={previewImg} alt="product-img" />
+                <img src={previewImg} alt="product-img" style={{
+                  width: 'inherit',
+                  height: 'inherit',
+                  objectFit: 'contain'
+                }} />
               </figure>
               <div className="prod_details_tabs">
                 {productImages.map((img, i) => (
@@ -178,9 +179,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-//<section id="related_products" className="section">
-//<div className="container">
-//<SectionsHead heading="Sản phẩm liên quan" />
-//<RelatedSlider category={category} />
-//</div>
-//</section>
