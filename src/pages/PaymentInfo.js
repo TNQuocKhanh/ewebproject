@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import _ from "lodash";
 import { createOrder, createPaymentInfo } from "../apis";
 import Messenger from "../components/common/Messenger";
+import useDocTitle from "../hooks/useDocTitle";
 
 export const PaymentInfo = () => {
+  useDocTitle('Thông tin đơn hàng')
   const url = window.location.search;
   const urlParams = new URLSearchParams(url);
 

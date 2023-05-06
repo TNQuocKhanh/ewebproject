@@ -22,8 +22,10 @@ import {
   FormControl,
   Button,
 } from "@mui/material";
+import useDocTitle from "../hooks/useDocTitle";
 
 const CheckOutPage = () => {
+  useDocTitle("Thanh toán");
   const navigate = useNavigate();
   const [method, setMethod] = useState(1);
   const [address, setAddress] = useState();
@@ -36,6 +38,15 @@ const CheckOutPage = () => {
   const [serviceId, setServiceId] = useState();
 
   const { cart } = useContext(cartContext);
+  
+  const cartDiscount = cart.map((item) => {
+    return (item.price - item.discountPrice) * 1;
+  });
+
+  const calculateCartDiscount = cartDiscount.reduce(
+    (accum, val) => accum + val,
+    0
+  );
 
   const getUserProfile = async () => {
     const res = await getProfile();
@@ -77,7 +88,7 @@ const CheckOutPage = () => {
         street: valueAddress.street,
       },
       paymentMethod: method === 1 ? "COD" : "VNPay",
-      totalPrice: totalPrice,
+      totalPrice: totalPrice + totalShipping,
       lineItem: lineItem,
       note,
     };
@@ -104,18 +115,6 @@ const CheckOutPage = () => {
   };
 
   const calculateShipping = async () => {
-    const test = {
-      service_id: serviceId,
-      insurance_value: 5000000,
-      from_district_id: 3695,
-      to_district_id: valueAddress?.districtId,
-      to_ward_code: valueAddress?.wardCode,
-      height: 15,
-      length: 15,
-      weight: 5000,
-      width: 15,
-    };
-
     const items = [];
     try {
       const getFee = async (val) => {
@@ -129,7 +128,21 @@ const CheckOutPage = () => {
         }
       };
 
-      const cartNew = await Promise.all(cart.map((v) => getFee(test)));
+      const cartNew = await Promise.all(
+        cart.map((v) => {
+          return getFee({
+            service_id: serviceId,
+            insurance_value: 5000000,
+            from_district_id: 3695,
+            to_district_id: valueAddress?.districtId,
+            to_ward_code: valueAddress?.wardCode,
+            height: v.height,
+            length: v.length,
+            weight: v.weight,
+            width: v.width,
+          });
+        })
+      );
       cart.forEach((it, idx) => {
         items.push({
           productId: it.id,
@@ -265,6 +278,12 @@ const CheckOutPage = () => {
                   <strong>Phí vận chuyển:</strong>
                   <p style={{ fontSize: "20px", color: "red" }}>
                     {formatPrice(totalShipping)}
+                  </p>
+                </div>
+                <div className="row-total-price">
+                  <strong>Giảm giá:</strong>
+                  <p style={{ fontSize: "20px", color: "red" }}>
+                    {formatPrice(calculateCartDiscount)}
                   </p>
                 </div>
                 <div className="row-total-price">

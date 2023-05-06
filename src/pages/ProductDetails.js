@@ -17,7 +17,7 @@ import { storage, formatPrice } from "../utils";
 import Messenger from "../components/common/Messenger";
 
 const ProductDetails = () => {
-  useDocTitle("Product Details");
+  useDocTitle("Chi tiết sản phẩm");
 
   const { handleActive, activeClass } = useActive(0);
   const { addItem, cart } = useContext(cartContext);
@@ -87,7 +87,6 @@ const ProductDetails = () => {
   const savedPrice = formatPrice(discountedPrice);
   const savedDiscount = Math.round((1 - discountPrice/price) * 100)
 
-
   return (
     <>
       <Header />
@@ -121,7 +120,7 @@ const ProductDetails = () => {
 
               <div className="prod_details_ratings">
                 <span className="rating_star">
-                  {Array(averageRating).fill().map(it => <IoMdStar />)}
+                  {Array(averageRating).fill().map((it, idx) => <IoMdStar key={idx} />)}
                 </span>
                 <span>|</span>
                 <Link to="#">{reviewCount} Đánh giá</Link>

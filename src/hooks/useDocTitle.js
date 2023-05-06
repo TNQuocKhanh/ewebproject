@@ -5,7 +5,7 @@ const useDocTitle = (title) => {
     if (title) {
       document.title = `${title} - HDK`;
     } else {
-      document.title = "HDK Shop | All ";
+      document.title = "HDK Shop | Tất cả";
     }
   }, [title]);
 

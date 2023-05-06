@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useDocTitle from "../hooks/useDocTitle";
 
 const error_page = "/assets/error-page.png";
 
 const ErrorPage = () => {
+  useDocTitle('Có lỗi xảy ra')
   return (
     <>
       <section id="error_page" className="section">

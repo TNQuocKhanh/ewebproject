@@ -3,10 +3,12 @@ import "../styles/partials/pages/_login.scss";
 import { FaArrowLeft } from "react-icons/fa";
 import { forgotPassword } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
+import useDocTitle from "../hooks/useDocTitle";
 
 const forgotPasswdBg = "/assets/forgot-passwd.png";
 
 const ForgotPassword = () => {
+  useDocTitle('Quên mật khẩu')
   const [email, setEmail] = useState();
 
   const navigate = useNavigate();

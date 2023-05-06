@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
 import commonContext from "../contexts/common/commonContext";
 import Messenger from "../components/common/Messenger";
+import useDocTitle from "../hooks/useDocTitle";
 
 const ProfileInfo = () => {
   const [name, setName] = useState("");
@@ -183,6 +184,7 @@ const ProfileInfo = () => {
 };
 
 const Profile = () => {
+  useDocTitle('Thông tin người dùng')
   const { profile = [] } = useContext(commonContext);
 
   const [value, setValue] = useState(0);

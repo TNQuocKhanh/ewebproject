@@ -3,11 +3,13 @@ import "../styles/partials/pages/_login.scss";
 import { FaArrowLeft } from "react-icons/fa";
 import { signup } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
+import useDocTitle from "../hooks/useDocTitle";
 
 const signUpBg = "/assets/signup-bg.png";
 const googleLogo = "/assets/google-logo.png";
 
 const Register = () => {
+  useDocTitle('Đăng ký')
   const [showPassword, setShowPassword] = useState(false);
 
   const [email, setEmail] = useState("");

@@ -3,10 +3,12 @@ import "../styles/partials/pages/_login.scss";
 import { FaArrowLeft } from "react-icons/fa";
 import { verifyAccount } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
+import useDocTitle from "../hooks/useDocTitle";
 
 const verifyBg = "/assets/verify-img.png";
 
 const Verify = () => {
+  useDocTitle('Xác thực người dùng')
   const [code, setCode] = useState("");
 
   const navigate = useNavigate();

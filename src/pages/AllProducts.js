@@ -13,7 +13,7 @@ import Messenger from "../components/common/Messenger";
 import { formatPrice } from "../utils";
 
 const AllProducts = () => {
-  useDocTitle("All Products");
+  useDocTitle("Tất cả sản phẩm");
 
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);

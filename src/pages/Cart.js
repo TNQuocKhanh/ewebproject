@@ -8,12 +8,10 @@ import { Link } from "react-router-dom";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { formatPrice, storage } from "../utils";
-import { toast } from "react-toastify";
-import Toastify from "../components/product/Toastify";
 import Messenger from "../components/common/Messenger";
 
 const Cart = () => {
-  useDocTitle("Cart");
+  useDocTitle("Giỏ hàng");
 
   const { cart } = useContext(cartContext);
   const cartQuantity = cart.length;
@@ -124,7 +122,6 @@ const Cart = () => {
           )}
         </div>
       </section>
-      <Toastify />
       <Messenger />
       <Footer />
     </>

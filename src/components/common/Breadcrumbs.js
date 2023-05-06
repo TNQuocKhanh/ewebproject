@@ -8,7 +8,7 @@ const breadcrumbNameMap = {
   orders: "Đơn hàng",
   profile: "Thông tin",
   "change-password": "Thay đổi mật khẩu",
-  "product-details": "Chi tiết",
+  "product-details": "Chi tiết sản phẩm",
   checkout: "Thanh toán",
 };
 
@@ -37,7 +37,7 @@ const Breadcrumbs = (props) => {
           <Typography key={name}>{breadcrumbNameMap[name]}</Typography>
         ) : (
           <Link
-            sx={{ cursor: "pointer" }}
+            sx={{ cursor: "pointer", textDecoration: "none" }}
             key={name}
             onClick={() => navigate(routeTo)}
           >

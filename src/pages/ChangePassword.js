@@ -6,8 +6,10 @@ import { changePassword } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
+import useDocTitle from "../hooks/useDocTitle";
 
 const ChangePassword = () => {
+  useDocTitle('Thay đổi mật khẩu')
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 

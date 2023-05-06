@@ -5,11 +5,13 @@ import { login } from "../apis";
 import { storage } from "../utils";
 import { Link } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+import useDocTitle from "../hooks/useDocTitle";
 
 const loginBg = "/assets/login-bg.png";
 const googleLogo = "/assets/google-logo.png";
 
 const Login = () => {
+  useDocTitle('Đăng nhập')
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

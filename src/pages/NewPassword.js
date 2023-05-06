@@ -5,10 +5,12 @@ import { createNewPassword } from "../apis";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
+import useDocTitle from "../hooks/useDocTitle";
 
 const resetPasswdBg = "/assets/reset-passwd.png";
 
 const NewPassword = () => {
+  useDocTitle('Tạo mới mật khẩu')
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");

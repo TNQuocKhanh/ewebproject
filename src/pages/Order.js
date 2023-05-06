@@ -6,6 +6,7 @@ import Footer from "../components/common/Footer";
 import { TabPanel } from "../components/common/TabPanel";
 import { formatDateTime, formatPrice } from "../utils";
 import Messenger from "../components/common/Messenger";
+import useDocTitle from "../hooks/useDocTitle";
 
 const OrderTab = (props) => {
   const { data = [] } = props;
@@ -74,6 +75,7 @@ const OrderTab = (props) => {
 };
 
 export const Order = () => {
+  useDocTitle("Đơn hàng")
   const [orders, setOrders] = useState([]);
 
   const [value, setValue] = useState(0);
