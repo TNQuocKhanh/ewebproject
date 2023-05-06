@@ -9,6 +9,7 @@ import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { formatPrice, storage } from "../utils";
 import Messenger from "../components/common/Messenger";
+import Breadcrumbs from "../components/common/Breadcrumbs";
 
 const Cart = () => {
   useDocTitle("Giỏ hàng");
@@ -33,8 +34,9 @@ const Cart = () => {
 
   return (
     <>
-      <Header />
-      <section id="cart" className="section">
+    <Header />
+    <Breadcrumbs />
+    <section id="cart" className="section">
         <div className="container">
           {cartQuantity === 0 ? (
             <EmptyView

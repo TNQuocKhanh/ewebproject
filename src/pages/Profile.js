@@ -208,7 +208,7 @@ const Profile = () => {
         <TabPanel value={value} index={1}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={12}>
-              <ProfileAddress address={profile.address} />
+              <ProfileAddress address={profile.shippingAddresses} />
             </Grid>
           </Grid>
         </TabPanel>

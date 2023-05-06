@@ -85,21 +85,25 @@ const ProductDetails = () => {
   const newPrice = formatPrice(discountPrice);
   const oldPrice = formatPrice(price);
   const savedPrice = formatPrice(discountedPrice);
-  const savedDiscount = Math.round((1 - discountPrice/price) * 100)
+  const savedDiscount = Math.round((1 - discountPrice / price) * 100);
 
   return (
     <>
       <Header />
-    <section id="product_details" className="section">
+      <section id="product_details" className="container">
         <div className="container">
           <div className="wrapper prod_details_wrapper">
             <div className="prod_details_left_col">
               <figure className="prod_details_img">
-                <img src={previewImg} alt="product-img" style={{
-                  width: 'inherit',
-                  height: 'inherit',
-                  objectFit: 'contain'
-                }} />
+                <img
+                  src={previewImg}
+                  alt="product-img"
+                  style={{
+                    width: "inherit",
+                    height: "inherit",
+                    objectFit: "contain",
+                  }}
+                />
               </figure>
               <div className="prod_details_tabs">
                 {productImages.map((img, i) => (
@@ -120,7 +124,11 @@ const ProductDetails = () => {
 
               <div className="prod_details_ratings">
                 <span className="rating_star">
-                  {Array(averageRating).fill().map((it, idx) => <IoMdStar key={idx} />)}
+                  {Array(averageRating)
+                    .fill()
+                    .map((it, idx) => (
+                      <IoMdStar key={idx} />
+                    ))}
                 </span>
                 <span>|</span>
                 <Link to="#">{reviewCount} Đánh giá</Link>
@@ -171,7 +179,7 @@ const ProductDetails = () => {
         specs={specifications}
         description={description}
       />
-      <Messenger/>
+      <Messenger />
       <Footer />
     </>
   );

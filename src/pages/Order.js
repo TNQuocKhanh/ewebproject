@@ -1,15 +1,33 @@
 import { useEffect, useState } from "react";
-import { Card, Tab, Tabs, Grid, Typography } from "@mui/material";
-import { getListOrders } from "../apis";
+import { Card, Tab, Tabs, Grid, Typography, Button } from "@mui/material";
+import { cancelOrder, getListOrders } from "../apis";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { TabPanel } from "../components/common/TabPanel";
 import { formatDateTime, formatPrice } from "../utils";
 import Messenger from "../components/common/Messenger";
 import useDocTitle from "../hooks/useDocTitle";
+import { ConfirmDialog } from "../components/common/ConfirmDialog";
 
 const OrderTab = (props) => {
-  const { data = [] } = props;
+  const { data = [], canCancel = false } = props;
+  const [openDialog, setOpenDialog] = useState(false);
+  const [orderId, setOrderId] = useState();
+
+  const handleOpenDialog = (it) => {
+    setOpenDialog(true);
+    setOrderId(it.id);
+  };
+
+  const handleCancelOrder = async (id) => {
+    try {
+      await cancelOrder(id);
+      alert('Huy don hang thanh cong')
+    } catch (err) {
+      console.log("[Cancel order] Error", err);
+    }
+    setOpenDialog(false);
+  };
 
   return (
     <>
@@ -61,11 +79,25 @@ const OrderTab = (props) => {
                     <Typography variant="caption" sx={{ float: "right" }}>
                       Ngày đặt hàng: {formatDateTime(it.orderTime)}
                     </Typography>
+                    {canCancel && (
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleOpenDialog(it)}
+                      >
+                        Huỷ
+                      </Button>
+                    )}
                   </Grid>
                 </Grid>
               </Card>
             );
           })}
+          <ConfirmDialog
+            open={openDialog}
+            message={"Bạn có chắc chắn muốn huỷ đơn hàng này?"}
+            handleClose={() => setOpenDialog(false)}
+            handleClick={() => handleCancelOrder(orderId)}
+          />
         </div>
       ) : (
         <Typography color="text.secondary">Không có đơn hàng nào</Typography>
@@ -75,7 +107,7 @@ const OrderTab = (props) => {
 };
 
 export const Order = () => {
-  useDocTitle("Đơn hàng")
+  useDocTitle("Đơn hàng");
   const [orders, setOrders] = useState([]);
 
   const [value, setValue] = useState(0);
@@ -115,7 +147,10 @@ export const Order = () => {
           <Tab label="Trả hàng" />
         </Tabs>
         <TabPanel value={value} index={0}>
-          <OrderTab data={orders.filter((v) => v.status === "NEW")} />
+          <OrderTab
+            data={orders.filter((v) => v.status === "NEW")}
+            canCancel={true}
+          />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <OrderTab data={orders.filter((v) => v.status === "PAID")} />

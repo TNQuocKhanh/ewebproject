@@ -18,7 +18,8 @@ const Breadcrumbs = (props) => {
   const pathnames = path.pathname?.split("/").filter((x) => x);
 
   return (
-    <MUIBreadcrumbs aria-label="breadcrumb">
+    <div className="container">
+    <MUIBreadcrumbs aria-label="breadcrumb" sx={{marginTop: '10rem'}}>
       {pathnames?.length > 0 ? (
         <Link
           sx={{ cursor: "pointer", textDecoration: "none" }}
@@ -46,6 +47,7 @@ const Breadcrumbs = (props) => {
         );
       })}
     </MUIBreadcrumbs>
+    </div>
   );
 };
 export default Breadcrumbs;

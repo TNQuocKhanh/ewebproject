@@ -53,3 +53,14 @@ export const getListCategories = async () => {
   });
   return res.json();
 };
+
+export const getFeatureProduct = async () => {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+
+  const res = await fetch(`${API_URL}/product/best-selling-product`, {
+    method: "GET",
+    headers,
+  });
+  return res.json();
+};

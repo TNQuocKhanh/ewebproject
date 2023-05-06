@@ -23,7 +23,6 @@ const RouterRoutes = () => {
 
   return (
     <>
-    <Breadcrumbs />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

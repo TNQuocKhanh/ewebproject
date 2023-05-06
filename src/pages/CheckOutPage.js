@@ -50,7 +50,7 @@ const CheckOutPage = () => {
 
   const getUserProfile = async () => {
     const res = await getProfile();
-    setAddress(res.address);
+    setAddress(res.shippingAddresses);
   };
 
   const getAllService = async () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Pagination, A11y, Autoplay } from "swiper";
@@ -8,15 +8,32 @@ import "swiper/scss";
 import "swiper/scss/autoplay";
 import "swiper/scss/pagination";
 import "swiper/scss/effect-coverflow";
+import { getFeatureProduct } from "../../apis/product.api";
 
 const FeaturedSlider = () => {
+  const getFeature = async () => {
+    try {
+      const res = await getFeatureProduct();
+      console.log("==res", res);
+    } catch (e) {
+      console.log("[Get feature product] Error", e);
+    }
+  };
+
+  useEffect(() => {
+    getFeature();
+  }, []);
+
   const featuredProducts = productsData.filter(
     (item) => item.tag === "featured-product"
   );
 
   return (
     <Swiper
-      style={{background: 'linear-gradient(to right, var(--main-color) , #a1def5)', padding: '50px'}}
+      style={{
+        background: "linear-gradient(to right, var(--main-color) , #a1def5)",
+        padding: "50px",
+      }}
       modules={[EffectCoverflow, Pagination, A11y, Autoplay]}
       loop={true}
       speed={400}
@@ -59,7 +76,7 @@ const FeaturedSlider = () => {
             className="featured_slides"
             style={{
               borderRadius: "5px",
-              background: 'white'
+              background: "white",
             }}
           >
             <figure className="featured_img">

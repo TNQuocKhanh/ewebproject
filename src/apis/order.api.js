@@ -70,3 +70,18 @@ export const createPaymentInfo = async (value) => {
   });
   return res;
 };
+
+export const cancelOrder = async (id) => {
+  const user = storage.load("user");
+  const token = user.accessToken;
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const res = await fetch(`${API_URL}/order/cancel/${id}`, {
+    method: "PUT",
+    headers,
+  });
+  return res;
+};

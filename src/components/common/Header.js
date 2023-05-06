@@ -254,7 +254,6 @@ const Header = () => {
             )}
           </div>
         </div>
-        <Breadcrumbs />
       </header>
     </>
   );
