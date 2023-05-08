@@ -29,9 +29,9 @@ const ProductSummary = (props) => {
 
   return (
     <>
-      <section id="product_summary" className="section">
+      <section id="product_summary" className="container">
         <div className="container">
-          <div className="prod_summary_tabs">
+          <div className="prod_summary_tabs" style={{ marginBottom: "16px" }}>
             <ul className="tabs">
               <li
                 className={`tabs_item ${activeClass("specs")}`}
@@ -67,6 +67,16 @@ const ProductSummary = (props) => {
               </div>
             ) : (
               <div className="prod_reviews">
+                <div>
+                  <h3
+                    style={{ margin: "30px 0" }}
+                  >{`Đánh giá trước đó (${listReview.length})`}</h3>
+                  <ul>
+                    {listReview.map((item) => (
+                      <ProductReviews key={item.id} {...item} />
+                    ))}
+                  </ul>
+                </div>
                 {customerCanReview && (
                   <div>
                     <form
@@ -82,8 +92,7 @@ const ProductSummary = (props) => {
                           alignItems: "center",
                           marginBottom: "20px",
                         }}
-                      >
-                      </div>
+                      ></div>
                       <div
                         style={{
                           display: "flex",
@@ -130,17 +139,6 @@ const ProductSummary = (props) => {
                     </form>
                   </div>
                 )}
-
-                <div>
-                  <h3
-                    style={{ margin: "30px 0" }}
-                  >{`Đánh giá trước đó (${listReview.length})`}</h3>
-                  <ul>
-                    {listReview.map((item) => (
-                      <ProductReviews key={item.id} {...item} />
-                    ))}
-                  </ul>
-                </div>
               </div>
             )}
           </div>

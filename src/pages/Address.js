@@ -53,7 +53,7 @@ export const ProfileAddress = (props) => {
 
   const [openDialog, setOpenDialog] = useState(false);
   const [idDelete, setIdDelete] = useState();
-  const [idActive, setIdActive] = useState()
+  const [idActive, setIdActive] = useState();
 
   const handleEdit = (it) => {
     setOpen(true);
@@ -86,7 +86,7 @@ export const ProfileAddress = (props) => {
       phoneNumber,
       districtId,
       district: findDistrict.DistrictName || "",
-      wardCode: wardId,
+      wardCode: Number(wardId),
       ward: findWard?.WardName || "",
       street,
       defaultAddress,
@@ -94,11 +94,20 @@ export const ProfileAddress = (props) => {
 
     try {
       if (idAddress) {
-        await updateAddress(idAddress, value);
-        toast.success("Cập nhật thành công");
+        const res = await updateAddress(idAddress, value);
+        console.log("===res", res);
+        if (res) {
+          toast.success("Cập nhật thành công");
+        } else {
+          toast.error("Có lỗi xảy ra");
+        }
       } else {
-        await createAddress(value);
-        toast.success("Thêm mới thành công");
+        const res = await createAddress(value);
+        if (res.id) {
+          toast.success("Thêm mới thành công");
+        } else {
+          toast.error("Có lỗi xảy ra");
+        }
       }
     } catch (err) {
       toast.error("Có lỗi xảy ra");
@@ -142,9 +151,9 @@ export const ProfileAddress = (props) => {
   };
 
   const handleChoose = (it) => {
-    setValueAddress(it)
-    setIdActive(it.id)
-  }
+    setValueAddress(it);
+    setIdActive(it.id);
+  };
 
   return (
     <>
@@ -158,16 +167,16 @@ export const ProfileAddress = (props) => {
                     it.id === idActive
                       ? {
                           border: "1px solid rgb(0, 0, 186)",
-                        borderRadius: "5px",
-                        cursor: 'pointer'
+                          borderRadius: "5px",
+                          cursor: "pointer",
                         }
                       : {
                           border: "1px solid rgba(218, 218, 218, 0.714)",
                           borderRadius: "5px",
-                        cursor: 'pointer'
+                          cursor: "pointer",
                         }
                   }
-                onClick={() => handleChoose(it)}
+                  onClick={() => handleChoose(it)}
                 >
                   <div
                     style={{

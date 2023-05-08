@@ -24,11 +24,18 @@ const ProductDetails = () => {
   const { productId } = useParams();
 
   const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(false)
   const [listReview, setListReview] = useState([]);
 
   const getProductDetail = async () => {
+    setIsLoading(true)
+    try{
     const res = await getProductById(productId);
     setData(res);
+    }catch(e){
+console.log('[Get product detail] Error', e)
+    }
+    setIsLoading(false)
   };
 
   const getListReview = async () => {
@@ -60,6 +67,7 @@ const ProductDetails = () => {
     specifications,
     description,
     averageRating,
+    mainImage
   } = data;
 
   const [previewImg, setPreviewImg] = useState(
@@ -96,7 +104,7 @@ const ProductDetails = () => {
             <div className="prod_details_left_col">
               <figure className="prod_details_img">
                 <img
-                  src={previewImg}
+                  src={_.isEmpty(productImages) ? mainImage : previewImg}
                   alt="product-img"
                   style={{
                     width: "inherit",
@@ -124,7 +132,8 @@ const ProductDetails = () => {
 
               <div className="prod_details_ratings">
                 <span className="rating_star">
-                  {Array(averageRating)
+                  {averageRating}
+                  {Array(4)
                     .fill()
                     .map((it, idx) => (
                       <IoMdStar key={idx} />
