@@ -15,6 +15,9 @@ import {
 import _ from "lodash";
 import { storage, formatPrice } from "../utils";
 import Messenger from "../components/common/Messenger";
+import { DetailLoading, Loading } from "../components/common/Loading";
+import { toast } from "react-toastify";
+import Toastify from "../components/product/Toastify";
 
 const ProductDetails = () => {
   useDocTitle("Chi tiết sản phẩm");
@@ -24,18 +27,18 @@ const ProductDetails = () => {
   const { productId } = useParams();
 
   const [data, setData] = useState({});
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [listReview, setListReview] = useState([]);
 
   const getProductDetail = async () => {
-    setIsLoading(true)
-    try{
-    const res = await getProductById(productId);
-    setData(res);
-    }catch(e){
-console.log('[Get product detail] Error', e)
+    setIsLoading(true);
+    try {
+      const res = await getProductById(productId);
+      setData(res);
+    } catch (e) {
+      console.log("[Get product detail] Error", e);
     }
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   const getListReview = async () => {
@@ -67,7 +70,7 @@ console.log('[Get product detail] Error', e)
     specifications,
     description,
     averageRating,
-    mainImage
+    mainImage,
   } = data;
 
   const [previewImg, setPreviewImg] = useState(
@@ -76,6 +79,7 @@ console.log('[Get product detail] Error', e)
 
   const handleAddItem = () => {
     addItem(data);
+    toast.success("Thêm vào giỏ hàng thành công");
   };
 
   useEffect(() => {
@@ -95,9 +99,12 @@ console.log('[Get product detail] Error', e)
   const savedPrice = formatPrice(discountedPrice);
   const savedDiscount = Math.round((1 - discountPrice / price) * 100);
 
+  if (isLoading) return <DetailLoading />;
+
   return (
     <>
-      <Header />
+    <Header />
+    <Toastify />
       <section id="product_details" className="container">
         <div className="container">
           <div className="wrapper prod_details_wrapper">

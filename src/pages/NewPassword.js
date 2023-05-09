@@ -6,36 +6,42 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
 import useDocTitle from "../hooks/useDocTitle";
+import { LinearLoading } from "../components/common/Loading";
 
 const resetPasswdBg = "/assets/reset-passwd.png";
 
 const NewPassword = () => {
-  useDocTitle('Tạo mới mật khẩu')
+  useDocTitle("Tạo mới mật khẩu");
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
 
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const email = localStorage.getItem("email");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     if (password !== rePassword) {
       toast.info("Mật khẩu không trùng khớp");
     }
 
-    const res = await createNewPassword(email, password);
-
-    if (res.status === 200) {
-      await res.json();
-      localStorage.removeItem("email");
-      navigate("/login");
-    } else {
+    try {
+      const res = await createNewPassword(email, password);
+      if (res.status === 200) {
+        await res.json();
+        localStorage.removeItem("email");
+        navigate("/login");
+      }
+    } catch (err) {
       console.log("===Change new password error");
     }
+    setLoading(false);
   };
+
+  if (loading) return <LinearLoading />;
 
   return (
     <div id="page-login">

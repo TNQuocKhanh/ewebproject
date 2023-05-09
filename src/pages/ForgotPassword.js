@@ -4,23 +4,33 @@ import { FaArrowLeft } from "react-icons/fa";
 import { forgotPassword } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
 import useDocTitle from "../hooks/useDocTitle";
+import {LinearLoading} from "../components/common/Loading";
 
 const forgotPasswdBg = "/assets/forgot-passwd.png";
 
 const ForgotPassword = () => {
-  useDocTitle('Quên mật khẩu')
+  useDocTitle("Quên mật khẩu");
   const [email, setEmail] = useState();
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     localStorage.setItem("email", email);
-    const res = await forgotPassword(email);
-    if (res.status === 200) {
-      navigate("/verify");
+    try {
+      const res = await forgotPassword(email);
+      if (res.status === 200) {
+        navigate("/verify");
+      }
+    } catch (err) {
+      console.log("Error", e);
     }
+    setLoading(false);
   };
+
+  if(loading) return <LinearLoading />
 
   return (
     <div id="page-register">

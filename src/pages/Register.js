@@ -4,6 +4,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { signup } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
 import useDocTitle from "../hooks/useDocTitle";
+import {LinearLoading} from "../components/common/Loading";
 
 const signUpBg = "/assets/signup-bg.png";
 const googleLogo = "/assets/google-logo.png";
@@ -15,10 +16,12 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
     const res = await signup(email, password, fullName);
     console.log("===res", res);
@@ -27,7 +30,10 @@ const Register = () => {
     } else {
       alert("Có lỗi xảy ra. Vui lòng thử lại sau.");
     }
+    setLoading(true)
   };
+
+  if(loading) return <LinearLoading />
 
   return (
     <div id="page-register">

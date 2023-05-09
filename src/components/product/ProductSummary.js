@@ -58,7 +58,7 @@ const ProductSummary = (props) => {
             {active === "specs" ? (
               <div className="prod_specs">
                 {specsTransform?.map((it) => (
-                  <div>{it}</div>
+                  <div style={{ fontWeight: 500 }}>{it}</div>
                 ))}
               </div>
             ) : active === "overview" ? (

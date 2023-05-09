@@ -11,6 +11,7 @@ import _ from "lodash";
 import Slider from "@mui/material/Slider";
 import Messenger from "../components/common/Messenger";
 import { formatPrice } from "../utils";
+import { Loading } from "../components/common/Loading";
 
 const AllProducts = () => {
   useDocTitle("Tất cả sản phẩm");
@@ -29,6 +30,7 @@ const AllProducts = () => {
   const [cateArr, setCateArr] = useState([]);
 
   const [cateFilter, setCateFilter] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -62,6 +64,7 @@ const AllProducts = () => {
   }, []);
 
   const getAllProducts = async () => {
+    setLoading(true);
     try {
       const res = await getProductWithFilter(_filter);
       setData(res.content);
@@ -69,6 +72,7 @@ const AllProducts = () => {
     } catch (err) {
       console.log("===Error", err);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -98,7 +102,13 @@ const AllProducts = () => {
           <div className="filterbar_wrapper">
             <div className={`sort_options show`}>
               <div className="sort_head">
-                <Button variant="outlined" sx={{margin: '10px 0'}} onClick={() => window.location.replace('/all-products')}>Bỏ lọc</Button>
+                <Button
+                  variant="outlined"
+                  sx={{ margin: "10px 0" }}
+                  onClick={() => window.location.replace("/all-products")}
+                >
+                  Bỏ lọc
+                </Button>
                 <h4 className="title">Sắp xếp theo</h4>
                 <button type="button" className="close_btn">
                   &times;
@@ -180,30 +190,34 @@ const AllProducts = () => {
           </div>
         </aside>
 
-        <div className="container">
-          {data?.length > 0 ? (
-            <>
-              <div className="wrapper products_wrapper">
-                {data.map((item) => (
-                  <ProductCard key={item.id} {...item} />
-                ))}
-              </div>
-              <div style={{ margin: "20px 0", textAlign: "center" }}>
-                <Pagination
-                  count={Math.ceil(total / perPage)}
-                  variant="outlined"
-                  shape="rounded"
-                  onChange={(e, v) => setPage(v)}
-                />
-              </div>
-            </>
-          ) : (
-            <EmptyView
-              icon={<BsExclamationCircle />}
-              msg="Không tìm thấy sản phẩm"
-            />
-          )}
-        </div>
+        {loading ? (
+          <Loading />
+        ) : (
+          <div className="container">
+            {data?.length > 0 ? (
+              <>
+                <div className="wrapper products_wrapper">
+                  {data.map((item) => (
+                    <ProductCard key={item.id} {...item} />
+                  ))}
+                </div>
+                <div style={{ margin: "20px 0", textAlign: "center" }}>
+                  <Pagination
+                    count={Math.ceil(total / perPage)}
+                    variant="outlined"
+                    shape="rounded"
+                    onChange={(e, v) => setPage(v)}
+                  />
+                </div>
+              </>
+            ) : (
+              <EmptyView
+                icon={<BsExclamationCircle />}
+                msg="Không tìm thấy sản phẩm"
+              />
+            )}
+          </div>
+        )}
       </section>
       <Messenger />
       <Footer />

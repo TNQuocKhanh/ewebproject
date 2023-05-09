@@ -34,6 +34,7 @@ import Toastify from "../components/product/Toastify";
 import { toast } from "react-toastify";
 import { ConfirmDialog } from "../components/common/ConfirmDialog";
 import AddIcon from "@mui/icons-material/Add";
+import { BubbleLoading } from "../components/common/Loading";
 
 export const ProfileAddress = (props) => {
   const { address, canChoose = false, setValueAddress } = props;
@@ -54,6 +55,8 @@ export const ProfileAddress = (props) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [idDelete, setIdDelete] = useState();
   const [idActive, setIdActive] = useState();
+
+  const [loading, setLoading] = useState(false);
 
   const handleEdit = (it) => {
     setOpen(true);
@@ -91,13 +94,16 @@ export const ProfileAddress = (props) => {
       street,
       defaultAddress,
     };
-
+    setLoading(true);
     try {
       if (idAddress) {
         const res = await updateAddress(idAddress, value);
         console.log("===res", res);
         if (res) {
           toast.success("Cập nhật thành công");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         } else {
           toast.error("Có lỗi xảy ra");
         }
@@ -105,6 +111,9 @@ export const ProfileAddress = (props) => {
         const res = await createAddress(value);
         if (res.id) {
           toast.success("Thêm mới thành công");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         } else {
           toast.error("Có lỗi xảy ra");
         }
@@ -114,6 +123,7 @@ export const ProfileAddress = (props) => {
       console.log("[create or update address] Error]", err);
     }
     setOpen(false);
+    setLoading(false);
   };
 
   const getDistrictById = async () => {
@@ -139,21 +149,28 @@ export const ProfileAddress = (props) => {
   };
 
   const handleDeleteAddress = async (id) => {
+    setLoading(true);
     try {
       const res = await deleteAddress(id);
       console.log("===res", res);
       toast.success("Đã xoá thành công");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (err) {
       console.log("[Delete address] Error", err);
       toast.success("Bạn không thể xoá địa chỉ mặc định");
     }
     setOpenDialog(false);
+    setLoading(false);
   };
 
   const handleChoose = (it) => {
     setValueAddress(it);
     setIdActive(it.id);
   };
+
+  if (loading) return <BubbleLoading />;
 
   return (
     <>

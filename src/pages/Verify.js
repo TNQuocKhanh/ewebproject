@@ -4,12 +4,15 @@ import { FaArrowLeft } from "react-icons/fa";
 import { verifyAccount } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
 import useDocTitle from "../hooks/useDocTitle";
+import { toast } from "react-toastify";
+import { LinearLoading } from "../components/common/Loading";
 
 const verifyBg = "/assets/verify-img.png";
 
 const Verify = () => {
-  useDocTitle('Xác thực người dùng')
+  useDocTitle("Xác thực người dùng");
   const [code, setCode] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -17,6 +20,7 @@ const Verify = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await verifyAccount(code);
       if (isChangePasswd) {
@@ -25,9 +29,12 @@ const Verify = () => {
         navigate("/login");
       }
     } catch (err) {
-      alert("Mã xác thực không hợp lệ.");
+      toast.error("Mã xác thực không hợp lệ");
     }
+    setLoading(false);
   };
+
+  if (loading) return <LinearLoading />;
 
   return (
     <div id="page-register">

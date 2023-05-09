@@ -7,16 +7,20 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
 import useDocTitle from "../hooks/useDocTitle";
+import { Loading } from "../components/common/Loading";
 
 const ChangePassword = () => {
   useDocTitle('Thay đổi mật khẩu')
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
+  const [loading, setLoading] = useState(false)
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     const res = await changePassword(oldPassword, newPassword);
     console.log("===res", res);
     if (res.status === 200) {
@@ -27,7 +31,10 @@ const ChangePassword = () => {
     } else {
       toast.error("Mật khẩu cũ không trùng khớp");
     }
+    setLoading(false)
   };
+
+  if(loading) return <Loading /> 
 
   return (
     <>

@@ -21,8 +21,11 @@ import {
   FormControlLabel,
   FormControl,
   Button,
+  CircularProgress,
 } from "@mui/material";
 import useDocTitle from "../hooks/useDocTitle";
+import Toastify from "../components/product/Toastify";
+import { toast } from "react-toastify";
 
 const CheckOutPage = () => {
   useDocTitle("Thanh toán");
@@ -37,8 +40,10 @@ const CheckOutPage = () => {
   const [services, setServices] = useState([]);
   const [serviceId, setServiceId] = useState();
 
+  const [loading, setLoading] = useState(false);
+
   const { cart } = useContext(cartContext);
-  
+
   const cartDiscount = cart.map((item) => {
     return (item.price - item.discountPrice) * 1;
   });
@@ -93,25 +98,26 @@ const CheckOutPage = () => {
       note,
     };
 
+    setLoading(true);
     if (method === 1) {
       const res = await createOrder(value);
       if (res.status === 201) {
-        alert("Đặt hàng thành công");
+        toast.success("Đặt hàng thành công");
         localStorage.removeItem("myCart");
-        navigate("/");
+        setTimeout(() => window.location.replace("/"), 2000);
       } else {
         console.log("[Create order] error", res);
-        alert("Có lỗi xảy ra");
+        toast.error("Có lỗi xảy ra");
       }
     } else {
       const res = await createPayment({ totalPrice: totalPrice.toString() });
       localStorage.setItem("order", JSON.stringify(value));
       if (res.status === 200) {
         const url = await res.json();
-        console.log("===url", url);
         window.location.replace(url.url);
       }
     }
+    setLoading(false);
   };
 
   const calculateShipping = async () => {
@@ -165,6 +171,7 @@ const CheckOutPage = () => {
   return (
     <>
       <Header />
+      <Toastify />
       <section id="checkout" className="container">
         <div className="box-form-checkout">
           <h4>Phương thức thanh toán</h4>
@@ -295,24 +302,29 @@ const CheckOutPage = () => {
               </>
             )}
           </div>
-          <Button
-            onClick={handleCheckout}
-            disabled={!valueAddress?.districtId || !serviceId}
-            variant="outlined"
-            sx={{
-              bgcolor: "rgb(16, 170, 16)",
-              width: "100%",
-              padding: "15px",
-              color: "aliceblue",
-              borderRadius: "10px",
-              fontWeight: "600",
-              ":hover": {
-                bgcolor: "rgb(22, 195, 22)",
-              },
-            }}
-          >
-            Thanh toán
-          </Button>
+          {loading ? (
+            <div style={{ textAlign: "center" }}>
+              <CircularProgress />
+            </div>
+          ) : (
+            <Button
+              onClick={handleCheckout}
+              disabled={!valueAddress?.districtId || !serviceId}
+              sx={{
+                bgcolor: "#ff0000cc",
+                width: "100%",
+                padding: "15px",
+                color: "#fff",
+                borderRadius: "5px",
+                fontWeight: "600",
+                ":hover": {
+                  bgcolor: "#f4c24b",
+                },
+              }}
+            >
+              Thanh toán
+            </Button>
+          )}
         </div>
       </section>
       <Messenger />

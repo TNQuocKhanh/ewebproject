@@ -6,13 +6,14 @@ import "../styles/partials/pages/_profile.scss";
 import { formatDateTime, storage } from "../utils";
 import { AiOutlineUpload } from "react-icons/ai";
 import { TabPanel } from "../components/common/TabPanel";
-import { Tabs, Tab, Grid } from "@mui/material";
+import { Tabs, Tab, Grid, CircularProgress } from "@mui/material";
 import { ProfileAddress } from "./Address";
 import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
 import commonContext from "../contexts/common/commonContext";
 import Messenger from "../components/common/Messenger";
 import useDocTitle from "../hooks/useDocTitle";
+import { ProfileLoading } from "../components/common/Loading";
 
 const ProfileInfo = () => {
   const [name, setName] = useState("");
@@ -22,13 +23,19 @@ const ProfileInfo = () => {
   const [selectedFile, setSelectedFile] = useState("");
   const [provider, setProvider] = useState("");
 
+  const [loading, setLoading] = useState(false);
+  const [imgLoading, setImgLoading] = useState(false);
+  const [updateLoading, setUpdateLoading] = useState(false);
+
   const getUserProfile = async () => {
+    setLoading(true);
     const res = await getProfile();
     setName(res.fullName);
     setEmail(res.email);
     setCreatedTime(res.createdTime);
     setPhoto(res.photos);
     setProvider(res.provider);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -37,15 +44,17 @@ const ProfileInfo = () => {
     }
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setUpdateLoading(true);
     try {
-      updateProfile({ fullName: name });
+      await updateProfile({ fullName: name });
       toast.success("Cập nhật thành công");
     } catch (e) {
       toast.error("Đã có lỗi xảy ra");
       console.log("[Update profile] Error", e);
     }
+    setUpdateLoading(false);
   };
 
   useEffect(() => {
@@ -70,6 +79,7 @@ const ProfileInfo = () => {
   };
 
   const handleUploadImage = async () => {
+    setImgLoading(true);
     try {
       await updatePhoto(selectedFile);
       toast.success("Cập nhật thành công");
@@ -77,7 +87,11 @@ const ProfileInfo = () => {
       toast.error("Đã có lỗi xảy ra");
       console.log("[Upload image] Error");
     }
+    setImgLoading(false);
   };
+
+  if (loading) return <ProfileLoading />;
+  if (imgLoading) return <ProfileLoading />;
 
   return (
     <>
@@ -87,7 +101,11 @@ const ProfileInfo = () => {
             <img
               src={photo}
               alt=""
-              style={{ border: "1px solid #bbbbbb", borderRadius: "50%" }}
+              style={{
+                border: "1px solid #bbbbbb",
+                borderRadius: "50%",
+                objectFit: "contain",
+              }}
               width="200px"
               height="200px"
             />
@@ -170,9 +188,17 @@ const ProfileInfo = () => {
                 ></input>
               </div>
               {provider === "local" && (
-                <div className="row-form">
-                  <button type="submit">Cập nhật</button>
-                </div>
+                <>
+                  {updateLoading ? (
+                    <div style={{ textAlign: "center" }}>
+                      <CircularProgress />
+                    </div>
+                  ) : (
+                    <div className="row-form">
+                      <button type="submit">Cập nhật</button>
+                    </div>
+                  )}
+                </>
               )}
             </form>
           </div>
@@ -184,7 +210,7 @@ const ProfileInfo = () => {
 };
 
 const Profile = () => {
-  useDocTitle('Thông tin người dùng')
+  useDocTitle("Thông tin người dùng");
   const { profile = [] } = useContext(commonContext);
 
   const [value, setValue] = useState(0);
