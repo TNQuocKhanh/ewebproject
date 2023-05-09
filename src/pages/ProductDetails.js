@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoMdStar, IoMdCheckmark } from "react-icons/io";
 import useDocTitle from "../hooks/useDocTitle";
 import useActive from "../hooks/useActive";
@@ -14,10 +14,14 @@ import {
 } from "../apis";
 import _ from "lodash";
 import { storage, formatPrice } from "../utils";
-import Messenger from "../components/common/Messenger";
 import { DetailLoading, Loading } from "../components/common/Loading";
 import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
+import {
+  Breadcrumbs as MUIBreadcrumbs,
+  Link as LinkMui,
+  Typography,
+} from "@mui/material";
 
 const ProductDetails = () => {
   useDocTitle("Chi tiết sản phẩm");
@@ -25,6 +29,7 @@ const ProductDetails = () => {
   const { handleActive, activeClass } = useActive(0);
   const { addItem, cart } = useContext(cartContext);
   const { productId } = useParams();
+  const navigate = useNavigate();
 
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -103,8 +108,20 @@ const ProductDetails = () => {
 
   return (
     <>
-    <Header />
-    <Toastify />
+      <Header />
+      <div className="container">
+        <MUIBreadcrumbs aria-label="breadcrumb" sx={{ marginTop: "10rem" }}>
+          <LinkMui
+            sx={{ cursor: "pointer", textDecoration: "none" }}
+            onClick={() => navigate("/")}
+          >
+            Trang chủ
+          </LinkMui>
+          /<Typography>Chi tiết sản phẩm</Typography>/
+          <Typography>{name}</Typography>
+        </MUIBreadcrumbs>
+      </div>
+      <Toastify />
       <section id="product_details" className="container">
         <div className="container">
           <div className="wrapper prod_details_wrapper">
@@ -195,7 +212,6 @@ const ProductDetails = () => {
         specs={specifications}
         description={description}
       />
-      <Messenger />
       <Footer />
     </>
   );

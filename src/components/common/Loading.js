@@ -42,7 +42,7 @@ export const DetailLoading = () => {
   return (
     <>
       <Header />
-      <section id="product_details" className="container">
+      <section id="product_details" className="container" style={{marginTop: '10rem'}}>
         <Grid container spacing={4} xs={12} className="container">
           <Grid item xs={12} md={4}>
             <Skeleton variant="rounded" height={300} />

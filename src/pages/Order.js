@@ -5,9 +5,9 @@ import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { TabPanel } from "../components/common/TabPanel";
 import { formatDateTime, formatPrice } from "../utils";
-import Messenger from "../components/common/Messenger";
 import useDocTitle from "../hooks/useDocTitle";
 import { ConfirmDialog } from "../components/common/ConfirmDialog";
+import Breadcrumbs from "../components/common/Breadcrumbs";
 
 const OrderTab = (props) => {
   const { data = [], canCancel = false } = props;
@@ -128,6 +128,7 @@ export const Order = () => {
   return (
     <>
       <Header />
+    <Breadcrumbs />
       <div
         id="page-profile"
         className="container"
@@ -172,7 +173,6 @@ export const Order = () => {
           <OrderTab data={orders.filter((v) => v.status === "RETURNED")} />
         </TabPanel>
       </div>
-      <Messenger />
       <Footer />
     </>
   );

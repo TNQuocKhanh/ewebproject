@@ -9,9 +9,9 @@ import { getProductWithFilter, getListCategories } from "../apis";
 import { Button, Pagination } from "@mui/material";
 import _ from "lodash";
 import Slider from "@mui/material/Slider";
-import Messenger from "../components/common/Messenger";
 import { formatPrice } from "../utils";
 import { Loading } from "../components/common/Loading";
+import Breadcrumbs from "../components/common/Breadcrumbs";
 
 const AllProducts = () => {
   useDocTitle("Tất cả sản phẩm");
@@ -96,7 +96,8 @@ const AllProducts = () => {
 
   return (
     <>
-      <Header />
+    <Header />
+    <Breadcrumbs />
       <section id="all_products" className="section">
         <aside id="filterbar">
           <div className="filterbar_wrapper">
@@ -219,7 +220,6 @@ const AllProducts = () => {
           </div>
         )}
       </section>
-      <Messenger />
       <Footer />
     </>
   );

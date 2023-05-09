@@ -13,7 +13,6 @@ import {
 } from "../apis";
 import { useNavigate } from "react-router-dom";
 import { formatPrice } from "../utils";
-import Messenger from "../components/common/Messenger";
 import { ProfileAddress } from "./Address";
 import {
   Radio,
@@ -26,6 +25,7 @@ import {
 import useDocTitle from "../hooks/useDocTitle";
 import Toastify from "../components/product/Toastify";
 import { toast } from "react-toastify";
+import Breadcrumbs from "../components/common/Breadcrumbs";
 
 const CheckOutPage = () => {
   useDocTitle("Thanh toán");
@@ -171,6 +171,7 @@ const CheckOutPage = () => {
   return (
     <>
       <Header />
+    <Breadcrumbs />
       <Toastify />
       <section id="checkout" className="container">
         <div className="box-form-checkout">
@@ -327,7 +328,6 @@ const CheckOutPage = () => {
           )}
         </div>
       </section>
-      <Messenger />
       <Footer />
     </>
   );

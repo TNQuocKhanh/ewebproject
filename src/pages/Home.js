@@ -7,7 +7,6 @@ import Services from "../components/common/Services";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { storage } from "../utils";
-import Messenger from "../components/common/Messenger";
 
 const Home = () => {
   const url = window.location.search;
@@ -41,7 +40,6 @@ const Home = () => {
         </div>
       </section>
       <Services />
-      <Messenger/>
       <Footer />
     </main>
   );

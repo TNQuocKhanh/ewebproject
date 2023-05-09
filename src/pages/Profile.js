@@ -11,9 +11,9 @@ import { ProfileAddress } from "./Address";
 import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
 import commonContext from "../contexts/common/commonContext";
-import Messenger from "../components/common/Messenger";
 import useDocTitle from "../hooks/useDocTitle";
 import { ProfileLoading } from "../components/common/Loading";
+import Breadcrumbs from "../components/common/Breadcrumbs";
 
 const ProfileInfo = () => {
   const [name, setName] = useState("");
@@ -222,7 +222,7 @@ const Profile = () => {
   return (
     <>
       <Header />
-
+      <Breadcrumbs />
       <div id="page-profile" className="container">
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Thông tin" />
@@ -239,7 +239,6 @@ const Profile = () => {
           </Grid>
         </TabPanel>
       </div>
-      <Messenger />
       <Footer />
     </>
   );

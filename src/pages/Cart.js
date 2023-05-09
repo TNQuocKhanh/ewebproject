@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { formatPrice, storage } from "../utils";
-import Messenger from "../components/common/Messenger";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 
 const Cart = () => {
@@ -124,7 +123,6 @@ const Cart = () => {
           )}
         </div>
       </section>
-      <Messenger />
       <Footer />
     </>
   );

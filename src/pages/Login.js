@@ -29,7 +29,7 @@ const Login = () => {
       storage.save("user", data);
       window.location.replace("/");
     } else {
-      setMessage("Có lỗi xảy ra, vui lòng thử lại");
+      setMessage("Tên đăng nhập hoặc mật khẩu không chính xác, vui lòng thử lại");
       console.log("===Login error");
     }
     setIsLoading(false);

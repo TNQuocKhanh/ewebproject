@@ -5,7 +5,6 @@ import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 import { createOrder, createPaymentInfo } from "../apis";
-import Messenger from "../components/common/Messenger";
 import useDocTitle from "../hooks/useDocTitle";
 
 export const PaymentInfo = () => {
@@ -44,6 +43,7 @@ export const PaymentInfo = () => {
         await createOrder(order);
         localStorage.removeItem("order");
         localStorage.removeItem("myCart");
+        window.location.replace('/')
       }
     } catch (error) {
       console.log("[Save payment] error", error);
@@ -113,7 +113,6 @@ export const PaymentInfo = () => {
           </Link>
         </div>
       </div>
-      <Messenger />
       <Footer />
     </div>
   );

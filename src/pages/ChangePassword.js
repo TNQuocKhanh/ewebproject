@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
 import useDocTitle from "../hooks/useDocTitle";
 import { Loading } from "../components/common/Loading";
+import Breadcrumbs from "../components/common/Breadcrumbs";
 
 const ChangePassword = () => {
   useDocTitle('Thay đổi mật khẩu')
@@ -38,7 +39,8 @@ const ChangePassword = () => {
 
   return (
     <>
-      <Header />
+    <Header />
+    <Breadcrumbs />
       <div id="page-change-password" className="container">
         <div className="box-form-change-password">
           <form className="form-change-password" onSubmit={handleSubmit}>
