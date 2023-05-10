@@ -178,7 +178,7 @@ export const ProfileAddress = (props) => {
         <Grid container>
           {address?.map((it, idx) => {
             return (
-              <Grid key={idx} item md={6} xs={10} sx={{ padding: "5px" }}>
+              <Grid key={idx} item md={6} xs={12} sx={{ padding: "5px" }}>
                 <CardContent
                   sx={
                     it.id === idActive
@@ -224,6 +224,7 @@ export const ProfileAddress = (props) => {
           <Grid
             item
             md={6}
+            xs={12}
             sx={{
               border: "1px solid rgba(218, 218, 218, 0.714)",
               borderRadius: "5px",
@@ -330,7 +331,7 @@ export const ProfileAddress = (props) => {
         <Divider />
         <DialogContent>
           <Grid container spacing={2}>
-            <Grid item md={6}>
+            <Grid item md={6} xs={12}>
               <TextField
                 required
                 margin="dense"
@@ -341,7 +342,7 @@ export const ProfileAddress = (props) => {
                 fullWidth
               />
             </Grid>
-            <Grid item md={6}>
+            <Grid item md={6} xs={12}>
               <TextField
                 margin="dense"
                 required
@@ -352,10 +353,10 @@ export const ProfileAddress = (props) => {
                 fullWidth
               />
             </Grid>
-            <Grid item md={12}>
+            <Grid item md={12} xs={12}>
               <Typography>Địa chỉ nhận hàng</Typography>
             </Grid>
-            <Grid item md={8}>
+            <Grid item md={8} xs={12}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
                   Tỉnh/Thành phố
@@ -371,7 +372,7 @@ export const ProfileAddress = (props) => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item md={8}>
+            <Grid item md={8} xs={12}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
                   Quận/Huyện
@@ -395,7 +396,7 @@ export const ProfileAddress = (props) => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item md={8}>
+            <Grid item md={8} xs={12}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Phường/Xã</InputLabel>
                 <Select
@@ -414,7 +415,7 @@ export const ProfileAddress = (props) => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item md={8}>
+            <Grid item md={8} xs={12}>
               <TextField
                 margin="dense"
                 required

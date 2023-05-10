@@ -54,7 +54,6 @@
     @include padding-x(1rem, 1rem);
 
     @include devices(sm) {
-        grid-template-columns: 0.3fr 0.7fr;
         gap: 2rem;
         @include padding-y(2rem, 2rem);
     }

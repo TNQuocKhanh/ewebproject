@@ -54,7 +54,7 @@
   }
 
   @include devices(sm) {
-    display: flex;
+    display: none;
     gap: 0.4rem;
   }
 }
@@ -70,7 +70,7 @@
   }
 
   @include devices(xl) {
-    width: 50%;
+    width: 90%;
   }
 }
 

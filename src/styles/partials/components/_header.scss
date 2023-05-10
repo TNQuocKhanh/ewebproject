@@ -199,6 +199,7 @@
 .navigation {
   @include flexbox(space-between, center);
 
+
   .btn-category {
     width: auto;
     background-color: red;

@@ -15,7 +15,8 @@ import { storage } from "../../utils";
 import logo from "../../data/logo.png";
 import { AiOutlineRetweet } from "react-icons/ai";
 import { AiOutlineExport } from "react-icons/ai";
-import Breadcrumbs from "./Breadcrumbs";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 const Header = () => {
   const { cart } = useContext(cartContext);
@@ -25,6 +26,9 @@ const Header = () => {
   const [valueSearch, setValueSearch] = useState("");
   const [openCategory, setOpenCategory] = useState(false);
 
+  const theme = useTheme()
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  
   const cartQuantity = useMemo(() => {
     if (!cart || !cart.length) return 0;
     return  cart?.reduce((val, acc) => {
@@ -188,7 +192,7 @@ const Header = () => {
               id="category"
               onClick={toggleCategory}
               style={{
-                display: "flex",
+                display: isSmall ? 'none' : 'flex',
                 alignItems: "center",
                 background: "#ffdc8be0",
                 padding: "8px 15px",

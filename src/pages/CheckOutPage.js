@@ -26,9 +26,15 @@ import useDocTitle from "../hooks/useDocTitle";
 import Toastify from "../components/product/Toastify";
 import { toast } from "react-toastify";
 import Breadcrumbs from "../components/common/Breadcrumbs";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 const CheckOutPage = () => {
   useDocTitle("Thanh toán");
+  
+  const theme = useTheme()
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
+
   const navigate = useNavigate();
   const [method, setMethod] = useState(1);
   const [address, setAddress] = useState();
@@ -174,7 +180,7 @@ const CheckOutPage = () => {
     <Breadcrumbs />
       <Toastify />
       <section id="checkout" className="container">
-        <div className="box-form-checkout">
+        <div className="box-form-checkout" style={isSmall ? {width: '100%'}: {}}>
           <h4>Phương thức thanh toán</h4>
           <div className="payment-method">
             <button
@@ -249,7 +255,7 @@ const CheckOutPage = () => {
             }}
           />
         </div>
-        <div className="box-item-checkout">
+        <div className="box-item-checkout" style={isSmall ? {width: '100%'} : {}}>
           <h4>Thông tin đơn hàng</h4>
           <div className="check-item">
             {cart.map((it, idx) => {

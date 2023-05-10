@@ -18,6 +18,13 @@
   }
 }
 
+
+.prod_summary_tabs {
+    @include devices(sm) {
+      width: max-content;
+    }
+}
+
 .prod_specs {
   ul {
     grid-template-columns: 0.4fr;
