@@ -10,6 +10,9 @@ import useDocTitle from "../hooks/useDocTitle";
 const loginBg = "/assets/login-bg.png";
 const googleLogo = "/assets/google-logo.png";
 
+const googleUrl = 'https://hdkshop.purpletree-ddde814d.westus2.azurecontainerapps.io/oauth2/authorize/google?redirect_uri=https://webshopping.whiteflower-aa9d9f63.westus2.azurecontainerapps.io'
+//const googleUrl = "http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000"
+
 const Login = () => {
   useDocTitle('Đăng nhập')
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -93,9 +96,7 @@ const Login = () => {
           </div>
           <div className="row-form-google">
             <Link
-              to={
-                "http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000"
-              }
+              to={googleUrl}
             >
               <img src={googleLogo} alt="GG-icon" width={30} />
               <span>Đăng nhập với Google</span>

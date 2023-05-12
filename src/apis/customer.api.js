@@ -34,7 +34,7 @@ export const logout = async () => {
 
 export const getProfile = async () => {
   const user = storage.load("user");
-  const token = user.accessToken;
+  const token = user?.accessToken;
 
   const headers = new Headers();
   headers.append("Content-Type", "application/json");

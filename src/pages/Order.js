@@ -9,6 +9,8 @@ import useDocTitle from "../hooks/useDocTitle";
 import { ConfirmDialog } from "../components/common/ConfirmDialog";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import { Loading } from "../components/common/Loading";
+import Toastify from "../components/product/Toastify";
+import { toast } from "react-toastify";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -26,7 +28,7 @@ const OrderTab = (props) => {
   const handleCancelOrder = async (id) => {
     try {
       await cancelOrder(id);
-      alert("Huy don hang thanh cong");
+      toast.success("Huỷ đơn hàng thành công");
     } catch (err) {
       console.log("[Cancel order] Error", err);
     }
@@ -106,6 +108,7 @@ const OrderTab = (props) => {
       ) : (
         <Typography color="text.secondary">Không có đơn hàng nào</Typography>
       )}
+      <Toastify />
     </>
   );
 };

@@ -5,9 +5,14 @@ import { signup } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
 import useDocTitle from "../hooks/useDocTitle";
 import {LinearLoading} from "../components/common/Loading";
+import { Link } from "react-router-dom";
+import Toastify from "../components/product/Toastify";
+import { toast } from "react-toastify";
 
 const signUpBg = "/assets/signup-bg.png";
 const googleLogo = "/assets/google-logo.png";
+
+const googleUrl = 'https://hdkshop.purpletree-ddde814d.westus2.azurecontainerapps.io/oauth2/authorize/google?redirect_uri=https://webshopping.whiteflower-aa9d9f63.westus2.azurecontainerapps.io'
 
 const Register = () => {
   useDocTitle('Đăng ký')
@@ -28,7 +33,8 @@ const Register = () => {
     if (res.status === 201) {
       navigate("/verify");
     } else {
-      alert("Có lỗi xảy ra. Vui lòng thử lại sau.");
+      //alert("Có lỗi xảy ra. Vui lòng thử lại sau.");
+      toast.error("Có lỗi xảy ra. Vui lòng thử lại sau")
     }
     setLoading(true)
   };
@@ -95,10 +101,12 @@ const Register = () => {
             <p>Hoặc</p>
           </div>
           <div className="row-form-google">
-            <button>
-              <img src={googleLogo} alt="google-logo"></img>
-              Đăng nhập với Google
-            </button>
+            <Link
+              to={googleUrl}
+            >
+              <img src={googleLogo} alt="GG-icon" width={30} />
+              <span>Đăng nhập với Google</span>
+            </Link>
           </div>
           <div className="row-form">
             <span>
@@ -110,6 +118,7 @@ const Register = () => {
           </div>
         </form>
       </div>
+      <Toastify />
     </div>
   );
 };

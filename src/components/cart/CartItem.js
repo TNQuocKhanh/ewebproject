@@ -19,7 +19,7 @@ const CartItem = (props) => {
     <>
       <div className="cart_item" style={{ gap: "0" }}>
         <figure className="cart_item_img" style={{ margin: "0" }}>
-          <img style={{ width: "60%" }} src={mainImage} alt={name} />
+          <img style={{ width: "60%" }} src={mainImage} alt="product-img" />
         </figure>
         <div
           className="cart_item_info"

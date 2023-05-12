@@ -263,7 +263,7 @@ const CheckOutPage = () => {
                 <div key={idx}>
                   <div className="row-item-cart">
                     <div style={{ display: "flex" }}>
-                      <img src={it.mainImage} alt={it.name}></img>
+                      <img src={it.mainImage} alt='product-img'></img>
                       <div style={{ marginLeft: "20px" }}>
                         <p style={{ paddingBottom: "10px", fontSize: "13px" }}>
                           Tên: {it.name} <br />

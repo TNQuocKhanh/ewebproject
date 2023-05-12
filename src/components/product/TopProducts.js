@@ -3,6 +3,7 @@ import ProductCard from "./ProductCard";
 import { getListProducts } from "../../apis";
 import {Loading} from "../common/Loading";
 
+
 const TopProducts = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false)
@@ -25,7 +26,7 @@ const TopProducts = () => {
   return (
     <>
       <div className="wrapper products_wrapper">
-        {data?.slice(0.1).map((item) => (
+        {data?.slice(0, 10).map((item) => (
           <ProductCard key={item.id} {...item} />
         ))}
       </div>

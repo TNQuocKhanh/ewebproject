@@ -1,20 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Pagination, A11y, Autoplay } from "swiper";
-import productsData from "../../data/productsData";
-
 import "swiper/scss";
 import "swiper/scss/autoplay";
 import "swiper/scss/pagination";
 import "swiper/scss/effect-coverflow";
 import { getFeatureProduct } from "../../apis/product.api";
+import { formatPrice } from "../../utils";
 
 const FeaturedSlider = () => {
+  const [data, setData] = useState([])
+
   const getFeature = async () => {
     try {
       const res = await getFeatureProduct();
-      console.log("==res", res);
+      if(res && res.content){
+   setData(res.content)
+      }
     } catch (e) {
       console.log("[Get feature product] Error", e);
     }
@@ -23,10 +26,6 @@ const FeaturedSlider = () => {
   useEffect(() => {
     getFeature();
   }, []);
-
-  const featuredProducts = productsData.filter(
-    (item) => item.tag === "featured-product"
-  );
 
   return (
     <Swiper
@@ -65,10 +64,10 @@ const FeaturedSlider = () => {
       }}
       className="featured_swiper"
     >
-      {featuredProducts.map((item) => {
-        const { id, images, title, finalPrice, originalPrice, path } = item;
-        const newPrice = finalPrice;
-        const oldPrice = originalPrice;
+      {data?.slice(0,5).map((item) => {
+        const { id, mainImage, name,price , discountPrice } = item;
+        const newPrice = formatPrice(discountPrice);
+        const oldPrice = formatPrice(price);
 
         return (
           <SwiperSlide
@@ -80,11 +79,11 @@ const FeaturedSlider = () => {
             }}
           >
             <figure className="featured_img">
-              <Link to={`${path}${id}`}>
-                <img src={images[0]} alt="" />
+              <Link to={`/product-details/${id}`}>
+                <img src={mainImage} alt="" />
               </Link>
             </figure>
-            <div className="featured_title">{title}</div>
+            <div className="featured_title">{name}</div>
             <h2 className="products_price">
               {newPrice} &nbsp;
               <small>
