@@ -106,7 +106,7 @@
 
     .products_wrapper {
         @include devices(xl) {
-            @include grid-cols(3, 1fr, 0.7rem);
+            @include grid-cols(1, 1fr, 0.7rem);
         }
 
         @include devices(md) {

@@ -26,13 +26,13 @@ import useDocTitle from "../hooks/useDocTitle";
 import Toastify from "../components/product/Toastify";
 import { toast } from "react-toastify";
 import Breadcrumbs from "../components/common/Breadcrumbs";
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 const CheckOutPage = () => {
   useDocTitle("Thanh toán");
-  
-  const theme = useTheme()
+
+  const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   const navigate = useNavigate();
@@ -177,10 +177,13 @@ const CheckOutPage = () => {
   return (
     <>
       <Header />
-    <Breadcrumbs />
+      <Breadcrumbs />
       <Toastify />
       <section id="checkout" className="container">
-        <div className="box-form-checkout" style={isSmall ? {width: '100%'}: {}}>
+        <div
+          className="box-form-checkout"
+          style={isSmall ? { width: "100%" } : {}}
+        >
           <h4>Phương thức thanh toán</h4>
           <div className="payment-method">
             <button
@@ -223,7 +226,7 @@ const CheckOutPage = () => {
             setValueAddress={setValueAddress}
           />
           <FormControl>
-            <h4>Phương thức giao hàng (*)</h4>
+            <h4 style={{ margin: "10px 0" }}>Phương thức giao hàng (*)</h4>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               defaultValue="female"
@@ -255,7 +258,10 @@ const CheckOutPage = () => {
             }}
           />
         </div>
-        <div className="box-item-checkout" style={isSmall ? {width: '100%'} : {}}>
+        <div
+          className="box-item-checkout"
+          style={isSmall ? { width: "100%" } : {}}
+        >
           <h4>Thông tin đơn hàng</h4>
           <div className="check-item">
             {cart.map((it, idx) => {
@@ -263,7 +269,7 @@ const CheckOutPage = () => {
                 <div key={idx}>
                   <div className="row-item-cart">
                     <div style={{ display: "flex" }}>
-                      <img src={it.mainImage} alt='product-img'></img>
+                      <img src={it.mainImage} alt="product-img"></img>
                       <div style={{ marginLeft: "20px" }}>
                         <p style={{ paddingBottom: "10px", fontSize: "13px" }}>
                           Tên: {it.name} <br />
@@ -286,18 +292,18 @@ const CheckOutPage = () => {
                 {formatPrice(totalPrice)}
               </p>
             </div>
+            <div className="row-total-price">
+              <strong>Giảm giá:</strong>
+              <p style={{ fontSize: "20px", color: "red" }}>
+                {formatPrice(calculateCartDiscount)}
+              </p>
+            </div>
             {serviceId && (
               <>
                 <div className="row-total-price">
                   <strong>Phí vận chuyển:</strong>
                   <p style={{ fontSize: "20px", color: "red" }}>
                     {formatPrice(totalShipping)}
-                  </p>
-                </div>
-                <div className="row-total-price">
-                  <strong>Giảm giá:</strong>
-                  <p style={{ fontSize: "20px", color: "red" }}>
-                    {formatPrice(calculateCartDiscount)}
                   </p>
                 </div>
                 <div className="row-total-price">

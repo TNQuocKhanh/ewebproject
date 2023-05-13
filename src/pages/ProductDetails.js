@@ -155,16 +155,7 @@ const ProductDetails = () => {
               <h4 className="prod_details_info">{cate?.name}</h4>
 
               <div className="prod_details_ratings">
-                <span className="rating_star">
-                  {averageRating}
-                  {Array(4)
-                    .fill()
-                    .map((it, idx) => (
-                      <IoMdStar key={idx} />
-                    ))}
-                </span>
-                <span>|</span>
-                <Link to="#">{reviewCount} Đánh giá</Link>
+                <Link to="#"><strong>{reviewCount}</strong> Đánh giá</Link>
               </div>
 
               <div className="separator"></div>
