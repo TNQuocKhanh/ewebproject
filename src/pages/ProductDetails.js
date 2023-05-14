@@ -174,15 +174,6 @@ const ProductDetails = () => {
                   <span className="tax_txt">(Đã bao gồm thuế)</span>
                 </div>
 
-                <div className="badge">
-                  {inStock ? (
-                    <span>
-                      <IoMdCheckmark /> Còn hàng
-                    </span>
-                  ) : (
-                    <span>Hết hàng</span>
-                  )}
-                </div>
               </div>
 
               <div className="separator"></div>
