@@ -18,7 +18,7 @@ const AllProducts = () => {
 
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
-  const [perPage, setPerPage] = useState(5);
+  const [perPage, setPerPage] = useState(10);
   const [categoryList, setCategoryList] = useState([]);
 
   const [sortBy, setSortBy] = useState();
