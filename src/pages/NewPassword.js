@@ -82,7 +82,7 @@ const NewPassword = () => {
             <label>Hiển thị mật khẩu</label>
           </div>
           <div className="row-form">
-            <button type="submit">Lưu mật khẩu</button>
+            <button disabled={!password || !rePassword} type="submit">Lưu mật khẩu</button>
           </div>
         </form>
       </div>

@@ -62,7 +62,7 @@ const ForgotPassword = () => {
             ></input>
           </div>
           <div className="row-form">
-            <button>Xác nhận</button>
+            <button disabled={!email}>Xác nhận</button>
           </div>
         </form>
       </div>

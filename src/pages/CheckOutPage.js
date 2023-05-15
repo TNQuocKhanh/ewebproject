@@ -51,7 +51,7 @@ const CheckOutPage = () => {
   const { cart } = useContext(cartContext);
 
   const cartDiscount = cart.map((item) => {
-    return (item.price - item.discountPrice) * 1;
+    return (item.price - item.discountPrice) * item.quantity;
   });
 
   const calculateCartDiscount = cartDiscount.reduce(
@@ -309,7 +309,7 @@ const CheckOutPage = () => {
                 <div className="row-total-price">
                   <strong>Thành tiền:</strong>
                   <p style={{ fontSize: "25px", color: "red" }}>
-                    {formatPrice(totalPrice + totalShipping)}
+                    {formatPrice(totalPrice + totalShipping -calculateCartDiscount)}
                   </p>
                 </div>
               </>

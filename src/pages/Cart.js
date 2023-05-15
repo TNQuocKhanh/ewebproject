@@ -21,9 +21,9 @@ const Cart = () => {
   }, 0);
 
   const cartDiscount = cart.map((item) => {
-    return (item.price - item.discountPrice) * 1;
+    return (item.price - item.discountPrice) * item.quantity;
   });
-
+console.log('==cartDiscount', cartDiscount)
   const calculateCartDiscount = cartDiscount.reduce(
     (accum, val) => accum + val,
     0

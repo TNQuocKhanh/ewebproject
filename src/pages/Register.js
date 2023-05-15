@@ -95,7 +95,7 @@ const Register = () => {
             <label>Hiển thị mật khẩu</label>
           </div>
           <div className="row-form">
-            <button>Đăng ký</button>
+            <button disabled={!fullName || !email || !password}>Đăng ký</button>
           </div>
           <div className="row-form">
             <p>Hoặc</p>

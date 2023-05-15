@@ -88,7 +88,7 @@ const Login = () => {
                 <CircularProgress />
               </div>
             ) : (
-              <button type="submit">Đăng nhập</button>
+              <button disabled={!email || !password} type="submit">Đăng nhập</button>
             )}
           </div>
           <div className="row-form">

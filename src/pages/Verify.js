@@ -69,7 +69,7 @@ const Verify = () => {
             ></input>
           </div>
           <div className="row-form">
-            <button>Xác thực</button>
+            <button disabled={!code}>Xác thực</button>
           </div>
         </form>
       </div>
