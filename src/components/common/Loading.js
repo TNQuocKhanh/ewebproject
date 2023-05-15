@@ -27,7 +27,7 @@ export const Loading = () => {
     <>
       <Header />
       <div className={classes.loading}>
-        <ReactLoading type={"bars"} color="#f5c24c" />;
+        <ReactLoading type={"bars"} color="#f5c24c" />
         <Typography variant="h6">Đang tải ...</Typography>
       </div>
     </>

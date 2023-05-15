@@ -64,7 +64,7 @@ const ChangePassword = () => {
               ></input>
             </div>
             <div className="row-form">
-              <button style={{ color: "white" }}>Thay đổi mật khẩu</button>
+              <button disabled={!oldPassword || !newPassword} style={{ color: "white" }}>Thay đổi mật khẩu</button>
             </div>
           </form>
         </div>

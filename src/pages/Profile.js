@@ -195,7 +195,7 @@ const ProfileInfo = () => {
                     </div>
                   ) : (
                     <div className="row-form">
-                      <button type="submit">Cập nhật</button>
+                      <button disabled={!name} type="submit">Cập nhật</button>
                     </div>
                   )}
                 </>

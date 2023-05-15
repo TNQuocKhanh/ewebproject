@@ -88,7 +88,7 @@ export const ProfileAddress = (props) => {
       name,
       phoneNumber,
       districtId,
-      district: findDistrict.DistrictName || "",
+      district: findDistrict?.DistrictName || "",
       wardCode: Number(wardId),
       ward: findWard?.WardName || "",
       street,
@@ -290,7 +290,7 @@ export const ProfileAddress = (props) => {
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Xoá" onClick={() => handleOpenDialog(it)}>
-                        <IconButton>
+                        <IconButton disabled={it.defaultAddress}>
                           <DeleteIcon />
                         </IconButton>
                       </Tooltip>
@@ -348,7 +348,11 @@ export const ProfileAddress = (props) => {
                 required
                 label="Số điện thoại"
                 value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                onChange={(e) => {
+                  if (e.target.value.toString().length <= 10) {
+                    setPhoneNumber(e.target.value);
+                  }
+                }}
                 type="number"
                 fullWidth
               />
@@ -374,7 +378,7 @@ export const ProfileAddress = (props) => {
             </Grid>
             <Grid item md={8} xs={12}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">
+                <InputLabel id="demo-simple-select-label" required>
                   Quận/Huyện
                 </InputLabel>
                 <Select
@@ -398,7 +402,9 @@ export const ProfileAddress = (props) => {
             </Grid>
             <Grid item md={8} xs={12}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Phường/Xã</InputLabel>
+                <InputLabel id="demo-simple-select-label" required>
+                  Phường/Xã
+                </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -443,7 +449,13 @@ export const ProfileAddress = (props) => {
           <Button onClick={() => setOpen(false)} color="secondary">
             Huỷ
           </Button>
-          <Button onClick={handleSubmit} color="primary">
+          <Button
+            disabled={
+              !name || !phoneNumber || !wardId || !districtId || !street
+            }
+            onClick={handleSubmit}
+            color="primary"
+          >
             OK
           </Button>
         </DialogActions>

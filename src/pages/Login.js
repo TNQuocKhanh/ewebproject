@@ -55,7 +55,7 @@ const Login = () => {
         <form className="form-login" onSubmit={handleSubmit}>
           <p className="form-title">Đăng nhập</p>
           <div className="row-form">
-            <p>{message}</p>
+            <p style={{color: 'red'}}>{message}</p>
           </div>
           <div className="row-form-field">
             <label>Email</label>

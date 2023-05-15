@@ -12,7 +12,7 @@ const QuantityBox = (props) => {
         <button
           type="button"
           onClick={() => decrementItem(itemId)}
-        disabled={itemQuantity <=1}
+          disabled={itemQuantity <= 1}
         >
           -
         </button>
@@ -20,6 +20,7 @@ const QuantityBox = (props) => {
         <button
           type="button"
           onClick={() => incrementItem(itemId)}
+          disabled={itemQuantity >= 5}
         >
           +
         </button>

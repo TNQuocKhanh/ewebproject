@@ -98,7 +98,7 @@ const CheckOutPage = () => {
         ward: valueAddress.ward,
         street: valueAddress.street,
       },
-      paymentMethod: method === 1 ? "COD" : "VNPay",
+      paymentMethod: method === 1 ? "COD" : "VNPAY",
       totalPrice: totalPrice + totalShipping,
       lineItem: lineItem,
       note,
@@ -116,7 +116,7 @@ const CheckOutPage = () => {
         toast.error("Có lỗi xảy ra");
       }
     } else {
-      const res = await createPayment({ totalPrice: totalPrice.toString() });
+      const res = await createPayment({ totalPrice });
       localStorage.setItem("order", JSON.stringify(value));
       if (res.status === 200) {
         const url = await res.json();

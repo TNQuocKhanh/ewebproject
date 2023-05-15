@@ -12,6 +12,8 @@ import Slider from "@mui/material/Slider";
 import { formatPrice } from "../utils";
 import { Loading } from "../components/common/Loading";
 import Breadcrumbs from "../components/common/Breadcrumbs";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 const AllProducts = () => {
   useDocTitle("Tất cả sản phẩm");
@@ -31,6 +33,9 @@ const AllProducts = () => {
 
   const [cateFilter, setCateFilter] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -78,7 +83,7 @@ const AllProducts = () => {
   useEffect(() => {
     getAllProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, order, categoryId, range, cateId, cateFilter, cateArr]);
+  }, [page, order, categoryId, range, cateId, cateFilter, cateArr, name]);
 
   const handleChanges = (e, newValue) => {
     setRange(newValue);
@@ -96,8 +101,8 @@ const AllProducts = () => {
 
   return (
     <>
-    <Header />
-    <Breadcrumbs />
+      <Header />
+      <Breadcrumbs />
       <section id="all_products" className="section">
         <aside id="filterbar">
           <div className="filterbar_wrapper">
@@ -194,7 +199,10 @@ const AllProducts = () => {
         {loading ? (
           <Loading />
         ) : (
-          <div className="container">
+          <div
+            className="container"
+            style={{ marginLeft: isSmall ? 0 : "100px" }}
+          >
             {data?.length > 0 ? (
               <>
                 <div className="wrapper products_wrapper">

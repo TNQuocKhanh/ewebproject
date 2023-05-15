@@ -58,7 +58,7 @@ export const getFeatureProduct = async () => {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
 
-  const res = await fetch(`${API_URL}/product/best-selling-product`, {
+  const res = await fetch(`${API_URL}/best-selling-product`, {
     method: "GET",
     headers,
   });

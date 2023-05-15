@@ -19,6 +19,10 @@ const Home = () => {
     window.location.replace("/");
   }
 
+  if (urlParams.has("error")) {
+    window.location.replace("/register");
+  }
+
   return (
     <main>
       <Header />
@@ -28,7 +32,11 @@ const Home = () => {
 
       <section id="featured" className="section">
         <div className="container">
-          <SectionsHead background="linear-gradient(to right, var(--main-color) , #a1def5)" color='white' heading="Sản phẩm nổi bật" />
+          <SectionsHead
+            background="linear-gradient(to right, var(--main-color) , #a1def5)"
+            color="white"
+            heading="Sản phẩm nổi bật"
+          />
           <FeaturedSlider />
         </div>
       </section>

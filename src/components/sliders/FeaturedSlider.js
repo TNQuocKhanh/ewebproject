@@ -10,13 +10,13 @@ import { getFeatureProduct } from "../../apis/product.api";
 import { formatPrice } from "../../utils";
 
 const FeaturedSlider = () => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
   const getFeature = async () => {
     try {
       const res = await getFeatureProduct();
-      if(res && res.content){
-   setData(res.content)
+      if (res && res.content) {
+        setData(res?.content);
       }
     } catch (e) {
       console.log("[Get feature product] Error", e);
@@ -64,8 +64,8 @@ const FeaturedSlider = () => {
       }}
       className="featured_swiper"
     >
-      {data?.slice(0,5).map((item) => {
-        const { id, mainImage, name,price , discountPrice } = item;
+      {data?.slice(0, 5).map((item) => {
+        const { id, mainImage, name, price, discountPrice } = item;
         const newPrice = formatPrice(discountPrice);
         const oldPrice = formatPrice(price);
 
