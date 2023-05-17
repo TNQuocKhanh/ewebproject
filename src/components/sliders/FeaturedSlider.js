@@ -15,9 +15,7 @@ const FeaturedSlider = () => {
   const getFeature = async () => {
     try {
       const res = await getFeatureProduct();
-      if (res && res.content) {
-        setData(res?.content);
-      }
+       setData(res)
     } catch (e) {
       console.log("[Get feature product] Error", e);
     }
@@ -65,7 +63,7 @@ const FeaturedSlider = () => {
       className="featured_swiper"
     >
       {data?.slice(0, 5).map((item) => {
-        const { id, mainImage, name, price, discountPrice } = item;
+        const { id, productImage, productName, price=1000, discountPrice=10000 } = item;
         const newPrice = formatPrice(discountPrice);
         const oldPrice = formatPrice(price);
 
@@ -80,10 +78,10 @@ const FeaturedSlider = () => {
           >
             <figure className="featured_img">
               <Link to={`/product-details/${id}`}>
-                <img src={mainImage} alt="" />
+                <img src={productImage} alt="" />
               </Link>
             </figure>
-            <div className="featured_title">{name}</div>
+            <div className="featured_title">{productName}</div>
             <h2 className="products_price">
               {newPrice} &nbsp;
               <small>

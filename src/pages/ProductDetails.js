@@ -47,12 +47,25 @@ const ProductDetails = () => {
   };
 
   const getListReview = async () => {
-    const res = await getReviewByProductId(productId);
-    setListReview(res);
+    try {
+      const res = await getReviewByProductId(productId);
+      if (res.status === 500) {
+        setListReview([]);
+      } else {
+        setListReview(res);
+      }
+    } catch (err) {
+      console.log("[Get list review]", err);
+      setListReview([]);
+    }
   };
 
   const getReviewByUser = async () => {
-    const res = await getReviewByCustomer(productId);
+    try {
+      const res = await getReviewByCustomer(productId);
+    } catch (err) {
+      console.log("[Get review by Id]", err);
+    }
   };
 
   useEffect(() => {
@@ -155,7 +168,9 @@ const ProductDetails = () => {
               <h4 className="prod_details_info">{cate?.name}</h4>
 
               <div className="prod_details_ratings">
-                <Link to="#"><strong>{reviewCount}</strong> Đánh giá</Link>
+                <Link to="#">
+                  <strong>{reviewCount}</strong> Đánh giá
+                </Link>
               </div>
 
               <div className="separator"></div>
@@ -173,7 +188,6 @@ const ProductDetails = () => {
                   </p>
                   <span className="tax_txt">(Đã bao gồm thuế)</span>
                 </div>
-
               </div>
 
               <div className="separator"></div>

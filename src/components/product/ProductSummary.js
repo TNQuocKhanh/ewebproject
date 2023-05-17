@@ -4,9 +4,10 @@ import ProductReviews from "./ProductReviews";
 import { Rating } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { createReview } from "../../apis/product-review.api";
+import _ from "lodash";
 
 const ProductSummary = (props) => {
-  const { listReview, customerCanReview, specs, description } = props;
+  const { listReview = [], customerCanReview, specs, description } = props;
 
   const { active, handleActive, activeClass } = useActive("specs");
 
@@ -58,7 +59,9 @@ const ProductSummary = (props) => {
             {active === "specs" ? (
               <div className="prod_specs">
                 {specsTransform?.map((it, idx) => (
-                  <div style={{ fontWeight: 500 }} key={idx}>{it}</div>
+                  <div style={{ fontWeight: 500 }} key={idx}>
+                    {it}
+                  </div>
                 ))}
               </div>
             ) : active === "overview" ? (
@@ -72,9 +75,10 @@ const ProductSummary = (props) => {
                     style={{ margin: "30px 0" }}
                   >{`Đánh giá trước đó (${listReview.length})`}</h3>
                   <ul>
-                    {listReview.map((item) => (
-                      <ProductReviews key={item.id} {...item} />
-                    ))}
+                    {!_.isEmpty(listReview) &&
+                      listReview.map((item) => (
+                        <ProductReviews key={item.id} {...item} />
+                      ))}
                   </ul>
                 </div>
                 {customerCanReview && (
