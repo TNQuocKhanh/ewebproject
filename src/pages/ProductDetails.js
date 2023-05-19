@@ -81,7 +81,6 @@ const ProductDetails = () => {
     category: cate,
     discountPrice,
     price,
-    inStock,
     reviewCount,
     productImages = [],
     customerCanReview,

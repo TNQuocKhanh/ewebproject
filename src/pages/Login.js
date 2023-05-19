@@ -4,17 +4,18 @@ import { FaArrowLeft } from "react-icons/fa";
 import { login } from "../apis";
 import { storage } from "../utils";
 import { Link } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Button } from "@mui/material";
 import useDocTitle from "../hooks/useDocTitle";
 
 const loginBg = "/assets/login-bg.png";
 const googleLogo = "/assets/google-logo.png";
 
-const googleUrl = 'https://hdkshop.purpletree-ddde814d.westus2.azurecontainerapps.io/oauth2/authorize/google?redirect_uri=https://webshopping.whiteflower-aa9d9f63.westus2.azurecontainerapps.io'
+const googleUrl =
+  "https://hdkshop.purpletree-ddde814d.westus2.azurecontainerapps.io/oauth2/authorize/google?redirect_uri=https://webshopping.whiteflower-aa9d9f63.westus2.azurecontainerapps.io";
 //const googleUrl = "http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000"
 
 const Login = () => {
-  useDocTitle('Đăng nhập')
+  useDocTitle("Đăng nhập");
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +33,9 @@ const Login = () => {
       storage.save("user", data);
       window.location.replace("/");
     } else {
-      setMessage("Tên đăng nhập hoặc mật khẩu không chính xác, vui lòng thử lại");
+      setMessage(
+        "Tên đăng nhập hoặc mật khẩu không chính xác, vui lòng thử lại"
+      );
       console.log("===Login error");
     }
     setIsLoading(false);
@@ -55,7 +58,7 @@ const Login = () => {
         <form className="form-login" onSubmit={handleSubmit}>
           <p className="form-title">Đăng nhập</p>
           <div className="row-form">
-            <p style={{color: 'red'}}>{message}</p>
+            <p style={{ color: "red" }}>{message}</p>
           </div>
           <div className="row-form-field">
             <label>Email</label>
@@ -79,8 +82,9 @@ const Login = () => {
             <input
               onClick={() => setIsShowPassword(!isShowPassword)}
               type="checkbox"
+              id="showPasswd"
             ></input>
-            <label>Hiển thị mật khẩu</label>
+            <label htmlFor="showPasswd">Hiển thị mật khẩu</label>
           </div>
           <div className="row-form">
             {isLoading ? (
@@ -88,16 +92,29 @@ const Login = () => {
                 <CircularProgress />
               </div>
             ) : (
-              <button disabled={!email || !password} type="submit">Đăng nhập</button>
+              <Button
+                type="submit"
+                disabled={!email || !password}
+                sx={{
+                  bgcolor: "#f4c24b",
+                  width: "100%",
+                  padding: "10px",
+                  color: "#fff",
+                  borderRadius: "5px",
+                  ":hover": {
+                    bgcolor: "#ff0000cc",
+                  },
+                }}
+              >
+                Đăng nhập
+              </Button>
             )}
           </div>
           <div className="row-form">
             <p>Hoặc</p>
           </div>
           <div className="row-form-google">
-            <Link
-              to={googleUrl}
-            >
+            <Link to={googleUrl}>
               <img src={googleLogo} alt="GG-icon" width={30} />
               <span>Đăng nhập với Google</span>
             </Link>
@@ -109,9 +126,9 @@ const Login = () => {
           </div>
           <div className="row-form">
             <span>
-              Chưa có tài khoản?
+              Bạn chưa có tài khoản?
               <a className="form-link" href="/register">
-                Đăng ký
+                Đăng ký ngay
               </a>
             </span>
           </div>

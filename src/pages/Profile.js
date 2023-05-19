@@ -14,6 +14,7 @@ import commonContext from "../contexts/common/commonContext";
 import useDocTitle from "../hooks/useDocTitle";
 import { ProfileLoading } from "../components/common/Loading";
 import Breadcrumbs from "../components/common/Breadcrumbs";
+import { Button } from "@mui/material";
 
 const ProfileInfo = () => {
   const [name, setName] = useState("");
@@ -195,7 +196,22 @@ const ProfileInfo = () => {
                     </div>
                   ) : (
                     <div className="row-form">
-                      <button disabled={!name} type="submit">Cập nhật</button>
+                      <Button
+                        type="submit"
+                        disabled={!name}
+                        sx={{
+                          bgcolor: "#f4c24b",
+                          width: "100%",
+                          padding: "10px",
+                          color: "#fff",
+                          borderRadius: "5px",
+                          ":hover": {
+                            bgcolor: "#ff0000cc",
+                          },
+                        }}
+                      >
+                        Cập nhật
+                      </Button>
                     </div>
                   )}
                 </>

@@ -51,7 +51,7 @@ const CheckOutPage = () => {
   const { cart } = useContext(cartContext);
 
   const cartDiscount = cart.map((item) => {
-    return (item.price - item.discountPrice) * item.quantity;
+    return (item.price - item.discountPrice) * item.amount;
   });
 
   const calculateCartDiscount = cartDiscount.reduce(
@@ -78,7 +78,7 @@ const CheckOutPage = () => {
   }, [valueAddress?.districtId]);
 
   const totalPrice = cart.reduce(
-    (acc, cur) => acc + cur.discountPrice * cur.quantity,
+    (acc, cur) => acc + cur.discountPrice * cur.amount,
     0
   );
 
@@ -158,7 +158,7 @@ const CheckOutPage = () => {
       cart.forEach((it, idx) => {
         items.push({
           productId: it.id,
-          quantity: it.quantity,
+          quantity: it.amount,
           productPrice: it.discountPrice,
           shippingFee: cartNew[idx]?.total,
         });
@@ -184,13 +184,21 @@ const CheckOutPage = () => {
           className="box-form-checkout"
           style={isSmall ? { width: "100%" } : {}}
         >
-          <h4>Phương thức thanh toán</h4>
+          <h4>1. Phương thức thanh toán</h4>
           <div className="payment-method">
             <button
               style={{ border: method === 1 && "1px solid rgb(0, 0, 186)" }}
               onClick={() => setMethod(1)}
             >
               <strong>Thanh toán khi nhận hàng</strong>
+              <div>
+                <img
+                  src="https://static.vecteezy.com/system/resources/previews/004/309/804/original/stack-bills-money-cash-isolated-icon-free-vector.jpg"
+                  alt="cash-logo"
+                  width="100px"
+                  height="50px"
+                />
+              </div>
               <div className="check-payment-method">
                 {method === 1 && <FaCheckCircle />}
               </div>
@@ -201,32 +209,28 @@ const CheckOutPage = () => {
             >
               <strong>
                 Thanh toán VNPay
-                <small
-                  style={{
-                    color: "white",
-                    background: "rgb(0, 0, 186)",
-                    padding: "5px",
-                    borderRadius: "5px",
-                    fontSize: "10px",
-                    marginLeft: "10px",
-                  }}
-                >
-                  Khuyên dùng
-                </small>
+                <div style={{ mt: "10px" }}>
+                  <img
+                    src="https://cdn.nhanlucnganhluat.vn/uploads/images/A73E9E13/logo/2020-03/19222904_308450352935921_8689351082334351995_o.jpg"
+                    alt="VNPAY-logo"
+                    width="100px"
+                    height="100px"
+                  />
+                </div>
               </strong>
               <div className="check-payment-method">
                 {method === 2 && <FaCheckCircle />}
               </div>
             </button>
           </div>
-          <h4>Thông tin thanh toán (*)</h4>
+          <h4>2. Thông tin giao hàng (*)</h4>
           <ProfileAddress
             address={address}
             canChoose={true}
             setValueAddress={setValueAddress}
           />
           <FormControl>
-            <h4 style={{ margin: "10px 0" }}>Phương thức giao hàng (*)</h4>
+            <h4 style={{ margin: "10px 0" }}>3. Phương thức giao hàng (*)</h4>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               defaultValue="female"
@@ -244,7 +248,7 @@ const CheckOutPage = () => {
                 ))}
             </RadioGroup>
           </FormControl>
-          <h4 style={{ marginTop: "20px" }}>Ghi chú</h4>
+          <h4 style={{ marginTop: "20px" }}>4. Ghi chú</h4>
           <textarea
             placeholder="Ghi chú cho người bán"
             value={note}
@@ -274,11 +278,11 @@ const CheckOutPage = () => {
                         <p style={{ paddingBottom: "10px", fontSize: "13px" }}>
                           Tên: {it.name} <br />
                         </p>
-                        <p style={{ fontSize: "13px" }}>x {it.quantity}</p>
+                        <p style={{ fontSize: "13px" }}>x {it.amount}</p>
                       </div>
                     </div>
                     <strong style={{ fontSize: "13px" }}>
-                      {formatPrice(it.quantity * it.discountPrice)}
+                      {formatPrice(it.amount * it.discountPrice)}
                     </strong>
                   </div>
                 </div>
@@ -309,7 +313,9 @@ const CheckOutPage = () => {
                 <div className="row-total-price">
                   <strong>Thành tiền:</strong>
                   <p style={{ fontSize: "25px", color: "red" }}>
-                    {formatPrice(totalPrice + totalShipping -calculateCartDiscount)}
+                    {formatPrice(
+                      totalPrice + totalShipping - calculateCartDiscount
+                    )}
                   </p>
                 </div>
               </>
@@ -324,14 +330,14 @@ const CheckOutPage = () => {
               onClick={handleCheckout}
               disabled={!valueAddress?.districtId || !serviceId}
               sx={{
-                bgcolor: "#ff0000cc",
+                bgcolor: "#f4c24b",
                 width: "100%",
                 padding: "15px",
                 color: "#fff",
                 borderRadius: "5px",
                 fontWeight: "600",
                 ":hover": {
-                  bgcolor: "#f4c24b",
+                  bgcolor: "#ff0000cc",
                 },
               }}
             >

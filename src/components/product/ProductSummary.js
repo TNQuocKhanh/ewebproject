@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import useActive from "../../hooks/useActive";
 import ProductReviews from "./ProductReviews";
-import { Rating } from "@mui/material";
+import { CircularProgress, Divider, Rating, Button } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { createReview } from "../../apis/product-review.api";
 import _ from "lodash";
+import { toast } from "react-toastify";
+import Toastify from "./Toastify";
 
 const ProductSummary = (props) => {
   const { listReview = [], customerCanReview, specs, description } = props;
@@ -18,14 +20,18 @@ const ProductSummary = (props) => {
 
   const [value, setValue] = useState(5);
   const [comment, setComment] = useState();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await createReview(productId, { comment, rating: value });
+      toast.success("Cập nhật đánh giá thành công");
     } catch (e) {
       console.log("[Create review] error", e);
     }
+    setLoading(false);
   };
 
   return (
@@ -77,7 +83,10 @@ const ProductSummary = (props) => {
                   <ul>
                     {!_.isEmpty(listReview) &&
                       listReview.map((item) => (
-                        <ProductReviews key={item.id} {...item} />
+                        <>
+                          <ProductReviews key={item.id} {...item} />
+                          <Divider />
+                        </>
                       ))}
                   </ul>
                 </div>
@@ -87,9 +96,7 @@ const ProductSummary = (props) => {
                       style={{ display: "flex", flexDirection: "column" }}
                       onSubmit={handleSubmit}
                     >
-                      <h3 style={{ marginBottom: "30px" }}>
-                        Đánh giá sản phẩm
-                      </h3>
+                      <h3 style={{ margin: "20px 0" }}>Đánh giá sản phẩm</h3>
                       <div
                         style={{
                           display: "flex",
@@ -126,20 +133,30 @@ const ProductSummary = (props) => {
                           padding: "15px",
                         }}
                       />
-                      <button
-                        style={{
-                          background: "var(--main-color)",
-                          width: "150px",
-                          padding: "15px 10px",
-                          margin: "20px 0",
-                          borderRadius: "10px",
-                        }}
-                        type="submit"
-                      >
-                        <strong style={{ fontSize: "14px", color: "white" }}>
-                          Gửi đánh giá
-                        </strong>
-                      </button>
+                      <>
+                        {loading ? (
+                          <CircularProgress sx={{ margin: "20px 0" }} />
+                        ) : (
+                          <Button
+                            type="submit"
+                            disabled={!comment}
+                            sx={{
+                              bgcolor: "#f4c24b",
+                              width: "fit-content",
+                              padding: "10px",
+                              margin: "20px 0",
+                              color: "#fff",
+                              borderRadius: "5px",
+                              fontWeight: "600",
+                              ":hover": {
+                                bgcolor: "#ff0000cc",
+                              },
+                            }}
+                          >
+                            Gửi đánh giá
+                          </Button>
+                        )}
+                      </>
                     </form>
                   </div>
                 )}
@@ -147,6 +164,7 @@ const ProductSummary = (props) => {
             )}
           </div>
         </div>
+        <Toastify />
       </section>
     </>
   );

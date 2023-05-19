@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
 import useDocTitle from "../hooks/useDocTitle";
 import { LinearLoading } from "../components/common/Loading";
+import { Button } from "@mui/material";
 
 const resetPasswdBg = "/assets/reset-passwd.png";
 
@@ -23,10 +24,12 @@ const NewPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+
     if (password !== rePassword) {
       toast.info("Mật khẩu không trùng khớp");
+      return;
     }
+    setLoading(true);
 
     try {
       const res = await createNewPassword(email, password);
@@ -78,11 +81,27 @@ const NewPassword = () => {
             <input
               onClick={() => setIsShowPassword(!isShowPassword)}
               type="checkbox"
+              id="showPasswd"
             ></input>
-            <label>Hiển thị mật khẩu</label>
+            <label htmlFor="showPasswd">Hiển thị mật khẩu</label>
           </div>
           <div className="row-form">
-            <button disabled={!password || !rePassword} type="submit">Lưu mật khẩu</button>
+            <Button
+              type="submit"
+              disabled={!password || !rePassword}
+              sx={{
+                bgcolor: "#f4c24b",
+                width: "100%",
+                padding: "10px",
+                color: "#fff",
+                borderRadius: "5px",
+                ":hover": {
+                  bgcolor: "#ff0000cc",
+                },
+              }}
+            >
+              Lưu mật khẩu
+            </Button>
           </div>
         </form>
       </div>

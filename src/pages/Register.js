@@ -4,42 +4,43 @@ import { FaArrowLeft } from "react-icons/fa";
 import { signup } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
 import useDocTitle from "../hooks/useDocTitle";
-import {LinearLoading} from "../components/common/Loading";
+import { LinearLoading } from "../components/common/Loading";
 import { Link } from "react-router-dom";
 import Toastify from "../components/product/Toastify";
 import { toast } from "react-toastify";
+import { Button } from "@mui/material";
 
 const signUpBg = "/assets/signup-bg.png";
 const googleLogo = "/assets/google-logo.png";
 
-const googleUrl = 'https://hdkshop.purpletree-ddde814d.westus2.azurecontainerapps.io/oauth2/authorize/google?redirect_uri=https://webshopping.whiteflower-aa9d9f63.westus2.azurecontainerapps.io'
+const googleUrl =
+  "https://hdkshop.purpletree-ddde814d.westus2.azurecontainerapps.io/oauth2/authorize/google?redirect_uri=https://webshopping.whiteflower-aa9d9f63.westus2.azurecontainerapps.io";
 
 const Register = () => {
-  useDocTitle('Đăng ký')
+  useDocTitle("Đăng ký");
   const [showPassword, setShowPassword] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    setLoading(true)
+    setLoading(true);
     e.preventDefault();
     const res = await signup(email, password, fullName);
     console.log("===res", res);
     if (res.status === 201) {
       navigate("/verify");
     } else {
-      //alert("Có lỗi xảy ra. Vui lòng thử lại sau.");
-      toast.error("Có lỗi xảy ra. Vui lòng thử lại sau")
+      toast.error("Có lỗi xảy ra. Vui lòng thử lại sau");
     }
-    setLoading(true)
+    setLoading(true);
   };
 
-  if(loading) return <LinearLoading />
+  if (loading) return <LinearLoading />;
 
   return (
     <div id="page-register">
@@ -91,26 +92,40 @@ const Register = () => {
             <input
               onClick={() => setShowPassword(!showPassword)}
               type="checkbox"
+              id="showPasswd"
             ></input>
-            <label>Hiển thị mật khẩu</label>
+            <label htmlFor="showPasswd">Hiển thị mật khẩu</label>
           </div>
           <div className="row-form">
-            <button disabled={!fullName || !email || !password}>Đăng ký</button>
+            <Button
+              type="submit"
+              disabled={!email || !password}
+              sx={{
+                bgcolor: "#f4c24b",
+                width: "100%",
+                padding: "10px",
+                color: "#fff",
+                borderRadius: "5px",
+                ":hover": {
+                  bgcolor: "#ff0000cc",
+                },
+              }}
+            >
+              Đăng ký
+            </Button>
           </div>
           <div className="row-form">
             <p>Hoặc</p>
           </div>
           <div className="row-form-google">
-            <Link
-              to={googleUrl}
-            >
+            <Link to={googleUrl}>
               <img src={googleLogo} alt="GG-icon" width={30} />
               <span>Đăng nhập với Google</span>
             </Link>
           </div>
           <div className="row-form">
             <span>
-              Đã có tài khoản?
+              Bạn đã có tài khoản?
               <a className="form-link" href="/login">
                 Đăng nhập
               </a>

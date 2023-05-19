@@ -6,8 +6,8 @@ import { formatPrice } from "../../utils/format";
 import { ConfirmDialog } from "../common/ConfirmDialog";
 
 const CartItem = (props) => {
-  const { id, name, quantity, mainImage, price, discountPrice } = props;
-
+  const { id, name, quantity, mainImage, price, discountPrice, amount } = props;
+  
   const { removeItem } = useContext(cartContext);
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -56,7 +56,7 @@ const CartItem = (props) => {
                 </small>
               </strong>
             </div>
-            <QuantityBox itemId={id} itemQuantity={quantity} />
+            <QuantityBox itemId={id} itemQuantity={amount} quantity={quantity} />
             <div className="cart_item_del">
               <span onClick={() => setOpenDialog(true)}>
                 <TbTrash

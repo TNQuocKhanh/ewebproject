@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import cartContext from "../../contexts/cart/cartContext";
 
 const QuantityBox = (props) => {
-  const { itemId, itemQuantity } = props;
+  const { itemId, itemQuantity, quantity } = props;
 
   const { incrementItem, decrementItem } = useContext(cartContext);
 
@@ -20,7 +20,7 @@ const QuantityBox = (props) => {
         <button
           type="button"
           onClick={() => incrementItem(itemId)}
-          disabled={itemQuantity >= 5}
+          disabled={itemQuantity >= quantity}
         >
           +
         </button>

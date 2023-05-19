@@ -9,6 +9,7 @@ import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { formatPrice, storage } from "../utils";
 import Breadcrumbs from "../components/common/Breadcrumbs";
+import { Button } from "@mui/material";
 
 const Cart = () => {
   useDocTitle("Giỏ hàng");
@@ -17,13 +18,13 @@ const Cart = () => {
   const cartQuantity = cart.length;
 
   const calculateCartTotal = cart.reduce((val, acc) => {
-    return val + acc.quantity * acc.price;
+    return val + acc.amount * acc.price;
   }, 0);
 
   const cartDiscount = cart.map((item) => {
-    return (item.price - item.discountPrice) * item.quantity;
+    return (item.price - item.discountPrice) * item.amount;
   });
-console.log('==cartDiscount', cartDiscount)
+
   const calculateCartDiscount = cartDiscount.reduce(
     (accum, val) => accum + val,
     0
@@ -33,9 +34,9 @@ console.log('==cartDiscount', cartDiscount)
 
   return (
     <>
-    <Header />
-    <Breadcrumbs />
-    <section id="cart" className="section">
+      <Header />
+      <Breadcrumbs />
+      <section id="cart" className="section">
         <div className="container">
           {cartQuantity === 0 ? (
             <EmptyView
@@ -81,20 +82,21 @@ console.log('==cartDiscount', cartDiscount)
                   </div>
                   {storage.load("user") ? (
                     <Link to="/checkout">
-                      <button
-                        type="button"
-                        className="btn checkout_btn"
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          alignItems: "center",
+                      <Button
+                        sx={{
+                          bgcolor: "#f4c24b",
+                          width: "100%",
+                          padding: "10px",
+                          color: "#fff",
+                          borderRadius: "5px",
+                          fontWeight: "600",
+                          ":hover": {
+                            bgcolor: "#ff0000cc",
+                          },
                         }}
                       >
-                        <strong style={{ textTransform: "uppercase" }}>
-                         Tiếp tục 
-                        </strong>
-                      </button>
+                        <strong>Tiếp tục</strong>
+                      </Button>
                     </Link>
                   ) : (
                     <Link to="/login">
@@ -106,10 +108,11 @@ console.log('==cartDiscount', cartDiscount)
                           flexDirection: "column",
                           justifyContent: "center",
                           alignItems: "center",
+                          backgroundColor: "#f4c24b",
                         }}
                       >
                         <strong style={{ textTransform: "uppercase" }}>
-                        Tiếp tục
+                          Tiếp tục
                         </strong>
                         <small style={{ marginTop: "10px" }}>
                           Bạn cần đăng nhập để tiếp tục

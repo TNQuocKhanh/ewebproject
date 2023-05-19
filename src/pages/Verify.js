@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import useDocTitle from "../hooks/useDocTitle";
 import { toast } from "react-toastify";
 import { LinearLoading } from "../components/common/Loading";
+import { Button } from "@mui/material";
+import Toastify from "../components/product/Toastify";
 
 const verifyBg = "/assets/verify-img.png";
 
@@ -22,11 +24,15 @@ const Verify = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await verifyAccount(code);
-      if (isChangePasswd) {
-        navigate("/new-password");
+      const res = await verifyAccount(code);
+      if (res.status === 200) {
+        if (isChangePasswd) {
+          navigate("/new-password");
+        } else {
+          navigate("/login");
+        }
       } else {
-        navigate("/login");
+        toast.error("Mã xác thực không hợp lệ");
       }
     } catch (err) {
       toast.error("Mã xác thực không hợp lệ");
@@ -69,10 +75,26 @@ const Verify = () => {
             ></input>
           </div>
           <div className="row-form">
-            <button disabled={!code}>Xác thực</button>
+            <Button
+              type="submit"
+              disabled={!code}
+              sx={{
+                bgcolor: "#f4c24b",
+                width: "100%",
+                padding: "10px",
+                color: "#fff",
+                borderRadius: "5px",
+                ":hover": {
+                  bgcolor: "#ff0000cc",
+                },
+              }}
+            >
+              Xác thực
+            </Button>
           </div>
         </form>
       </div>
+      <Toastify />
     </div>
   );
 };

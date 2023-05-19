@@ -4,7 +4,8 @@ import { FaArrowLeft } from "react-icons/fa";
 import { forgotPassword } from "../apis/customer.api";
 import { useNavigate } from "react-router-dom";
 import useDocTitle from "../hooks/useDocTitle";
-import {LinearLoading} from "../components/common/Loading";
+import { LinearLoading } from "../components/common/Loading";
+import { Button } from "@mui/material";
 
 const forgotPasswdBg = "/assets/forgot-passwd.png";
 
@@ -30,7 +31,7 @@ const ForgotPassword = () => {
     setLoading(false);
   };
 
-  if(loading) return <LinearLoading />
+  if (loading) return <LinearLoading />;
 
   return (
     <div id="page-register">
@@ -58,11 +59,26 @@ const ForgotPassword = () => {
               placeholder="Vui lòng nhập email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              type="text"
+              type="email"
             ></input>
           </div>
           <div className="row-form">
-            <button disabled={!email}>Xác nhận</button>
+            <Button
+              type="submit"
+              disabled={!email}
+              sx={{
+                bgcolor: "#f4c24b",
+                width: "100%",
+                padding: "10px",
+                color: "#fff",
+                borderRadius: "5px",
+                ":hover": {
+                  bgcolor: "#ff0000cc",
+                },
+              }}
+            >
+              Xác nhận
+            </Button>
           </div>
         </form>
       </div>

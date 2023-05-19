@@ -32,7 +32,7 @@ const Header = () => {
   const cartQuantity = useMemo(() => {
     if (!cart || !cart.length) return 0;
     return  cart?.reduce((val, acc) => {
-      return val + acc.quantity;
+      return val + acc.amount;
     }, 0);
   }, [cart]);
 

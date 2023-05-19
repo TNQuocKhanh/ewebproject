@@ -178,7 +178,7 @@ export const ProfileAddress = (props) => {
         <Grid container>
           {address?.map((it, idx) => {
             return (
-              <Grid key={idx} item md={6} xs={12} sx={{ padding: "5px" }}>
+              <Grid key={idx} item md={6} xs={12} sx={{ padding: "0px" }}>
                 <CardContent
                   sx={
                     it.id === idActive
