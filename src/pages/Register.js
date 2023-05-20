@@ -12,7 +12,6 @@ import { Button, Typography } from "@mui/material";
 
 const signUpBg = "/assets/signup-bg.png";
 const googleLogo = "/assets/google-logo.png";
-
 const googleUrl ="https://hdkshopping.azurewebsites.net/oauth2/authorize/google?redirect_uri=https://hdkshopping.wonderfulmoss-24450177.westus2.azurecontainerapps.io"
 
 const Register = () => {
