@@ -10,9 +10,7 @@ import useDocTitle from "../hooks/useDocTitle";
 const loginBg = "/assets/login-bg.png";
 const googleLogo = "/assets/google-logo.png";
 
-const googleUrl =
-  "https://hdkshop.purpletree-ddde814d.westus2.azurecontainerapps.io/oauth2/authorize/google?redirect_uri=https://webshopping.whiteflower-aa9d9f63.westus2.azurecontainerapps.io";
-//const googleUrl = "http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000"
+const googleUrl ="https://hdkshopping.azurewebsites.net/oauth2/authorize/google?redirect_uri=https://hdkshopping.wonderfulmoss-24450177.westus2.azurecontainerapps.io"
 
 const Login = () => {
   useDocTitle("Đăng nhập");

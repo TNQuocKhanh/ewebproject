@@ -13,8 +13,7 @@ import { Button, Typography } from "@mui/material";
 const signUpBg = "/assets/signup-bg.png";
 const googleLogo = "/assets/google-logo.png";
 
-const googleUrl =
-  "https://hdkshop.purpletree-ddde814d.westus2.azurecontainerapps.io/oauth2/authorize/google?redirect_uri=https://webshopping.whiteflower-aa9d9f63.westus2.azurecontainerapps.io";
+const googleUrl ="https://hdkshopping.azurewebsites.net/oauth2/authorize/google?redirect_uri=https://hdkshopping.wonderfulmoss-24450177.westus2.azurecontainerapps.io"
 
 const Register = () => {
   useDocTitle("Đăng ký");
