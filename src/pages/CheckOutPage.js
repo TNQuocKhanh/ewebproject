@@ -184,7 +184,7 @@ const CheckOutPage = () => {
           className="box-form-checkout"
           style={isSmall ? { width: "100%" } : {}}
         >
-          <h4>1. Phương thức thanh toán</h4>
+          <h4>1. Phương thức thanh toán (*)</h4>
           <div className="payment-method">
             <button
               style={{ border: method === 1 && "1px solid rgb(0, 0, 186)" }}
@@ -228,6 +228,9 @@ const CheckOutPage = () => {
             address={address}
             canChoose={true}
             setValueAddress={setValueAddress}
+            onRefresh={async () => {
+              await getUserProfile();
+            }}
           />
           <FormControl>
             <h4 style={{ margin: "10px 0" }}>3. Phương thức giao hàng (*)</h4>

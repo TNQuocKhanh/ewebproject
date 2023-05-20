@@ -15,7 +15,7 @@ const FeaturedSlider = () => {
   const getFeature = async () => {
     try {
       const res = await getFeatureProduct();
-       setData(res)
+      setData(res);
     } catch (e) {
       console.log("[Get feature product] Error", e);
     }
@@ -36,6 +36,7 @@ const FeaturedSlider = () => {
       speed={400}
       spaceBetween={100}
       slidesPerView={"auto"}
+      initialSlide={3}
       pagination={{ clickable: true }}
       // effect={"coverflow"}
       centeredSlides={true}
@@ -63,9 +64,18 @@ const FeaturedSlider = () => {
       className="featured_swiper"
     >
       {data?.slice(0, 5).map((item) => {
-        const { id, productImage, productName, price=1000, discountPrice=10000 } = item;
-        const newPrice = formatPrice(discountPrice);
-        const oldPrice = formatPrice(price);
+        const {
+          id,
+          productImage,
+          productName,
+          productPrice,
+          discountPrice,
+          discountPercent,
+        } = item;
+        const newPrice = formatPrice(
+          productPrice - productPrice * (discountPercent / 100)
+        );
+        const oldPrice = formatPrice(productPrice);
 
         return (
           <SwiperSlide
@@ -78,12 +88,18 @@ const FeaturedSlider = () => {
           >
             <figure className="featured_img">
               <Link to={`/product-details/${id}`}>
-                <img src={productImage} alt="" />
+                <img
+                  style={{ height: "160px", objectFit: "contain" }}
+                  src={productImage}
+                  alt=""
+                />
               </Link>
             </figure>
-            <div className="featured_title">{productName}</div>
+            <div className="featured_title" style={{ height: "75px" }}>
+              {productName}
+            </div>
             <h2 className="products_price">
-              {newPrice} &nbsp;
+              {oldPrice} &nbsp;
               <small>
                 <del>{oldPrice}</del>
               </small>

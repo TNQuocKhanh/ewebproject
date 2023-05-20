@@ -14,13 +14,14 @@ import {
 } from "../apis";
 import _ from "lodash";
 import { storage, formatPrice } from "../utils";
-import { DetailLoading, Loading } from "../components/common/Loading";
+import { DetailLoading } from "../components/common/Loading";
 import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
 import {
   Breadcrumbs as MUIBreadcrumbs,
   Link as LinkMui,
   Typography,
+  Button,
 } from "@mui/material";
 
 const ProductDetails = () => {
@@ -88,6 +89,7 @@ const ProductDetails = () => {
     description,
     averageRating,
     mainImage,
+    quantity,
   } = data;
 
   const [previewImg, setPreviewImg] = useState(
@@ -192,9 +194,22 @@ const ProductDetails = () => {
               <div className="separator"></div>
 
               <div className="prod_details_buy_btn">
-                <button type="button" className="btn" onClick={handleAddItem}>
+                <Button
+                  onClick={handleAddItem}
+                  disabled={quantity <= 0}
+                  sx={{
+                    bgcolor: "#f4c24b",
+                    width: "fit-content",
+                    padding: "12px 24px",
+                    color: "#fff",
+                    borderRadius: "5px",
+                    ":hover": {
+                      bgcolor: "#ff0000cc",
+                    },
+                  }}
+                >
                   Thêm vào giỏ
-                </button>
+                </Button>
               </div>
             </div>
           </div>

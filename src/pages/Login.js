@@ -34,7 +34,7 @@ const Login = () => {
       window.location.replace("/");
     } else {
       setMessage(
-        "Tên đăng nhập hoặc mật khẩu không chính xác, vui lòng thử lại"
+        "Email hoặc mật khẩu chưa chính xác, vui lòng kiểm tra lại"
       );
       console.log("===Login error");
     }

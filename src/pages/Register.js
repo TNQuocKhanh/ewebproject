@@ -8,7 +8,7 @@ import { LinearLoading } from "../components/common/Loading";
 import { Link } from "react-router-dom";
 import Toastify from "../components/product/Toastify";
 import { toast } from "react-toastify";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 const signUpBg = "/assets/signup-bg.png";
 const googleLogo = "/assets/google-logo.png";
@@ -25,19 +25,35 @@ const Register = () => {
   const [fullName, setFullName] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [passwdMessage, setPasswdMessage] = useState("");
+
+  const passwdRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/gm;
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
-    const res = await signup(email, password, fullName);
-    console.log("===res", res);
-    if (res.status === 201) {
-      navigate("/verify");
+    if (!password.match(passwdRegex)) {
+      setPasswdMessage(
+        "Mật khẩu phải từ 8 đến 20 ký tự, chứa ít nhất 1 chữ số, 1 ký tự hoa và 1 ký tự đặc biệt."
+      );
     } else {
-      toast.error("Có lỗi xảy ra. Vui lòng thử lại sau");
+      setPasswdMessage("");
+      setLoading(true);
+      try {
+        const res = await signup(email, password, fullName);
+        console.log("===res", res);
+        if (res.status === 201) {
+          navigate("/verify");
+        } else {
+          toast.error("Tài khoản đã tồn tại");
+        }
+      } catch (err) {
+        console.log("[Register] error", err);
+      }
+      setLoading(false);
     }
-    setLoading(true);
   };
 
   if (loading) return <LinearLoading />;
@@ -87,6 +103,12 @@ const Register = () => {
               placeholder="Nhập mật khẩu"
               required
             ></input>
+            <Typography
+              variant="caption"
+              sx={{ color: "red", fontStyle: "italic" }}
+            >
+              {passwdMessage}
+            </Typography>
           </div>
           <div className="row-form">
             <input

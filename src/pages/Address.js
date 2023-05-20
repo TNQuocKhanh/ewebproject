@@ -37,7 +37,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { BubbleLoading } from "../components/common/Loading";
 
 export const ProfileAddress = (props) => {
-  const { address, canChoose = false, setValueAddress } = props;
+  const { address, canChoose = false, setValueAddress, onRefresh } = props;
 
   const [open, setOpen] = useState(false);
 
@@ -57,6 +57,15 @@ export const ProfileAddress = (props) => {
   const [idActive, setIdActive] = useState();
 
   const [loading, setLoading] = useState(false);
+
+  const [refresh, setRefresh] = useState(false);
+
+  useEffect(() => {
+    if (refresh) {
+      onRefresh();
+      setRefresh(false);
+    }
+  }, [refresh]);
 
   const handleEdit = (it) => {
     setOpen(true);
@@ -81,8 +90,10 @@ export const ProfileAddress = (props) => {
   };
 
   const handleSubmit = async () => {
-    const findDistrict = districtArr.find((v) => v.DistrictID === districtId);
-    const findWard = wardArr.find((v) => v.WardCode === wardId);
+    const findDistrict = districtArr.find(
+      (v) => Number(v.DistrictID) === districtId
+    );
+    const findWard = wardArr.find((v) => Number(v.WardCode) === Number(wardId));
 
     const value = {
       name,
@@ -101,9 +112,7 @@ export const ProfileAddress = (props) => {
         console.log("===res", res);
         if (res) {
           toast.success("Cập nhật thành công");
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          setRefresh(true);
         } else {
           toast.error("Có lỗi xảy ra");
         }
@@ -111,9 +120,7 @@ export const ProfileAddress = (props) => {
         const res = await createAddress(value);
         if (res.id) {
           toast.success("Thêm mới thành công");
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          setRefresh(true);
         } else {
           toast.error("Có lỗi xảy ra");
         }
@@ -127,13 +134,23 @@ export const ProfileAddress = (props) => {
   };
 
   const getDistrictById = async () => {
-    const res = await getDistrict();
-    setDistrictArr(res.data);
+    try {
+      const res = await getDistrict();
+      setDistrictArr(res.data);
+    } catch (err) {
+      console.log("[Get District Error]", err);
+      setDistrictArr([]);
+    }
   };
 
   const getWardById = async (id) => {
-    const res = await getWard(id);
-    setWardArr(res.data);
+    try {
+      const res = await getWard(id);
+      setWardArr(res.data);
+    } catch (err) {
+      console.log("[Get Ward Error]", err);
+      setWardArr([]);
+    }
   };
 
   useEffect(() => {
@@ -154,9 +171,7 @@ export const ProfileAddress = (props) => {
       const res = await deleteAddress(id);
       console.log("===res", res);
       toast.success("Đã xoá thành công");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      setRefresh(true);
     } catch (err) {
       console.log("[Delete address] Error", err);
       toast.success("Bạn không thể xoá địa chỉ mặc định");

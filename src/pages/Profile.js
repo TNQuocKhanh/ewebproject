@@ -227,13 +227,22 @@ const ProfileInfo = () => {
 
 const Profile = () => {
   useDocTitle("Thông tin người dùng");
-  const { profile = [] } = useContext(commonContext);
 
   const [value, setValue] = useState(0);
+  const [address, setAddress] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const getUserProfile = async () => {
+    const res = await getProfile();
+    setAddress(res.shippingAddresses);
+  };
+
+  useEffect(() => {
+    getUserProfile();
+  }, []);
 
   return (
     <>
@@ -250,7 +259,12 @@ const Profile = () => {
         <TabPanel value={value} index={1}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={12}>
-              <ProfileAddress address={profile.shippingAddresses} />
+              <ProfileAddress
+                address={address}
+                onRefresh={async () => {
+                  await getUserProfile();
+                }}
+              />
             </Grid>
           </Grid>
         </TabPanel>
