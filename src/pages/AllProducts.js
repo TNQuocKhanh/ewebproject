@@ -210,7 +210,7 @@ const AllProducts = () => {
                     <ProductCard key={item.id} {...item} />
                   ))}
                 </div>
-                <div style={{ margin: "20px 0", textAlign: "center" }}>
+                <div style={{ margin: "20px 0", textAlign: "center", display: 'flex', justifyContent: 'center' }}>
                   <Pagination
                     count={Math.ceil(total / perPage)}
                     variant="outlined"

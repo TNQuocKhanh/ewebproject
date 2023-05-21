@@ -23,6 +23,8 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import FeaturedSlider from "../components/sliders/FeaturedSlider";
+import SectionsHead from "../components/common/SectionsHead";
 
 const ProductDetails = () => {
   useDocTitle("Chi tiết sản phẩm");
@@ -222,6 +224,14 @@ const ProductDetails = () => {
         specs={specifications}
         description={description}
       />
+      <div style={{ maxWidth: "1240px", margin: "40px auto" }}>
+        <SectionsHead
+          background="linear-gradient(to right, var(--main-color) , #a1def5)"
+          color="white"
+          heading="Sản phẩm cùng loại"
+        />
+        <FeaturedSlider />
+      </div>
       <Footer />
     </>
   );

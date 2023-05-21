@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
 import useDocTitle from "../hooks/useDocTitle";
 import { LinearLoading } from "../components/common/Loading";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 const resetPasswdBg = "/assets/reset-passwd.png";
 
@@ -18,6 +18,11 @@ const NewPassword = () => {
   const [rePassword, setRePassword] = useState("");
 
   const [loading, setLoading] = useState(false);
+  const [passwdMessage, setPasswdMessage] = useState("");
+
+  const passwdRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/gm;
+
   const navigate = useNavigate();
 
   const email = localStorage.getItem("email");
@@ -29,19 +34,26 @@ const NewPassword = () => {
       toast.info("Mật khẩu không trùng khớp");
       return;
     }
-    setLoading(true);
 
-    try {
-      const res = await createNewPassword(email, password);
-      if (res.status === 200) {
-        await res.json();
-        localStorage.removeItem("email");
-        navigate("/login");
+    if (!password.match(passwdRegex)) {
+      setPasswdMessage(
+        "Mật khẩu phải từ 8 đến 20 ký tự, chứa ít nhất 1 chữ số, 1 ký tự hoa và 1 ký tự đặc biệt."
+      );
+    } else {
+      setPasswdMessage("");
+      setLoading(true);
+      try {
+        const res = await createNewPassword(email, password);
+        if (res.status === 200) {
+          await res.json();
+          localStorage.removeItem("email");
+          navigate("/login");
+        }
+      } catch (err) {
+        console.log("[Reset password] Error", err);
       }
-    } catch (err) {
-      console.log("===Change new password error");
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   if (loading) return <LinearLoading />;
@@ -67,6 +79,12 @@ const NewPassword = () => {
               type={isShowPassword ? "text" : "password"}
               placeholder="Nhập mật khẩu"
             ></input>
+            <Typography
+              variant="caption"
+              sx={{ color: "red", fontStyle: "italic" }}
+            >
+              {passwdMessage}
+            </Typography>
           </div>
           <div className="row-form-field">
             <label>Nhập lại mật khẩu mới</label>
