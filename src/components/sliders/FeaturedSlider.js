@@ -99,7 +99,7 @@ const FeaturedSlider = () => {
               {productName}
             </div>
             <h2 className="products_price">
-              {oldPrice} &nbsp;
+              {newPrice} &nbsp;
               <small>
                 <del>{oldPrice}</del>
               </small>

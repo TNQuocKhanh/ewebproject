@@ -25,6 +25,7 @@ import {
 } from "@mui/material";
 import FeaturedSlider from "../components/sliders/FeaturedSlider";
 import SectionsHead from "../components/common/SectionsHead";
+import RelatedSlider from "../components/sliders/RelatedSlider";
 
 const ProductDetails = () => {
   useDocTitle("Chi tiết sản phẩm");
@@ -77,7 +78,7 @@ const ProductDetails = () => {
     if (storage.load("user")) {
       getReviewByUser();
     }
-  }, []);
+  }, [productId]);
 
   const {
     name,
@@ -230,7 +231,7 @@ const ProductDetails = () => {
           color="white"
           heading="Sản phẩm cùng loại"
         />
-        <FeaturedSlider />
+        <RelatedSlider categoryId={cate?.id} />
       </div>
       <Footer />
     </>

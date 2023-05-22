@@ -11,7 +11,7 @@ import Toastify from "./Toastify";
 const ProductSummary = (props) => {
   const { listReview = [], customerCanReview, specs, description } = props;
 
-  const { active, handleActive, activeClass } = useActive("specs");
+  const { active, handleActive, activeClass } = useActive("overview");
 
   const specsTransform = specs?.split("\n");
 
@@ -41,16 +41,16 @@ const ProductSummary = (props) => {
           <div className="prod_summary_tabs" style={{ marginBottom: "16px" }}>
             <ul className="tabs">
               <li
-                className={`tabs_item ${activeClass("specs")}`}
-                onClick={() => handleActive("specs")}
-              >
-                Thông số
-              </li>
-              <li
                 className={`tabs_item ${activeClass("overview")}`}
                 onClick={() => handleActive("overview")}
               >
                 Tổng quan sản phẩm
+              </li>
+              <li
+                className={`tabs_item ${activeClass("specs")}`}
+                onClick={() => handleActive("specs")}
+              >
+                Thông số
               </li>
               <li
                 className={`tabs_item ${activeClass("reviews")}`}

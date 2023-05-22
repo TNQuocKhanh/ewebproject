@@ -39,6 +39,8 @@ export const PaymentInfo = () => {
       const res = await createPaymentInfo(_data);
       if (_data.vnpTransactionStatus === "00" && res.status === 200) {
         await createOrder(order);
+        localStorage.removeItem("order");
+        localStorage.removeItem("myCart");
       }
     } catch (error) {
       console.log("[Save payment] error", error);
@@ -46,8 +48,6 @@ export const PaymentInfo = () => {
   };
 
   const handleBackBtn = () => {
-    localStorage.removeItem("order");
-    localStorage.removeItem("myCart");
     window.location.replace("/");
   };
 

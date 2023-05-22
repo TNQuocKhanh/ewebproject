@@ -21,10 +21,13 @@ export const getProductWithFilter = async (filter) => {
   headers.append("Content-Type", "application/json");
   headers.append("Authorization", `Bearer ${token}`);
 
-  const res = await fetch(`${API_URL}/products/filter?` + new URLSearchParams(filter), {
-    method: "GET",
-    headers,
-  });
+  const res = await fetch(
+    `${API_URL}/products/filter?` + new URLSearchParams(filter),
+    {
+      method: "GET",
+      headers,
+    }
+  );
   return res.json();
 };
 
@@ -59,6 +62,17 @@ export const getFeatureProduct = async () => {
   headers.append("Content-Type", "application/json");
 
   const res = await fetch(`${API_URL}/best-selling-product`, {
+    method: "GET",
+    headers,
+  });
+  return res.json();
+};
+
+export const getRelatedProduct = async (id) => {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+
+  const res = await fetch(`${API_URL}/product-same-category/${id}`, {
     method: "GET",
     headers,
   });

@@ -199,10 +199,7 @@ const AllProducts = () => {
         {loading ? (
           <Loading />
         ) : (
-          <div
-            className="container"
-            style={{ marginLeft: isSmall ? 0 : "100px" }}
-          >
+          <div className="container">
             {data?.length > 0 ? (
               <>
                 <div className="wrapper products_wrapper">
@@ -210,7 +207,14 @@ const AllProducts = () => {
                     <ProductCard key={item.id} {...item} />
                   ))}
                 </div>
-                <div style={{ margin: "20px 0", textAlign: "center", display: 'flex', justifyContent: 'center' }}>
+                <div
+                  style={{
+                    margin: "20px 0",
+                    textAlign: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
                   <Pagination
                     count={Math.ceil(total / perPage)}
                     variant="outlined"
