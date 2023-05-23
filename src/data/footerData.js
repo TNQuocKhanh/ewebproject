@@ -34,21 +34,21 @@ export const footMenu = [
   },
   {
     id: 2,
-    title: "Chính sách",
+    title: "Thanh toán",
     menu: [
       {
         id: 1,
-        link: "Bảo hành",
+        link: "Nhanh chóng",
         path: "/",
       },
       {
         id: 2,
-        link: "Đổi trả",
+        link: "An toàn",
         path: "/",
       },
       {
         id: 3,
-        link: "Hoàn tiền",
+        link: "Tiện lợi",
         path: "/",
       },
     ],

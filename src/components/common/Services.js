@@ -17,7 +17,7 @@ const servicesData = [
   {
     id: 2,
     icon: <FaShieldAlt />,
-    title: "Bảo hành chính hãng",
+    title: "Sản phẩm chính hãng",
     info: "100% sản phẩm chính hãng",
   },
   {
