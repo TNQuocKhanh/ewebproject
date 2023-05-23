@@ -67,7 +67,7 @@ const ForgotPassword = () => {
               type="submit"
               disabled={!email}
               sx={{
-                bgcolor: "#f4c24b",
+                bgcolor: !email ? "#f7e59e" : "#f4c24b",
                 width: "100%",
                 padding: "10px",
                 color: "#fff",

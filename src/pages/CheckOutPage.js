@@ -333,7 +333,10 @@ const CheckOutPage = () => {
               onClick={handleCheckout}
               disabled={!valueAddress?.districtId || !serviceId}
               sx={{
-                bgcolor: "#f4c24b",
+                bgcolor:
+                  !valueAddress?.districtId || !serviceId
+                    ? "#f7e59e"
+                    : "#f4c24b",
                 width: "100%",
                 padding: "15px",
                 color: "#fff",

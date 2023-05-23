@@ -141,7 +141,7 @@ const ProductSummary = (props) => {
                             type="submit"
                             disabled={!comment}
                             sx={{
-                              bgcolor: "#f4c24b",
+                              bgcolor: !comment ? "#f7e59e" : "#f4c24b",
                               width: "fit-content",
                               padding: "10px",
                               margin: "20px 0",

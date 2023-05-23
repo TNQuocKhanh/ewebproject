@@ -93,7 +93,7 @@ const Login = () => {
                 type="submit"
                 disabled={!email || !password}
                 sx={{
-                  bgcolor: "#f4c24b",
+                  bgcolor: !password || !email ? "#f7e59e" :  "#f4c24b",
                   width: "100%",
                   padding: "10px",
                   color: "#fff",

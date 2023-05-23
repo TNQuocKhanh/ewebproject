@@ -200,7 +200,7 @@ const ProfileInfo = () => {
                         type="submit"
                         disabled={!name}
                         sx={{
-                          bgcolor: "#f4c24b",
+                          bgcolor: !name ? "#f7e59e" : "#f4c24b",
                           width: "100%",
                           padding: "10px",
                           color: "#fff",

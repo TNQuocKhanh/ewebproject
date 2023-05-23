@@ -12,7 +12,8 @@ import { Button, Typography } from "@mui/material";
 
 const signUpBg = "/assets/signup-bg.png";
 const googleLogo = "/assets/google-logo.png";
-const googleUrl ="https://hdkshopping.azurewebsites.net/oauth2/authorize/google?redirect_uri=https://hdkshopping.wonderfulmoss-24450177.westus2.azurecontainerapps.io"
+const googleUrl =
+  "https://hdkshopping.azurewebsites.net/oauth2/authorize/google?redirect_uri=https://hdkshopping.wonderfulmoss-24450177.westus2.azurecontainerapps.io";
 
 const Register = () => {
   useDocTitle("Đăng ký");
@@ -119,9 +120,10 @@ const Register = () => {
           <div className="row-form">
             <Button
               type="submit"
-              disabled={!email || !password}
+              disabled={!email || !password || !fullName}
               sx={{
-                bgcolor: "#f4c24b",
+                bgcolor:
+                  !password || !email || !fullName ? "#f7e59e" : "#f4c24b",
                 width: "100%",
                 padding: "10px",
                 color: "#fff",

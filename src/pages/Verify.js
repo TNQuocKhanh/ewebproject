@@ -79,7 +79,7 @@ const Verify = () => {
               type="submit"
               disabled={!code}
               sx={{
-                bgcolor: "#f4c24b",
+                bgcolor: !code ? "#f7e59e" : "#f4c24b",
                 width: "100%",
                 padding: "10px",
                 color: "#fff",

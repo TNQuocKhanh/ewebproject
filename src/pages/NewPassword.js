@@ -108,7 +108,7 @@ const NewPassword = () => {
               type="submit"
               disabled={!password || !rePassword}
               sx={{
-                bgcolor: "#f4c24b",
+                  bgcolor: !password || !rePassword ? "#f7e59e" :  "#f4c24b",
                 width: "100%",
                 padding: "10px",
                 color: "#fff",
