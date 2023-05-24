@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import useDocTitle from "../hooks/useDocTitle";
 import { LinearLoading } from "../components/common/Loading";
 import { Button } from "@mui/material";
+import { toast } from "react-toastify";
+import Toastify from "../components/product/Toastify";
 
 const forgotPasswdBg = "/assets/forgot-passwd.png";
 
@@ -24,6 +26,8 @@ const ForgotPassword = () => {
       const res = await forgotPassword(email);
       if (res.status === 200) {
         navigate("/verify");
+      } else {
+        toast.info("Tài khoản không tồn tại");
       }
     } catch (err) {
       console.log("Error", e);
@@ -82,6 +86,7 @@ const ForgotPassword = () => {
           </div>
         </form>
       </div>
+      <Toastify />
     </div>
   );
 };
