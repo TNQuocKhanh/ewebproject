@@ -37,6 +37,8 @@ const AllProducts = () => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const matches = useMediaQuery('(max-width:1600px)');
+
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const name = urlParams.get("productName");
@@ -199,7 +201,7 @@ const AllProducts = () => {
         {loading ? (
           <Loading />
         ) : (
-          <div className="container">
+          <div className="container" style={matches ? {maxWidth: '1000px'}: {}}>
             {data?.length > 0 ? (
               <>
                 <div className="wrapper products_wrapper">
