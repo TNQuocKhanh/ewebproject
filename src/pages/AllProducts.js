@@ -48,11 +48,11 @@ const AllProducts = () => {
   const urlParams = new URLSearchParams(queryString);
   const name = urlParams.get("productName");
   const cateId = urlParams.get("categoryId");
-  console.log("===categoryId", categoryId);
+  
   const filter = {
     productName: name,
-    //categoryId: cateId ? cateId : categoryId,
-    categoryId: categoryId,
+    categoryId: cateId ? cateId : categoryId,
+    //categoryId: categoryId,
     page,
     size: perPage,
     sortBy,
