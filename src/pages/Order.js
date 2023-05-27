@@ -8,7 +8,7 @@ import { formatDateTime, formatPrice, getStatus } from "../utils";
 import useDocTitle from "../hooks/useDocTitle";
 import { ConfirmDialog } from "../components/common/ConfirmDialog";
 import Breadcrumbs from "../components/common/Breadcrumbs";
-import { Loading } from "../components/common/Loading";
+import { BubbleLoading, Loading } from "../components/common/Loading";
 import Toastify from "../components/product/Toastify";
 import { toast } from "react-toastify";
 
@@ -16,9 +16,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
 const OrderTab = (props) => {
-  const { data = [], canCancel = false } = props;
+  const { data = [], canCancel = false, onRefresh } = props;
   const [openDialog, setOpenDialog] = useState(false);
   const [orderId, setOrderId] = useState();
+  const [refresh, setRefresh] = useState(false);
 
   const handleOpenDialog = (it) => {
     setOpenDialog(true);
@@ -28,12 +29,21 @@ const OrderTab = (props) => {
   const handleCancelOrder = async (id) => {
     try {
       await cancelOrder(id);
+      setRefresh(true);
       toast.success("Huỷ đơn hàng thành công");
+      window.location.reload();
     } catch (err) {
       console.log("[Cancel order] Error", err);
     }
     setOpenDialog(false);
   };
+
+  useEffect(() => {
+    if (refresh) {
+      onRefresh();
+      setRefresh(false);
+    }
+  }, [refresh]);
 
   return (
     <>
@@ -120,6 +130,7 @@ export const Order = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [orders, setOrders] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   const [value, setValue] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -141,9 +152,7 @@ export const Order = () => {
 
   useEffect(() => {
     getAllOrders();
-  }, []);
-
-  if (loading) return <Loading />;
+  }, [refresh]);
 
   return (
     <>
@@ -211,41 +220,57 @@ export const Order = () => {
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
+            marginBottom: "100px",
           }}
         >
-          <Tabs value={value} onChange={handleChange}>
-            <Tab label="Chờ xác nhận" />
-            <Tab label="Đã thanh toán" />
-            <Tab label="Đang xử lý" />
-            <Tab label="Đang vận chuyển" />
-            <Tab label="Đã giao" />
-            <Tab label="Trả hàng" />
-          </Tabs>
-          <TabPanel value={value} index={0}>
-            <OrderTab
-              data={orders.filter((v) => v.status === "NEW")}
-              canCancel={true}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <OrderTab data={orders.filter((v) => v.status === "PAID")} />
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <OrderTab
-              data={orders.filter(
-                (v) => v.status === "PROCESSING" || v.status === "PACKAGED"
-              )}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-            <OrderTab data={orders.filter((v) => v.status === "SHIPPING")} />
-          </TabPanel>
-          <TabPanel value={value} index={4}>
-            <OrderTab data={orders.filter((v) => v.status === "DELIVERED")} />
-          </TabPanel>
-          <TabPanel value={value} index={5}>
-            <OrderTab data={orders.filter((v) => v.status === "RETURNED")} />
-          </TabPanel>
+          {loading ? (
+            <BubbleLoading />
+          ) : (
+            <>
+              <Tabs value={value} onChange={handleChange}>
+                <Tab label="Chờ xác nhận" />
+                <Tab label="Đã thanh toán" />
+                <Tab label="Đang xử lý" />
+                <Tab label="Đang vận chuyển" />
+                <Tab label="Đã giao" />
+                <Tab label="Trả hàng" />
+              </Tabs>
+              <TabPanel value={value} index={0}>
+                <OrderTab
+                  data={orders.filter((v) => v.status === "NEW")}
+                  canCancel={true}
+                  onRefresh={async () => {
+                    await getAllOrders();
+                  }}
+                />
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                <OrderTab data={orders.filter((v) => v.status === "PAID")} />
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <OrderTab
+                  data={orders.filter(
+                    (v) => v.status === "PROCESSING" || v.status === "PACKAGED"
+                  )}
+                />
+              </TabPanel>
+              <TabPanel value={value} index={3}>
+                <OrderTab
+                  data={orders.filter((v) => v.status === "SHIPPING")}
+                />
+              </TabPanel>
+              <TabPanel value={value} index={4}>
+                <OrderTab
+                  data={orders.filter((v) => v.status === "DELIVERED")}
+                />
+              </TabPanel>
+              <TabPanel value={value} index={5}>
+                <OrderTab
+                  data={orders.filter((v) => v.status === "RETURNED")}
+                />
+              </TabPanel>
+            </>
+          )}
         </div>
       )}
       <Footer />

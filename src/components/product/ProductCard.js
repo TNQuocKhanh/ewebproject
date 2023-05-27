@@ -6,9 +6,18 @@ import useActive from "../../hooks/useActive";
 import { formatPrice } from "../../utils/format";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Chip } from "@mui/material";
 
 const ProductCard = (props) => {
-  const { id, name, discountPrice, price, discountPercent, mainImage } = props;
+  const {
+    id,
+    name,
+    discountPrice,
+    price,
+    discountPercent,
+    mainImage,
+    quantity,
+  } = props;
 
   const { addItem } = useContext(cartContext);
   const { active, handleActive, activeClass } = useActive(false);
@@ -46,6 +55,10 @@ const ProductCard = (props) => {
             <small style={{ fontWeight: "500" }}>
               <del>{oldPrice}</del> <small> -{discountPercent}%</small>
             </small>
+            &nbsp;&nbsp;
+            {quantity >= 1 && (
+              <Chip label="Còn hàng" style={{ fontSize: "10px" }} />
+            )}
           </h2>
           <button
             type="button"

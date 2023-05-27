@@ -14,6 +14,7 @@ import { Loading } from "../components/common/Loading";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const AllProducts = () => {
   useDocTitle("Tất cả sản phẩm");
@@ -31,22 +32,27 @@ const AllProducts = () => {
   const [range, setRange] = useState([0, 100]);
   const [cateArr, setCateArr] = useState([]);
 
+  const [sortActive, setSortActive] = useState(null)
+
   const [cateFilter, setCateFilter] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const matches = useMediaQuery('(max-width:1600px)');
+  const navigate = useNavigate();
+
+  const matches = useMediaQuery("(max-width:1600px)");
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const name = urlParams.get("productName");
   const cateId = urlParams.get("categoryId");
-
+  console.log("===categoryId", categoryId);
   const filter = {
     productName: name,
-    categoryId: cateId ? cateId : categoryId,
+    //categoryId: cateId ? cateId : categoryId,
+    categoryId: categoryId,
     page,
     size: perPage,
     sortBy,
@@ -69,6 +75,10 @@ const AllProducts = () => {
   useEffect(() => {
     getAllCategory();
   }, []);
+
+  useEffect(() => {
+    navigate("/all-products?" + new URLSearchParams(_filter));
+  }, [filter]);
 
   const getAllProducts = async () => {
     setLoading(true);
@@ -130,7 +140,9 @@ const AllProducts = () => {
                   onClick={() => {
                     setSortBy("price");
                     setOrder("ASC");
+                    setSortActive('ASC')
                   }}
+                style={sortActive === 'ASC' ?{textDecoration: 'underline'}: {}}
                 >
                   Giá tăng dần
                 </li>
@@ -138,7 +150,9 @@ const AllProducts = () => {
                   onClick={() => {
                     setSortBy("price");
                     setOrder("DESC");
+                    setSortActive('DESC')
                   }}
+                style={sortActive === 'DESC' ?{textDecoration: 'underline'}: {}}
                 >
                   Giá giảm dần
                 </li>
@@ -152,6 +166,7 @@ const AllProducts = () => {
                   return (
                     <li key={id} className="filter_btn">
                       <input
+                        checked={cateArr.includes(id)}
                         type="checkbox"
                         id={name}
                         value={name}
@@ -201,7 +216,10 @@ const AllProducts = () => {
         {loading ? (
           <Loading />
         ) : (
-          <div className="container" style={matches ? {maxWidth: '1000px'}: {}}>
+          <div
+            className="container"
+            style={matches ? { maxWidth: "1000px" } : {}}
+          >
             {data?.length > 0 ? (
               <>
                 <div className="wrapper products_wrapper">

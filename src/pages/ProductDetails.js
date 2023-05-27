@@ -22,6 +22,7 @@ import {
   Link as LinkMui,
   Typography,
   Button,
+  Rating,
 } from "@mui/material";
 import FeaturedSlider from "../components/sliders/FeaturedSlider";
 import SectionsHead from "../components/common/SectionsHead";
@@ -172,9 +173,13 @@ const ProductDetails = () => {
               <h4 className="prod_details_info">{cate?.name}</h4>
 
               <div className="prod_details_ratings">
-                <Link to="#">
-                  <strong>{reviewCount}</strong> Đánh giá
-                </Link>
+                <strong>{reviewCount}</strong> Đánh giá |
+                <Rating
+                  name="half-rating"
+                  defaultValue={averageRating}
+                  precision={0.5}
+                  readOnly
+                />
               </div>
 
               <div className="separator"></div>
@@ -191,6 +196,9 @@ const ProductDetails = () => {
                     Tiết kiệm: {savedPrice} ({savedDiscount}%)
                   </p>
                   <span className="tax_txt">(Đã bao gồm thuế)</span>
+                </div>
+                <div className="badge">
+                  {quantity >= 1 ? "Còn hàng" : "Hết hàng"}
                 </div>
               </div>
 

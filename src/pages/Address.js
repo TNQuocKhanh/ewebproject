@@ -109,7 +109,6 @@ export const ProfileAddress = (props) => {
     try {
       if (idAddress) {
         const res = await updateAddress(idAddress, value);
-        console.log("===res", res);
         if (res) {
           toast.success("Cập nhật thành công");
           setRefresh(true);
@@ -279,6 +278,7 @@ export const ProfileAddress = (props) => {
                         }}
                       >
                         <strong>{it.name}</strong>
+                        &nbsp;
                         <span>
                           {it.defaultAddress && <Chip label="Mặc định" />}
                         </span>

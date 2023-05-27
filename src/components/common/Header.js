@@ -253,7 +253,7 @@ const Header = () => {
                 style={{ marginLeft: "15px", fontSize: "0.8rem" }}
                 to="/orders"
               >
-                <strong>Đơn hàng</strong>
+                <strong>Đơn hàng của tôi</strong>
               </NavLink>
             )}
           </div>
