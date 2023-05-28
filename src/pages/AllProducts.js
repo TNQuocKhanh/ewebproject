@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { BsExclamationCircle } from "react-icons/bs";
 import useDocTitle from "../hooks/useDocTitle";
 import ProductCard from "../components/product/ProductCard";
@@ -13,7 +13,6 @@ import { formatPrice } from "../utils";
 import { Loading } from "../components/common/Loading";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 
 const AllProducts = () => {
@@ -32,27 +31,23 @@ const AllProducts = () => {
   const [range, setRange] = useState([0, 100]);
   const [cateArr, setCateArr] = useState([]);
 
-  const [sortActive, setSortActive] = useState(null)
+  const [sortActive, setSortActive] = useState(null);
 
   const [cateFilter, setCateFilter] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const matches = useMediaQuery("(max-width:1600px)");
 
   const navigate = useNavigate();
-
-  const matches = useMediaQuery("(max-width:1600px)");
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const name = urlParams.get("productName");
   const cateId = urlParams.get("categoryId");
-  
+
   const filter = {
     productName: name,
-    categoryId: cateId ? cateId : categoryId,
-    //categoryId: categoryId,
+    categoryId: categoryId,
     page,
     size: perPage,
     sortBy,
@@ -61,29 +56,38 @@ const AllProducts = () => {
     maxPrice: range[1] * 300000,
   };
 
-  const _filter = _.omitBy(filter, (v) => !v);
-
   const getAllCategory = async () => {
     try {
       const res = await getListCategories();
       setCategoryList(res);
     } catch (e) {
-      console.log("===Error");
+      console.log("[Get category list] Error", e);
     }
   };
+
+  const filteValue = useMemo(() => {
+    filter.categoryId = categoryId;
+    const _filter = _.omitBy(filter, (v) => !v);
+
+    navigate("/all-products?" + new URLSearchParams(_filter));
+
+    return _filter;
+  }, [categoryId, range, order]);
+
+  useEffect(() => {
+    if (cateId) {
+      setCateArr(cateId.split(",").map((it) => Number(it)));
+    }
+  }, []);
 
   useEffect(() => {
     getAllCategory();
   }, []);
 
-  useEffect(() => {
-    navigate("/all-products?" + new URLSearchParams(_filter));
-  }, [filter]);
-
   const getAllProducts = async () => {
     setLoading(true);
     try {
-      const res = await getProductWithFilter(_filter);
+      const res = await getProductWithFilter(filteValue);
       setData(res.content);
       setTotal(res.totalElements);
     } catch (err) {
@@ -140,9 +144,11 @@ const AllProducts = () => {
                   onClick={() => {
                     setSortBy("price");
                     setOrder("ASC");
-                    setSortActive('ASC')
+                    setSortActive("ASC");
                   }}
-                style={sortActive === 'ASC' ?{textDecoration: 'underline'}: {}}
+                  style={
+                    sortActive === "ASC" ? { textDecoration: "underline" } : {}
+                  }
                 >
                   Giá tăng dần
                 </li>
@@ -150,9 +156,11 @@ const AllProducts = () => {
                   onClick={() => {
                     setSortBy("price");
                     setOrder("DESC");
-                    setSortActive('DESC')
+                    setSortActive("DESC");
                   }}
-                style={sortActive === 'DESC' ?{textDecoration: 'underline'}: {}}
+                  style={
+                    sortActive === "DESC" ? { textDecoration: "underline" } : {}
+                  }
                 >
                   Giá giảm dần
                 </li>
@@ -239,6 +247,7 @@ const AllProducts = () => {
                     count={Math.ceil(total / perPage)}
                     variant="outlined"
                     shape="rounded"
+                    page={page}
                     onChange={(e, v) => setPage(v)}
                   />
                 </div>
