@@ -233,7 +233,7 @@ export const Order = () => {
                 <Tab label="Đang xử lý" />
                 <Tab label="Đang vận chuyển" />
                 <Tab label="Đã giao" />
-                <Tab label="Trả hàng" />
+                <Tab label="Đã huỷ" />
               </Tabs>
               <TabPanel value={value} index={0}>
                 <OrderTab
