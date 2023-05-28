@@ -9,7 +9,11 @@ import useDocTitle from "../hooks/useDocTitle";
 
 const loginBg = "/assets/login-bg.png";
 const googleLogo = "/assets/google-logo.png";
-const googleUrl ="https://hdkshopping.azurewebsites.net/oauth2/authorize/google?redirect_uri=https://hdkshopping.wonderfulmoss-24450177.westus2.azurecontainerapps.io"
+
+//const googleUrl ="https://hdkshopping.azurewebsites.net/oauth2/authorize/google?redirect_uri=https://hdkshopping.wonderfulmoss-24450177.westus2.azurecontainerapps.io"
+//
+const googleUrl =
+  "https://hdkshopping.azurewebsites.net/oauth2/authorize/google?redirect_uri=https://hdkwebshopping.vercel.app";
 
 const Login = () => {
   useDocTitle("Đăng nhập");
@@ -30,9 +34,7 @@ const Login = () => {
       storage.save("user", data);
       window.location.replace("/");
     } else {
-      setMessage(
-        "Email hoặc mật khẩu chưa chính xác, vui lòng kiểm tra lại"
-      );
+      setMessage("Email hoặc mật khẩu chưa chính xác, vui lòng kiểm tra lại");
       console.log("===Login error");
     }
     setIsLoading(false);
@@ -93,7 +95,7 @@ const Login = () => {
                 type="submit"
                 disabled={!email || !password}
                 sx={{
-                  bgcolor: !password || !email ? "#f7e59e" :  "#f4c24b",
+                  bgcolor: !password || !email ? "#f7e59e" : "#f4c24b",
                   width: "100%",
                   padding: "10px",
                   color: "#fff",
