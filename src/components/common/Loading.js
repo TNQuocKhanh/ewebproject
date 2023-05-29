@@ -100,7 +100,7 @@ export const BubbleLoading = () => {
   const classes = useStyles();
   return (
     <div className={classes.loading}>
-      <ReactLoading type={"spinningBubbles"} color="#f5c24c" />;
+      <ReactLoading type={"spinningBubbles"} color="#f5c24c" />
     </div>
   );
 };

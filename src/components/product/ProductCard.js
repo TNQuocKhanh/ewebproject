@@ -19,15 +19,25 @@ const ProductCard = (props) => {
     quantity,
   } = props;
 
-  const { addItem } = useContext(cartContext);
+  const { addItem, cart } = useContext(cartContext);
   const { active, handleActive, activeClass } = useActive(false);
 
   const handleAddItem = () => {
     const item = { ...props };
-    addItem(item);
+    const find = cart.find((it) => it.id === item.id);
+    if (find) {
+      if (find.amount > item.quantity) {
+        toast.info("Đã thêm tối đa số lượng sản phẩm");
+      } else {
+        addItem(item);
+        toast.success("Thêm vào giỏ hàng thành công");
+      }
+    } else {
+      addItem(item);
+      toast.success("Thêm vào giỏ hàng thành công");
+    }
     handleActive(id);
 
-    toast.success("Thêm vào giỏ hàng thành công");
     setTimeout(() => {
       handleActive(false);
     }, 3000);
@@ -42,11 +52,15 @@ const ProductCard = (props) => {
         <Toastify />
         <figure className="products_img">
           <Link to={`/product-details/${id}`}>
-            <img src={mainImage} alt="product-img" />
+            <img
+              src={mainImage}
+              alt="product-img"
+              style={{ height: "160px", objectFit: "contain" }}
+            />
           </Link>
         </figure>
         <div className="products_details">
-          <h3 className="products_title">
+          <h3 className="products_title" style={{ height: "60px" }}>
             <Link to={`/product-details/${id}`}>{name}</Link>
           </h3>
           {<div className="separator"></div>}

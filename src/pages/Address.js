@@ -39,6 +39,8 @@ import { BubbleLoading } from "../components/common/Loading";
 export const ProfileAddress = (props) => {
   const { address, canChoose = false, setValueAddress, onRefresh } = props;
 
+  const phoneNumberRegex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+
   const [open, setOpen] = useState(false);
 
   const [name, setName] = useState("");
@@ -60,6 +62,8 @@ export const ProfileAddress = (props) => {
 
   const [refresh, setRefresh] = useState(false);
 
+  const [message, setMessage] = useState("");
+
   useEffect(() => {
     if (refresh) {
       onRefresh();
@@ -76,6 +80,7 @@ export const ProfileAddress = (props) => {
     setPhoneNumber(it.phoneNumber);
     setStreet(it.street);
     setDefaultAddress(it.defaultAddress);
+    setMessage("");
   };
 
   const handleAdd = () => {
@@ -87,49 +92,57 @@ export const ProfileAddress = (props) => {
     setPhoneNumber("");
     setStreet("");
     setDefaultAddress(false);
+    setMessage("");
   };
 
   const handleSubmit = async () => {
-    const findDistrict = districtArr.find(
-      (v) => Number(v.DistrictID) === districtId
-    );
-    const findWard = wardArr.find((v) => Number(v.WardCode) === Number(wardId));
+    if (!phoneNumber.match(phoneNumberRegex)) {
+      setMessage("Số điện thoại không hợp lệ");
+    } else {
+      setMessage("");
+      const findDistrict = districtArr.find(
+        (v) => Number(v.DistrictID) === districtId
+      );
+      const findWard = wardArr.find(
+        (v) => Number(v.WardCode) === Number(wardId)
+      );
 
-    const value = {
-      name,
-      phoneNumber,
-      districtId,
-      district: findDistrict?.DistrictName || "",
-      wardCode: Number(wardId),
-      ward: findWard?.WardName || "",
-      street,
-      defaultAddress,
-    };
-    setLoading(true);
-    try {
-      if (idAddress) {
-        const res = await updateAddress(idAddress, value);
-        if (res) {
-          toast.success("Cập nhật thành công");
-          setRefresh(true);
+      const value = {
+        name,
+        phoneNumber,
+        districtId,
+        district: findDistrict?.DistrictName || "",
+        wardCode: Number(wardId),
+        ward: findWard?.WardName || "",
+        street,
+        defaultAddress,
+      };
+      setLoading(true);
+      try {
+        if (idAddress) {
+          const res = await updateAddress(idAddress, value);
+          if (res) {
+            toast.success("Cập nhật thành công");
+            setRefresh(true);
+          } else {
+            toast.error("Có lỗi xảy ra");
+          }
         } else {
-          toast.error("Có lỗi xảy ra");
+          const res = await createAddress(value);
+          if (res.id) {
+            toast.success("Thêm mới thành công");
+            setRefresh(true);
+          } else {
+            toast.error("Có lỗi xảy ra");
+          }
         }
-      } else {
-        const res = await createAddress(value);
-        if (res.id) {
-          toast.success("Thêm mới thành công");
-          setRefresh(true);
-        } else {
-          toast.error("Có lỗi xảy ra");
-        }
+      } catch (err) {
+        toast.error("Có lỗi xảy ra");
+        console.log("[create or update address] Error]", err);
       }
-    } catch (err) {
-      toast.error("Có lỗi xảy ra");
-      console.log("[create or update address] Error]", err);
+      setOpen(false);
+      setLoading(false);
     }
-    setOpen(false);
-    setLoading(false);
   };
 
   const getDistrictById = async () => {
@@ -192,23 +205,26 @@ export const ProfileAddress = (props) => {
         <Grid container>
           {address?.map((it, idx) => {
             return (
-              <Grid key={idx} item md={6} xs={12} sx={{ padding: "0px" }}>
-                <CardContent
-                  sx={
-                    it.id === idActive
-                      ? {
-                          border: "1px solid rgb(0, 0, 186)",
-                          borderRadius: "5px",
-                          cursor: "pointer",
-                        }
-                      : {
-                          border: "1px solid rgba(218, 218, 218, 0.714)",
-                          borderRadius: "5px",
-                          cursor: "pointer",
-                        }
-                  }
-                  onClick={() => handleChoose(it)}
-                >
+              <Grid
+                key={idx}
+                item
+                md={6}
+                xs={12}
+                sx={
+                  it.id === idActive
+                    ? {
+                        padding: "0px",
+                        border: "1px solid rgb(0,0,186)",
+                        borderRadius: "5px",
+                      }
+                    : {
+                        padding: "0px",
+                        border: "1px solid rgba(218, 218, 218, 0.714)",
+                        borderRadius: "5px",
+                      }
+                }
+              >
+                <CardContent onClick={() => handleChoose(it)}>
                   <div
                     style={{
                       display: "flex",
@@ -364,12 +380,16 @@ export const ProfileAddress = (props) => {
                 label="Số điện thoại"
                 value={phoneNumber}
                 onChange={(e) => {
-                  if (e.target.value.toString().length <= 10) {
-                    setPhoneNumber(e.target.value);
-                  }
+                  setPhoneNumber(e.target.value);
                 }}
                 type="number"
                 fullWidth
+                helperText={message}
+                sx={{
+                  "& .MuiFormHelperText-root": {
+                    color: "red",
+                  },
+                }}
               />
             </Grid>
             <Grid item md={12} xs={12}>

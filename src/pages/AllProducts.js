@@ -68,17 +68,17 @@ const AllProducts = () => {
   const filteValue = useMemo(() => {
     filter.categoryId = categoryId;
     const _filter = _.omitBy(filter, (v) => !v);
-
     navigate("/all-products?" + new URLSearchParams(_filter));
 
     return _filter;
-  }, [categoryId, range, order]);
+  }, [categoryId, range, order, name, page, ]);
 
   useEffect(() => {
     if (cateId) {
       setCateArr(cateId.split(",").map((it) => Number(it)));
-    }
-  }, []);
+    setCategoryId(cateId)
+  }
+  }, [cateId]);
 
   useEffect(() => {
     getAllCategory();
@@ -112,6 +112,7 @@ const AllProducts = () => {
     } else {
       cateArr.push(id);
     }
+    setPage(1)
     setCategoryId(cateArr.join(","));
   };
 

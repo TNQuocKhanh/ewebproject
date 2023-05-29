@@ -101,8 +101,18 @@ const ProductDetails = () => {
   );
 
   const handleAddItem = () => {
-    addItem(data);
-    toast.success("Thêm vào giỏ hàng thành công");
+    const find = cart.find((it) => it.id === data.id);
+    if (find) {
+      if (find.amount > data.quantity) {
+        toast.info("Đã thêm tối đa số lượng sản phẩm");
+      } else {
+        addItem(data);
+        toast.success("Thêm vào giỏ hàng thành công");
+      }
+    } else {
+      addItem(data);
+      toast.success("Thêm vào giỏ hàng thành công");
+    }
   };
 
   useEffect(() => {
