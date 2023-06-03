@@ -38,15 +38,7 @@ const FeaturedSlider = () => {
       slidesPerView={"auto"}
       initialSlide={3}
       pagination={{ clickable: true }}
-      // effect={"coverflow"}
       centeredSlides={true}
-      // coverflowEffect={{
-      //   rotate: 0,
-      //   stretch: 0,
-      //   depth: 70,
-      //   modifier: 3,
-      //   slideShadows: false,
-      // }}
       autoplay={{
         delay: 3500,
         disableOnInteraction: false,
@@ -69,7 +61,6 @@ const FeaturedSlider = () => {
           productImage,
           productName,
           productPrice,
-          discountPrice,
           discountPercent,
         } = item;
         const newPrice = formatPrice(

@@ -17,7 +17,7 @@ const addProductToCart = (product, state) => {
 };
 
 const removeProductFromCart = (productId, state) => {
-  const carts = state.cart.filter((it) => it.id !== productId)
+  const carts = state.cart.filter((it) => it.id !== productId);
   return {
     ...state,
     cart: state.cart.filter((it) => it.id !== productId),
@@ -60,6 +60,15 @@ const decreaseQuantity = (productId, state) => {
   return { ...state, cart: updatedCart };
 };
 
+const addToRecentProduct = (product, state) => {
+  const updatedCart = [...state.cartRecent];
+  const updatedItemIndex = updatedCart.findIndex((item) => item === product);
+  if (updatedItemIndex < 0) {
+    updatedCart.push(product);
+  }
+  return { ...state, cartRecent: updatedCart };
+};
+
 const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
@@ -70,6 +79,8 @@ const cartReducer = (state, action) => {
       return increaseQuantity(action.productId, state);
     case "DECREMENT_ITEM":
       return decreaseQuantity(action.productId, state);
+    case "ADD_RECENT":
+      return addToRecentProduct(action.productId, state);
     default:
       return state;
   }

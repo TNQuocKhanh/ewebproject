@@ -122,7 +122,8 @@
 
         &.active,
         &:hover {
-            background-color: var(--main-color);
+            background-color: #ff0000cc;
+            //background-color: var(--main-color);
             color: #fff;
         }
 
