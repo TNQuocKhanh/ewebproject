@@ -38,7 +38,7 @@ export const PaymentInfo = () => {
     try {
       const res = await createPaymentInfo(_data);
       if (_data.vnpTransactionStatus === "00" && res.status === 200) {
-        await createOrder(order);
+        await createOrder({ ...order, vnpTxnRef: _data.vnpTxnRef });
         localStorage.removeItem("order");
         localStorage.removeItem("myCart");
       }
