@@ -4,9 +4,13 @@ import cartReducer from "./cartReducer";
 const cartContext = createContext();
 
 const CartProvider = ({ children }) => {
-  const cartInit = JSON.parse(localStorage.getItem("myCart")) || []
+  const cartInit = JSON.parse(localStorage.getItem("myCart")) || [];
+  const cartRecentInit = JSON.parse(localStorage.getItem("myRecentCart")) || [];
 
-  const [cartState, dispatch] = useReducer(cartReducer, { cart: cartInit });
+  const [cartState, dispatch] = useReducer(cartReducer, {
+    cart: cartInit,
+    cartRecent: cartRecentInit,
+  });
 
   const addItem = (product) => {
     return dispatch({
@@ -36,15 +40,23 @@ const CartProvider = ({ children }) => {
     });
   };
 
+  const addToRecentProduct = (productId) => {
+    return dispatch({
+      type: "ADD_RECENT",
+      productId: productId,
+    });
+  };
+
   const values = {
     ...cartState,
     addItem,
     removeItem,
     incrementItem,
     decrementItem,
+    addToRecentProduct,
   };
-  
-  localStorage.setItem('myCart', JSON.stringify(values.cart))
+  localStorage.setItem("myCart", JSON.stringify(values.cart));
+  localStorage.setItem("myRecentCart", JSON.stringify(values.cartRecent));
   return <cartContext.Provider value={values}>{children}</cartContext.Provider>;
 };
 

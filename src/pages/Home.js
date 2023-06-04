@@ -7,6 +7,8 @@ import Services from "../components/common/Services";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import { storage } from "../utils";
+import { SliderComponent } from "../components/sliders/SliderComponent";
+import {RecentSlider} from "../components/sliders/RecentSlider";
 
 const Home = () => {
   const url = window.location.search;
@@ -46,6 +48,18 @@ const Home = () => {
           <SectionsHead heading="Danh sách sản phẩm" />
           <TopProducts />
         </div>
+      </section>
+
+      <section>
+        <SliderComponent title="Laptop" categoryId={1} viewAll={true} />
+      </section>
+      
+      <section style={{margin: '60px 0'}}>
+        <SliderComponent title="Màn hình" categoryId={3} viewAll={true} />
+      </section>
+      
+      <section style={{margin: '60px 0'}}>
+        <RecentSlider title="Sản phẩm vừa xem" />
       </section>
       <Services />
       <Footer />

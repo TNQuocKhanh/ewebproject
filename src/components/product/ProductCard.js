@@ -19,7 +19,7 @@ const ProductCard = (props) => {
     quantity,
   } = props;
 
-  const { addItem, cart } = useContext(cartContext);
+  const { addItem, cart, addToRecentProduct } = useContext(cartContext);
   const { active, handleActive, activeClass } = useActive(false);
 
   const handleAddItem = () => {
@@ -51,7 +51,10 @@ const ProductCard = (props) => {
       <div className="card products_card">
         <Toastify />
         <figure className="products_img">
-          <Link to={`/product-details/${id}`}>
+          <Link
+            to={`/product-details/${id}`}
+            onClick={() => addToRecentProduct(id)}
+          >
             <img
               src={mainImage}
               alt="product-img"
@@ -61,7 +64,12 @@ const ProductCard = (props) => {
         </figure>
         <div className="products_details">
           <h3 className="products_title" style={{ height: "60px" }}>
-            <Link to={`/product-details/${id}`}>{name}</Link>
+            <Link
+              onClick={() => addToRecentProduct(id)}
+              to={`/product-details/${id}`}
+            >
+              {name}
+            </Link>
           </h3>
           {<div className="separator"></div>}
           <h2 className="products_price">

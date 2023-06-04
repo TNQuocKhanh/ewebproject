@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { IoMdStar, IoMdCheckmark } from "react-icons/io";
+import { useNavigate, useParams } from "react-router-dom";
 import useDocTitle from "../hooks/useDocTitle";
 import useActive from "../hooks/useActive";
 import cartContext from "../contexts/cart/cartContext";
@@ -24,7 +23,6 @@ import {
   Button,
   Rating,
 } from "@mui/material";
-import FeaturedSlider from "../components/sliders/FeaturedSlider";
 import SectionsHead from "../components/common/SectionsHead";
 import RelatedSlider from "../components/sliders/RelatedSlider";
 
@@ -219,13 +217,13 @@ const ProductDetails = () => {
                   onClick={handleAddItem}
                   disabled={quantity <= 0}
                   sx={{
-                    bgcolor: "#f4c24b",
+                    bgcolor: "#ff0000cc",
                     width: "fit-content",
                     padding: "12px 24px",
                     color: "#fff",
                     borderRadius: "5px",
                     ":hover": {
-                      bgcolor: "#ff0000cc",
+                      bgcolor: "#f4c24b",
                     },
                   }}
                 >

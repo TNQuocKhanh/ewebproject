@@ -26,6 +26,10 @@ export const getStatus = (value) => {
       return { text: "Chờ xác nhận", color: "#eaf6f9" };
     case "PAID":
       return { text: "Đã thanh toán", color: "#eaf6f9" };
+    case "UNPAID":
+      return { text: "Chưa thanh toán", color: "#eaf6f9" };
+    case "REFUND":
+      return { text: "Đã hoàn tiền", color: "#eaf6f9" };
     case "DELIVERED":
       return { text: "Đã giao hàng", color: "#eaf6f9" };
     case "PROCESSING":
@@ -36,6 +40,10 @@ export const getStatus = (value) => {
       return { text: "Đang giao hàng", color: "#eaf6f9" };
     case "RETURNED":
       return { text: "Đã huỷ", color: "#eaf6f9" };
+    case "CANCELED":
+      return { text: "Đã huỷ", color: "#eaf6f9" };
+    case "REFUND_PENDING":
+      return { text: "Đang chờ hoàn tiền", color: "#eaf6f9" };
     default:
       return { text: "Không xác định", color: "#d7d8da" };
   }

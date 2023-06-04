@@ -4,8 +4,8 @@ import { getListProducts } from "../../apis";
 import { Loading } from "../common/Loading";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-import { AiOutlineExport } from "react-icons/ai";
 const TopProducts = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
@@ -49,7 +49,7 @@ const TopProducts = () => {
           }}
         >
           Xem tất cả sản phẩm &nbsp;
-          <AiOutlineExport />
+          <ArrowForwardIosIcon fontSize="small" />
         </Button>
       </div>
     </>

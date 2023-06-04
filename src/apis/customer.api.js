@@ -293,3 +293,34 @@ export const getShippingFee = async (data) => {
 
   return res.json();
 };
+
+export const getVouchers = async () => {
+  const user = storage.load("user");
+  const token = user?.accessToken;
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const res = await fetch(`${API_URL}/customer/voucher`, {
+    method: "GET",
+    headers,
+  });
+  return res.json();
+}
+
+export const checkVoucher = async (data) => {
+  const user = storage.load("user");
+  const token = user?.accessToken;
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  headers.append("Authorization", `Bearer ${token}`);
+
+  const res = await fetch(`${API_URL}/voucher/check`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data)
+  });
+  return res.json();
+}

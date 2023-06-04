@@ -15,6 +15,7 @@ import useDocTitle from "../hooks/useDocTitle";
 import { ProfileLoading } from "../components/common/Loading";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import { Button } from "@mui/material";
+import { VoucherManagement } from "./VoucherManagement";
 
 const ProfileInfo = () => {
   const [name, setName] = useState("");
@@ -252,6 +253,7 @@ const Profile = () => {
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Thông tin" />
           <Tab label="Địa chỉ" />
+          <Tab label="Mã voucher" />
         </Tabs>
         <TabPanel value={value} index={0}>
           <ProfileInfo />
@@ -267,6 +269,9 @@ const Profile = () => {
               />
             </Grid>
           </Grid>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <VoucherManagement />
         </TabPanel>
       </div>
       <Footer />
