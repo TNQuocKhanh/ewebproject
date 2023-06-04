@@ -116,7 +116,7 @@ const CheckOutPage = () => {
         toast.error("Có lỗi xảy ra");
       }
     } else {
-      const res = await createPayment({ totalPrice });
+      const res = await createPayment({ totalPrice: value.totalPrice });
       localStorage.setItem("order", JSON.stringify(value));
       if (res.status === 200) {
         const url = await res.json();

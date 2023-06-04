@@ -8,7 +8,7 @@ import { formatDateTime, formatPrice, getStatus } from "../utils";
 import useDocTitle from "../hooks/useDocTitle";
 import { ConfirmDialog } from "../components/common/ConfirmDialog";
 import Breadcrumbs from "../components/common/Breadcrumbs";
-import { BubbleLoading, Loading } from "../components/common/Loading";
+import { BubbleLoading } from "../components/common/Loading";
 import Toastify from "../components/product/Toastify";
 import { toast } from "react-toastify";
 
@@ -84,13 +84,19 @@ const OrderTab = (props) => {
                     <hr />
                     <div>Thông tin đặt hàng:</div>
                     <Typography color="text.secondary">
+                      Tên người đặt hàng: {it.receiver}
+                    </Typography>
+                    <Typography color="text.secondary">
                       Số điện thoại: {it.phoneNumber}
                     </Typography>
                     <Typography color="text.secondary">
-                      Địa chỉ: {`${it.street}, ${it.district}`}
+                      Địa chỉ: {`${it.street}, ${it.ward}, ${it.district}`}
+                    </Typography>
+                    <Typography color="text.secondary">
+                      Phương thức thanh toán: {it.paymentMethod}
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      Phương thức thanh toán: {it.paymentMethod}
+                      Trạng thái thanh toán: <strong>{getStatus(it.paymentStatus).text}</strong>
                     </Typography>
                     <Typography variant="caption" sx={{ float: "right" }}>
                       Ngày đặt hàng: {formatDateTime(it.orderTime)}
@@ -105,15 +111,19 @@ const OrderTab = (props) => {
                     )}
                   </Grid>
                 </Grid>
+                <ConfirmDialog
+                  open={openDialog}
+                  message={
+                    it.paymentMethod === "COD"
+                      ? "Bạn có chắc chắn muốn huỷ đơn hàng này?"
+                      : "Bạn có chắc chắn muốn huỷ đơn hàng này. Bạn sẽ chỉ được hoàn 90% số tiền trên tổng tiền đơn hàng."
+                  }
+                  handleClose={() => setOpenDialog(false)}
+                  handleClick={() => handleCancelOrder(orderId)}
+                />
               </Card>
             );
           })}
-          <ConfirmDialog
-            open={openDialog}
-            message={"Bạn có chắc chắn muốn huỷ đơn hàng này?"}
-            handleClose={() => setOpenDialog(false)}
-            handleClick={() => handleCancelOrder(orderId)}
-          />
         </div>
       ) : (
         <Typography color="text.secondary">Không có đơn hàng nào</Typography>
@@ -181,8 +191,8 @@ export const Order = () => {
                         <div style={{ marginLeft: 10 }}>
                           <p>{v.productName || "abc"}</p>
                           <p>x {v.quantity}</p>
+                          <Typography>{formatPrice(v.productPrice)}</Typography>
                         </div>
-                        <Typography>{formatPrice(v.productPrice)}</Typography>
                       </div>
                     );
                   })}
@@ -203,7 +213,7 @@ export const Order = () => {
                   <Typography sx={{ mb: 1.5 }} color="text.secondary">
                     Trạng thái: {getStatus(it.status).text}
                   </Typography>
-                  <Typography variant="caption" sx={{ float: "right" }}>
+                  <Typography variant="caption">
                     Ngày đặt hàng: {formatDateTime(it.orderTime)}
                   </Typography>
                 </Grid>
@@ -229,10 +239,10 @@ export const Order = () => {
             <>
               <Tabs value={value} onChange={handleChange}>
                 <Tab label="Chờ xác nhận" />
-                <Tab label="Đã thanh toán" />
                 <Tab label="Đang xử lý" />
                 <Tab label="Đang vận chuyển" />
                 <Tab label="Đã giao" />
+                <Tab label="Đang hoàn tiền" />
                 <Tab label="Đã huỷ" />
               </Tabs>
               <TabPanel value={value} index={0}>
@@ -245,28 +255,28 @@ export const Order = () => {
                 />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <OrderTab data={orders.filter((v) => v.status === "PAID")} />
-              </TabPanel>
-              <TabPanel value={value} index={2}>
                 <OrderTab
-                  data={orders.filter(
-                    (v) => v.status === "PROCESSING" || v.status === "PACKAGED"
-                  )}
+                  data={orders.filter((v) => v.status === "PROCESSING")}
                 />
               </TabPanel>
-              <TabPanel value={value} index={3}>
+              <TabPanel value={value} index={2}>
                 <OrderTab
                   data={orders.filter((v) => v.status === "SHIPPING")}
                 />
               </TabPanel>
-              <TabPanel value={value} index={4}>
+              <TabPanel value={value} index={3}>
                 <OrderTab
                   data={orders.filter((v) => v.status === "DELIVERED")}
                 />
               </TabPanel>
+              <TabPanel value={value} index={4}>
+                <OrderTab
+                  data={orders.filter((v) => v.status === "REFUND_PENDING")}
+                />
+              </TabPanel>
               <TabPanel value={value} index={5}>
                 <OrderTab
-                  data={orders.filter((v) => v.status === "RETURNED")}
+                  data={orders.filter((v) => v.status === "CANCELED")}
                 />
               </TabPanel>
             </>
