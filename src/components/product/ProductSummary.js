@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useActive from "../../hooks/useActive";
 import ProductReviews from "./ProductReviews";
 import { CircularProgress, Divider, Rating, Button } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { createReview } from "../../apis/product-review.api";
+import {
+  createReview,
+  getReviewByProductId,
+} from "../../apis/product-review.api";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import Toastify from "./Toastify";
 
 const ProductSummary = (props) => {
-  const { listReview = [], customerCanReview, specs, description } = props;
+  const { customerCanReview, specs, description } = props;
 
   const { active, handleActive, activeClass } = useActive("overview");
 
   const specsTransform = specs?.split("\n");
+
+  const [listReview, setListReview] = useState([]);
 
   const params = useParams();
   const { productId } = params;
@@ -21,6 +26,20 @@ const ProductSummary = (props) => {
   const [value, setValue] = useState(5);
   const [comment, setComment] = useState();
   const [loading, setLoading] = useState(false);
+
+  const getListReview = async () => {
+    try {
+      const res = await getReviewByProductId(productId);
+      if (res.status === 500) {
+        setListReview([]);
+      } else {
+        setListReview(res);
+      }
+    } catch (err) {
+      console.log("[Get list review]", err);
+      setListReview([]);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,8 +50,13 @@ const ProductSummary = (props) => {
     } catch (e) {
       console.log("[Create review] error", e);
     }
+    setComment("")
     setLoading(false);
   };
+
+  useEffect(() => {
+    getListReview();
+  }, [productId, loading]);
 
   return (
     <>
@@ -141,7 +165,8 @@ const ProductSummary = (props) => {
                             type="submit"
                             disabled={!comment}
                             sx={{
-                              bgcolor: !comment ? "#f7e59e" : "#f4c24b",
+                              bgcolor: !comment 
+                              ? "#f7e59e" : "#ff0000cc",
                               width: "fit-content",
                               padding: "10px",
                               margin: "20px 0",
@@ -149,7 +174,7 @@ const ProductSummary = (props) => {
                               borderRadius: "5px",
                               fontWeight: "600",
                               ":hover": {
-                                bgcolor: "#ff0000cc",
+                                bgcolor: "#f4c24b",
                               },
                             }}
                           >

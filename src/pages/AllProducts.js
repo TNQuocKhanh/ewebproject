@@ -88,7 +88,7 @@ const AllProducts = () => {
     setLoading(true);
     try {
       const res = await getProductWithFilter(filteValue);
-      setData(res.content);
+      setData(res?.content);
       setTotal(res.totalElements);
     } catch (err) {
       console.log("===Error", err);

@@ -5,11 +5,9 @@ import {
   LinearProgress,
   Skeleton,
   Typography,
-  Card,
   Grid,
 } from "@mui/material";
 import Header from "./Header";
-import Footer from "./Footer";
 
 const useStyles = makeStyles((theme) => ({
   loading: {
