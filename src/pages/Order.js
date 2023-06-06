@@ -20,10 +20,12 @@ const OrderTab = (props) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [orderId, setOrderId] = useState();
   const [refresh, setRefresh] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("COD");
 
   const handleOpenDialog = (it) => {
     setOpenDialog(true);
     setOrderId(it.id);
+    setPaymentMethod(it.paymentMethod);
   };
 
   const handleCancelOrder = async (id) => {
@@ -44,12 +46,12 @@ const OrderTab = (props) => {
       setRefresh(false);
     }
   }, [refresh]);
-
+  
   return (
     <>
       {data.length > 0 ? (
         <div>
-          {data.map((it) => {
+          {[...data].reverse().map((it) => {
             return (
               <Card
                 sx={{ minWidth: 700, marginBottom: 2, padding: 2 }}
@@ -96,7 +98,8 @@ const OrderTab = (props) => {
                       Phương thức thanh toán: {it.paymentMethod}
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      Trạng thái thanh toán: <strong>{getStatus(it.paymentStatus).text}</strong>
+                      Trạng thái thanh toán:{" "}
+                      <strong>{getStatus(it.paymentStatus).text}</strong>
                     </Typography>
                     <Typography variant="caption" sx={{ float: "right" }}>
                       Ngày đặt hàng: {formatDateTime(it.orderTime)}
@@ -114,7 +117,7 @@ const OrderTab = (props) => {
                 <ConfirmDialog
                   open={openDialog}
                   message={
-                    it.paymentMethod === "COD"
+                    paymentMethod === "COD"
                       ? "Bạn có chắc chắn muốn huỷ đơn hàng này?"
                       : "Bạn có chắc chắn muốn huỷ đơn hàng này. Bạn sẽ chỉ được hoàn 90% số tiền trên tổng tiền đơn hàng."
                   }

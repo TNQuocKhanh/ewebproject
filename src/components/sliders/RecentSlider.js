@@ -30,8 +30,9 @@ export const RecentSlider = (props) => {
   useEffect(() => {
     getAllProducts();
   }, []);
-  
+ console.log('===recentData', recentData) 
   return (
+    recentData.length > 0 &&
     <div className="container">
       <SectionsHead
         background="linear-gradient(to right, var(--main-color) , #a1def5)"
@@ -111,6 +112,6 @@ export const RecentSlider = (props) => {
           );
         })}
       </Swiper>
-    </div>
+      </div>
   );
 };

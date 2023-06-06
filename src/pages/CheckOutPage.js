@@ -435,14 +435,14 @@ const CheckOutPage = () => {
                 bgcolor:
                   !valueAddress?.districtId || !serviceId
                     ? "#f7e59e"
-                    : "#f4c24b",
+                    : "#ff0000cc",
                 width: "100%",
                 padding: "15px",
                 color: "#fff",
                 borderRadius: "5px",
                 fontWeight: "600",
                 ":hover": {
-                  bgcolor: "#ff0000cc",
+                  bgcolor: "#f4c24b",
                 },
               }}
             >

@@ -36,7 +36,6 @@ const ProductDetails = () => {
 
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [listReview, setListReview] = useState([]);
 
   const getProductDetail = async () => {
     setIsLoading(true);
@@ -49,20 +48,6 @@ const ProductDetails = () => {
     setIsLoading(false);
   };
 
-  const getListReview = async () => {
-    try {
-      const res = await getReviewByProductId(productId);
-      if (res.status === 500) {
-        setListReview([]);
-      } else {
-        setListReview(res);
-      }
-    } catch (err) {
-      console.log("[Get list review]", err);
-      setListReview([]);
-    }
-  };
-
   const getReviewByUser = async () => {
     try {
       const res = await getReviewByCustomer(productId);
@@ -73,7 +58,6 @@ const ProductDetails = () => {
 
   useEffect(() => {
     getProductDetail();
-    getListReview();
     if (storage.load("user")) {
       getReviewByUser();
     }
@@ -237,7 +221,6 @@ const ProductDetails = () => {
 
       <ProductSummary
         customerCanReview={customerCanReview}
-        listReview={listReview}
         specs={specifications}
         description={description}
       />
