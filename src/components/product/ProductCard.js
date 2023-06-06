@@ -40,7 +40,7 @@ const ProductCard = (props) => {
 
     setTimeout(() => {
       handleActive(false);
-    }, 3000);
+    }, 2000);
   };
 
   const newPrice = formatPrice(discountPrice);

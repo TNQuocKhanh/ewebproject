@@ -14,7 +14,7 @@ export const SliderComponent = (props) => {
   const { title, categoryId, viewAll = false } = props;
 
   const [data, setData] = useState([]);
-  
+
   const getAllProducts = async () => {
     const res = await getListProducts();
     if (res) {
@@ -26,18 +26,18 @@ export const SliderComponent = (props) => {
   useEffect(() => {
     getAllProducts();
   }, []);
-  
+
   return (
     <div className="container">
       <SectionsHead
-        background="linear-gradient(to right, var(--main-color) , #a1def5)"
+        background="linear-gradient(to right, var(--main-color) , #e25765)"
         color="white"
         heading={title}
         viewAll={viewAll}
       />
       <Swiper
         style={{
-          background: "linear-gradient(to right, var(--main-color) , #a1def5)",
+          background: "linear-gradient(to right, var(--main-color) , #e25765)",
           padding: "50px",
         }}
         modules={[EffectCoverflow, Pagination, A11y, Autoplay]}

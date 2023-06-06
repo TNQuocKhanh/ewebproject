@@ -30,7 +30,7 @@ export const RecentSlider = (props) => {
   useEffect(() => {
     getAllProducts();
   }, []);
- console.log('===recentData', recentData) 
+  
   return (
     recentData.length > 0 &&
     <div className="container">
