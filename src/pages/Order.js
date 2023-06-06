@@ -46,7 +46,7 @@ const OrderTab = (props) => {
       setRefresh(false);
     }
   }, [refresh]);
-  
+
   return (
     <>
       {data.length > 0 ? (
@@ -159,6 +159,7 @@ export const Order = () => {
       setOrders(res);
     } catch (err) {
       console.log("[Get list order] Error", err);
+      setOrders([]);
     }
     setLoading(false);
   };
@@ -250,7 +251,11 @@ export const Order = () => {
               </Tabs>
               <TabPanel value={value} index={0}>
                 <OrderTab
-                  data={orders.filter((v) => v.status === "NEW")}
+                  data={
+                    orders.length > 0
+                      ? orders.filter((v) => v.status === "NEW")
+                      : []
+                  }
                   canCancel={true}
                   onRefresh={async () => {
                     await getAllOrders();
@@ -259,27 +264,47 @@ export const Order = () => {
               </TabPanel>
               <TabPanel value={value} index={1}>
                 <OrderTab
-                  data={orders.filter((v) => v.status === "PROCESSING")}
+                  data={
+                    orders.length > 0
+                      ? orders.filter((v) => v.status === "PROCESSING")
+                      : []
+                  }
                 />
               </TabPanel>
               <TabPanel value={value} index={2}>
                 <OrderTab
-                  data={orders.filter((v) => v.status === "SHIPPING")}
+                  data={
+                    orders.length > 0
+                      ? orders.filter((v) => v.status === "SHIPPING")
+                      : []
+                  }
                 />
               </TabPanel>
               <TabPanel value={value} index={3}>
                 <OrderTab
-                  data={orders.filter((v) => v.status === "DELIVERED")}
+                  data={
+                    orders.length > 0
+                      ? orders.filter((v) => v.status === "DELIVERED")
+                      : []
+                  }
                 />
               </TabPanel>
               <TabPanel value={value} index={4}>
                 <OrderTab
-                  data={orders.filter((v) => v.status === "REFUND_PENDING")}
+                  data={
+                    orders.length > 0
+                      ? orders.filter((v) => v.status === "REFUND_PENDING")
+                      : []
+                  }
                 />
               </TabPanel>
               <TabPanel value={value} index={5}>
                 <OrderTab
-                  data={orders.filter((v) => v.status === "CANCELED")}
+                  data={
+                    orders.length > 0
+                      ? orders.filter((v) => v.status === "CANCELED")
+                      : []
+                  }
                 />
               </TabPanel>
             </>

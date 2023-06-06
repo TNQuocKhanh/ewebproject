@@ -15,8 +15,8 @@ import { storage } from "../../utils";
 import logo from "../../data/logo.png";
 import { AiOutlineRetweet } from "react-icons/ai";
 import { AiOutlineExport } from "react-icons/ai";
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 const Header = () => {
   const { cart } = useContext(cartContext);
@@ -26,12 +26,12 @@ const Header = () => {
   const [valueSearch, setValueSearch] = useState("");
   const [openCategory, setOpenCategory] = useState(false);
 
-  const theme = useTheme()
+  const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  
+
   const cartQuantity = useMemo(() => {
     if (!cart || !cart.length) return 0;
-    return  cart?.reduce((val, acc) => {
+    return cart?.reduce((val, acc) => {
       return val + acc.amount;
     }, 0);
   }, [cart]);
@@ -112,14 +112,19 @@ const Header = () => {
                             Thông tin tài khoản
                           </Link>
                         </li>
-                        <li>
-                          <Link className="item-menu" to="/change-password">
-                            <AiOutlineRetweet
-                              style={{ fontSize: "20px", marginRight: "20px" }}
-                            />
-                            Thay đổi mật khẩu
-                          </Link>
-                        </li>
+                        {profile?.provider === "local" && (
+                          <li>
+                            <Link className="item-menu" to="/change-password">
+                              <AiOutlineRetweet
+                                style={{
+                                  fontSize: "20px",
+                                  marginRight: "20px",
+                                }}
+                              />
+                              Thay đổi mật khẩu
+                            </Link>
+                          </li>
+                        )}
                         <li>
                           <Link
                             className="item-menu"
@@ -192,7 +197,7 @@ const Header = () => {
               id="category"
               onClick={toggleCategory}
               style={{
-                display: isSmall ? 'none' : 'flex',
+                display: isSmall ? "none" : "flex",
                 alignItems: "center",
                 background: "#ffdc8be0",
                 padding: "8px 15px",

@@ -6,7 +6,7 @@ import "../styles/partials/pages/_profile.scss";
 import { formatDateTime, storage } from "../utils";
 import { AiOutlineUpload } from "react-icons/ai";
 import { TabPanel } from "../components/common/TabPanel";
-import { Tabs, Tab, Grid, CircularProgress } from "@mui/material";
+import { Tabs, Tab, Grid, CircularProgress, Typography } from "@mui/material";
 import { ProfileAddress } from "./Address";
 import { toast } from "react-toastify";
 import Toastify from "../components/product/Toastify";
@@ -28,6 +28,7 @@ const ProfileInfo = () => {
   const [loading, setLoading] = useState(false);
   const [imgLoading, setImgLoading] = useState(false);
   const [updateLoading, setUpdateLoading] = useState(false);
+  const [isBlock, setIsBlock] = useState(false);
 
   const getUserProfile = async () => {
     setLoading(true);
@@ -37,6 +38,7 @@ const ProfileInfo = () => {
     setCreatedTime(res.createdTime);
     setPhoto(res.photos);
     setProvider(res.provider);
+    setIsBlock(res.blockAccount);
     setLoading(false);
   };
 
@@ -111,6 +113,7 @@ const ProfileInfo = () => {
               width="200px"
               height="200px"
             />
+            {isBlock && <Typography fontStyle={'italic'} color={'red'}>Tài khoản của bạn đã bị khoá</Typography>}
             <h4 style={{ padding: "20px 0 10px 0" }}>{name}</h4>
             <small style={{ padding: "0px 0 20px 0" }}>{email}</small>
             <div className="btn-upload-img">
